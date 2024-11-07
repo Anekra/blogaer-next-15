@@ -1,7 +1,7 @@
 import { usePathname } from "next/navigation";
 import React from "react";
 
-import deleteFetch from "@/lib/actions/client/deleteFetch";
+import deleteClientFetch from "@/lib/actions/client/deleteClientFetch";
 import {
   DialogClose,
   DialogContent,
@@ -36,7 +36,7 @@ export default function DeletePostDialogContent({
         </DialogClose>
         <DialogClose
           onClick={async () => {
-            await deleteFetch(slugOrId, isDraft ? "draft" : "post");
+            await deleteClientFetch(slugOrId, isDraft ? "draft" : "post");
             toast({
               title: "Deleting post",
               duration: 1500,

@@ -1,5 +1,5 @@
-import ChangePassSection from "@/lib/components/sections/security/ChangePassSection";
-import OauthSection from "@/lib/components/sections/security/OauthSection";
+import ChangePassSection from "@/lib/components/sections/settings/security/ChangePassSection";
+import OauthSection from "@/lib/components/sections/settings/security/OauthSection";
 
 export default function SecurityPage() {
   return (

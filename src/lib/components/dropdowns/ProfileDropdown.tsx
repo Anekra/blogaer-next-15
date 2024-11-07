@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Link } from "next-view-transitions";
 
-import logout from "@/lib/actions/auth/logout";
+import logout from "@/lib/actions/server/auth/logout";
 import {
   Dialog,
   DialogClose,
@@ -34,21 +34,13 @@ export default function ProfileDropdown() {
   const handleLogout = async () => {
     localStorage.clear();
     setSession(null);
-    const response = await logout();
-    if (response) {
-      router.push("/");
-      toast({
-        description: "Logout successful.",
-        duration: 4000,
-        className: "toast-success"
-      });
-    } else {
-      toast({
-        description: "Logout failed",
-        duration: 4000,
-        className: "toast-error"
-      });
-    }
+    await logout();
+    router.push("/");
+    toast({
+      description: "Logout successful.",
+      duration: 4000,
+      className: "toast-success"
+    });
   };
 
   return (

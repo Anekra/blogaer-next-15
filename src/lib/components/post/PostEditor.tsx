@@ -6,8 +6,8 @@ import { Descendant, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { Editable, ReactEditor, Slate, withReact } from "slate-react";
 
-import patchFetch from "@/lib/actions/client/patchFetch";
-import postFetch from "@/lib/actions/client/postFetch";
+import patchClientFetch from "@/lib/actions/client/patchClientFetch";
+import postClientFetch from "@/lib/actions/client/postClientFetch";
 import PostLinkEditor from "@/lib/components/post/PostLinkEditor";
 import PostWysiwyg from "@/lib/components/post/PostWysiwyg";
 import { useContent } from "@/lib/contexts/ContentContext";
@@ -68,7 +68,7 @@ export default function PostEditor({
       if (currentPath === "/blog/post/create") {
         if (title) {
           const id = generateId();
-          await postFetch(
+          await postClientFetch(
             {
               id,
               title,
@@ -87,14 +87,14 @@ export default function PostEditor({
               console.log(`${title}`);
               const id = getSlugOrIdFromPath(currentPath);
               try {
-                await patchFetch(
+                await patchClientFetch(
                   {
                     slugOrId: id,
                     title: title || "Untitled post",
                     content: value,
                     tags
                   },
-                  "draft"
+                  `draft/${id}`
                 );
                 setIsDoneEditing(true);
               } catch (_) {

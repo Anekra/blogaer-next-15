@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 
-import postFetch from "@/lib/actions/client/postFetch";
+import postClientFetch from "@/lib/actions/client/postClientFetch";
 import FullPreviewDialog from "@/lib/components/dialogs/FullPreviewDialog";
 import PreviewIcon from "@/lib/components/icons/PreviewIcon";
 import TagsIcon from "@/lib/components/icons/TagsIcon";
@@ -36,7 +36,7 @@ export default function PostPreviewDrawer() {
     setLoading(true);
     const id = generateId();
     const title = `${content[0].children[0].text}`;
-    const res = await postFetch({ id, title, content, tags }, "post");
+    const res = await postClientFetch({ id, title, content, tags }, "post");
     if (res) {
       router.push(
         `/blog/${username.toLowerCase()}/${title

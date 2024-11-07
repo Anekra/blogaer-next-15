@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 
-import register from "@/lib/actions/auth/register";
+import register from "@/lib/actions/server/auth/register";
 import FormIndicator from "@/lib/components/forms/FormIndicator";
 import {
   FormControl,

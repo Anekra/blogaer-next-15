@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 
-import login from "@/lib/actions/auth/login";
+import login from "@/lib/actions/server/auth/login";
 import {
   FormControl,
   FormField,
@@ -18,7 +18,7 @@ import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useToast } from "@/lib/hooks/use-toast";
 import { LoginFormSchema } from "@/lib/types/zodSchemas";
 
-import FormIndicator from "./FormIndicator";
+import FormIndicator from "@/lib/components/forms/FormIndicator";
 
 type FormValues = {
   emailOrUsername: string;
@@ -50,7 +50,7 @@ export default function LoginForm() {
       else router.replace("/home");
       toast({
         title: "Login successful.",
-        duration: 3000,
+        duration: 2000,
         className: "toast-success"
       });
     } else {
@@ -65,7 +65,7 @@ export default function LoginForm() {
       }
       toast({
         title: response.message,
-        duration: 3000,
+        duration: 2000,
         className: "toast-error"
       });
     }

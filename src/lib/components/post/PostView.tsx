@@ -6,7 +6,7 @@ import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 import useSWRImmutable from "swr/immutable";
 
-import getFetch from "@/lib/actions/client/getFetch";
+import getClientFetch from "@/lib/actions/client/getClientFetch";
 import GithubIcon from "@/lib/components/icons/GithubIcon";
 import InstagramIcon from "@/lib/components/icons/InstagramIcon";
 import LikeIt from "@/lib/components/icons/thoughts/LikeIt";
@@ -28,7 +28,7 @@ export default function PostView() {
     data: res,
     error,
     isLoading
-  } = useSWRImmutable<GetPostByIdDto>(url, getFetch);
+  } = useSWRImmutable<GetPostByIdDto>(url, getClientFetch);
 
   if (isLoading) return <p>loading...</p>;
   if (!res || error) return <p>error</p>;

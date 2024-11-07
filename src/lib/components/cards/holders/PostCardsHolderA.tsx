@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import useSWRImmutable from "swr/immutable";
 
-import getFetch from "@/lib/actions/client/getFetch";
+import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardA from "@/lib/components/cards/PostGridCardA";
 import PostGridCardB from "@/lib/components/cards/PostGridCardB";
 import { GetPostsByPageDto } from "@/lib/types/dto/GetPostsByPageDto";
@@ -15,7 +15,7 @@ export default function PostCardsHolderA() {
     data: res,
     error,
     isLoading
-  } = useSWRImmutable<GetPostsByPageDto>(url, getFetch, {
+  } = useSWRImmutable<GetPostsByPageDto>(url, getClientFetch, {
     loadingTimeout: 5000,
     shouldRetryOnError: false
   });

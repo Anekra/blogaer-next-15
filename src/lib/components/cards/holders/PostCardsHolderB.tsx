@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import useSWRImmutable from "swr/immutable";
 
-import getFetch from "@/lib/actions/client/getFetch";
+import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardC from "@/lib/components/cards/PostGridCardC";
 import { useCurrentPosts } from "@/lib/contexts/PostsContext";
 import { GetPostsByUserIdDto } from "@/lib/types/dto/GetPostsByUserIdDto";
@@ -11,7 +11,7 @@ export default function PostCardsHolderB({ url }: { url: string }) {
   const { currentPosts, setCurrentPosts } = useCurrentPosts();
   const { data: res, error } = useSWRImmutable<GetPostsByUserIdDto>(
     url,
-    (url: string) => getFetch(url)
+    (url: string) => getClientFetch(url)
   );
 
   useEffect(() => {
