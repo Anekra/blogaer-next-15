@@ -7,6 +7,7 @@ export const protectedRoutes = [
   "/dashboard",
   "/settings",
   "/statistics",
+  "/logout",
   "/blog/post/draft",
   "/blog/post/published",
   "/blog/post/create",
