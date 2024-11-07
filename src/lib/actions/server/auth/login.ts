@@ -74,7 +74,7 @@ export default async function login(
       username: responseJson.data.username,
       name: responseJson.data.name,
       email: responseJson.data.email,
-      description: responseJson.data.desc,
+      desc: responseJson.data.desc,
       role: responseJson.data.role,
       img: responseJson.data.img
     };

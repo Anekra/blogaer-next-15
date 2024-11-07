@@ -120,6 +120,7 @@ export async function GET(request: NextRequest) {
       username: resJson.data.username,
       name: resJson.data.name,
       email: resJson.data.email,
+      desc: resJson.data.desc,
       role: resJson.data.role,
       img: resJson.data.img
     };
@@ -136,11 +137,11 @@ export async function GET(request: NextRequest) {
             httpOnly: true,
             sameSite: "lax",
             secure: true,
-            maxAge: 1 * 1 * 20
+            maxAge: 1 * 1 * 10
           }
         : {
             httpOnly: true,
-            maxAge: 1 * 1 * 20
+            maxAge: 1 * 1 * 10
           }
     );
 
