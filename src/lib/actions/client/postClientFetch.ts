@@ -1,19 +1,18 @@
-import { EditPost } from "@/lib/types/common";
 import { CommonDto } from "@/lib/types/dto/CommonDto";
 
-export default async function patchFetch(
-  { slugOrId, title, content, tags }: EditPost,
+export default async function postClientFetch(
+  values: any,
   route: string
 ): Promise<CommonDto> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ROUTE}/${route}/${slugOrId}`,
+    `${process.env.NEXT_PUBLIC_API_ROUTE}/${route}`,
     {
-      method: "PATCH",
+      method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title, content, tags })
+      body: JSON.stringify(values)
     }
   );
 

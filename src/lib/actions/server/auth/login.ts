@@ -19,33 +19,26 @@ export default async function login(
   try {
     const url = `${process.env.API_ROUTE}/auth/login`;
     const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-    const refreshToken = (await cookies()).get(refreshCookieName);
+    const cookie = await cookies();
+    const refreshToken = cookie.get(refreshCookieName)?.value;
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Origin: "http://localhost:3000",
-        Cookie: `${process.env.REFRESH_TOKEN}=${refreshToken}`
+        Cookie: `${refreshCookieName}=${refreshToken}`
       },
       body: JSON.stringify(values)
     });
 
     const responseJson: AuthJson = await response.json();
 
-    if (!response.ok || !responseJson.data) {
-      const err = {
-        status: responseJson.status,
-        error: responseJson.message
-      };
-      console.log(err);
-
-      return err;
-    }
+    if (!response.ok) return responseJson;
 
     const isSecure = process.env.NODE_ENV === "production";
     // access cookie
     const accessCookieName = `${process.env.ACCESS_TOKEN}`;
-    (await cookies()).set(
+    cookie.set(
       accessCookieName,
       responseJson.data.access,
       isSecure
@@ -61,7 +54,7 @@ export default async function login(
           }
     );
     // refresh cookie
-    (await cookies()).set(
+    cookie.set(
       refreshCookieName,
       responseJson.data.refresh,
       isSecure
