@@ -17,7 +17,6 @@ export async function GET(request: NextRequest) {
     return redirectRes;
   }
 
-  console.log("<<< refresh token route A >>>");
   try {
     const url = `${process.env.API_ROUTE}/auth/refresh`;
     const refreshResponse = await fetch(url, {
@@ -28,21 +27,15 @@ export async function GET(request: NextRequest) {
         Cookie: `${process.env.REFRESH_TOKEN}=${refreshToken}`
       }
     });
-    console.log("<<< refresh token route B >>>", refreshResponse.status);
     if (!refreshResponse.ok) {
-      console.log("<<< refresh token route C >>>", refreshCookieName);
       redirectRes.cookies.delete(accessCookieName);
       redirectRes.cookies.delete(refreshCookieName);
 
       return redirectRes;
     }
 
-    const isFromMiddleware = request.nextUrl.searchParams.get("middleware");
-    if (isFromMiddleware) return;
-
     const sessionToken = request.nextUrl.searchParams.get("session");
     if (!sessionToken) {
-      console.log("<<< refresh token route D >>>");
       return redirectRes;
     }
 
@@ -55,7 +48,6 @@ export async function GET(request: NextRequest) {
       { session: encryptedData },
       { status: 200 }
     );
-    console.log("<<< refresh token route E >>>", refreshJson);
     const isSecure = process.env.NODE_ENV === "production";
     // access
     response.cookies.set(
