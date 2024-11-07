@@ -18,10 +18,10 @@ export default function SocialSection() {
             <Image
               src="https://github.blog/wp-content/uploads/2024/06/AI-DarkMode-4.png?w=600"
               alt="Github banner"
-              fill
+              sizes="(max-width: 550)"
               className="object-cover blur-sm"
               priority
-              unoptimized
+              fill
             />
           </div>
           <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
@@ -73,9 +73,9 @@ export default function SocialSection() {
             <Image
               src="https://cdn.cms-twdigitalassets.com/content/dam/blog-twitter/x/blog_x_card.png.img.fullhd.medium.png"
               alt="X banner"
-              fill
+              sizes="(max-width: 550)"
               className="scale-[1.4] object-contain blur-sm"
-              unoptimized
+              fill
             />
           </div>
           <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
@@ -151,10 +151,10 @@ export default function SocialSection() {
           <div className="absolute size-full max-h-[160px] self-center overflow-hidden rounded-md bg-indigo-950">
             <Image
               src="https://images.ctfassets.net/xz1dnu24egyd/1IRkfXmxo8VP2RAE5jiS1Q/ea2086675d87911b0ce2d34c354b3711/gitlab-logo-500.png"
-              alt="Github banner"
-              fill
+              alt="Gitlab banner"
+              sizes="(max-width: 550)"
               className="scale-125 object-contain blur-sm"
-              unoptimized
+              fill
             />
           </div>
           <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
