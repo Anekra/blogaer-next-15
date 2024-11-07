@@ -2,20 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+    --background: 220 220 220;
+    --foreground: 15 15 15;
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    --base-background: 255 255 255;
+    --base-foreground: 0 0 0;
+
+    --card: 219 204 193;
+    --card-foreground: 69 59 60;
+
+    --popover: 240 240 240;
+    --popover-foreground: 10 10 10;
+
+    --primary: 242 178 143;
+    --primary-foreground: 117 50 52;
+
+    --secondary: 252 176 93;
+    --secondary-foreground: 117 67 18;
+    --darker-secondary-foreground: 33 19 5;
+
+    --muted: 180 180 180;
+    --muted-foreground: 115 115 115;
+
+    --accent: 158 158 158;
+    --accent-foreground: 58 58 58;
+
+    --destructive: 239 67 67;
+    --destructive-foreground: 250 250 250;
+
+    --border: 77 77 77;
+    --input: 250 250 250;
+    --ring: 10 10 10;
+
+    --neu-base-top: 255 255 255;
+    --neu-base-top-darker: 215 215 215;
+    --neu-base-top-darkest: 175 175 175;
+    --neu-base-bot: 50 50 50;
+    --neu-base-bot-lighter: 70 70 70;
+    --neu-base-bot-lightest: 90 90 90;
+    --neu-p-top: 255 213 198;
+    --neu-p-bot: 69 53 58;
+    --neu-p-bot-lighter: 173 129 113;
+    --neu-s-top: 255 198 117;
+    --neu-s-bot: 107 63 0;
+
+    --custom-bg1: 227 227 227;
+    --custom-bg2: 153 153 153;
+
+    --radius: 0.5rem;
+
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+  .dark {
+    --background: 23 23 23;
+    --foreground: 220 220 220;
+
+    --base-background: 0 0 0;
+    --base-foreground: 255 255 255;
+
+    --card: 32 26 26;
+    --card-foreground: 204 190 194;
+
+    --popover: 10 10 10;
+    --popover-foreground: 250 250 250;
+
+    --primary: 64 28 13;
+    --primary-foreground: 204 127 102;
+
+    --secondary: 41 25 3;
+    --secondary-foreground: 232 159 58;
+    --darker-secondary-foreground: 122 84 31;
+
+    --muted: 38 38 38;
+    --muted-foreground: 163 163 163;
+
+    --accent: 58 58 58;
+    --accent-foreground: 158 158 158;
+
+    --destructive: 129 29 29;
+    --destructive-foreground: 250 250 250;
+
+    --border: 127 127 127;
+    --input: 10 10 10;
+    --ring: 212 212 212;
+
+    --neu-base-top: 120 120 120;
+    --neu-base-top-darker: 100 100 100;
+    --neu-base-top-darkest: 80 80 80;
+    --neu-base-bot: 0 0 0;
+    --neu-base-bot-lighter: 20 20 20;
+    --neu-base-bot-lightest: 40 40 40;
+    --neu-p-top: 145 131 122;
+    --neu-p-bot: 36 27 30;
+    --neu-p-bot-lighter: 64 52 47;
+    --neu-s-top: 156 94 6;
+    --neu-s-bot: 31 18 1;
+
+    --custom-bg1: 35 35 35;
+    --custom-bg2: 65 65 65;
+
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden border-border;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  a p,
+  a h1,
+  a h2,
+  a h3 {
+    @apply hover:brightness-125;
+  }
+  hr {
+    @apply border-neutral-400 dark:border-neutral-700;
+  }
+  input::placeholder {
+    @apply dark:text-neutral-500 opacity-75;
+  }
 }
