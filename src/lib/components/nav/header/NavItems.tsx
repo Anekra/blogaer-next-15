@@ -29,7 +29,7 @@ export default function NavItems({ isAtTheTop }: { isAtTheTop: boolean }) {
         {(currentPath === "/home" || currentPath === "/blog/explore") && (
           <SearchBar />
         )}
-        {session ? (
+        {session && (
           <div className="flex items-center gap-4">
             {(currentPath === "/blog/post/create" ||
               currentPath === `/blog/post/edit/draft/${postId}`) && (
@@ -53,7 +53,8 @@ export default function NavItems({ isAtTheTop }: { isAtTheTop: boolean }) {
             )}
             <ProfileDropdown />
           </div>
-        ) : (
+        )}
+        {session === null && (
           <div className="flex items-center gap-4">
             <div className="flex h-8 w-16 items-center justify-between">
               <ThemeSwitch

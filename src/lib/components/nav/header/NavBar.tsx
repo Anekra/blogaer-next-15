@@ -38,7 +38,7 @@ export default function NavBar() {
   if (isMounted) {
     return (
       <header
-        className={`top-0 z-[8] flex w-screen items-center justify-between gap-6 px-6 py-2 transition-transform duration-500${
+        className={`top-0 z-[8] flex h-[66px] w-screen items-center justify-between gap-6 px-6 py-2 transition-transform duration-500${
           isRootPath
             ? " fixed"
             : isScrollingDown && !isHeaderFixed
