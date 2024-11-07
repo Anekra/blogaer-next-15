@@ -65,13 +65,13 @@
 
   /* toast */
   .toast-error {
-    @apply !neu-base-sm bg-red-700 dark:bg-red-400 font-bold border-none h-[50px];
+    @apply !neu-base-sm bg-red-700 dark:bg-red-400 font-bold border-none;
   }
   .toast-success {
-    @apply !neu-base-sm bg-green-400 dark:bg-green-700 font-bold border-none h-[50px];
+    @apply !neu-base-sm bg-green-400 dark:bg-green-700 font-bold border-none;
   }
   .toast-base {
-    @apply !neu-base-sm font-bold border-background/50;
+    @apply !neu-base-sm font-bold border-none;
   }
 
   /* tags */
