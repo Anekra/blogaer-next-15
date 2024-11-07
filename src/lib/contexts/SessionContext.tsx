@@ -10,13 +10,13 @@ import {
 } from "react";
 import useSWR from "swr";
 
-import logout from "@/lib/actions/auth/logout";
+import logout from "@/lib/actions/server/auth/logout";
 import { useToast } from "@/lib/hooks/use-toast";
 import { Session } from "@/lib/types/common";
 import { newUrl } from "@/lib/utils/helper";
 
 const SessionContext = createContext({
-  session: null as Session | null,
+  session: null as Session,
   setSession: (_: Session) => {}
 });
 
@@ -27,7 +27,7 @@ export function SessionProvider({
   children: ReactNode;
   userSession?: string;
 }) {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Session>(null);
   const redirectMessage = useSearchParams().get("redirect");
   const { toast } = useToast();
   const sessionName = `${process.env.NEXT_PUBLIC_SESSION}`;
@@ -50,8 +50,10 @@ export function SessionProvider({
         const refreshJson = await refreshRes.json();
         localStorage.setItem(sessionName, refreshJson.session);
 
-        return refreshJson || decodedSession;
-      } catch (_) {}
+        return decodedSession;
+      } catch (_) {
+        return decodedSession;
+      }
     }
 
     if (userSession && !sessionToken) {
@@ -69,6 +71,8 @@ export function SessionProvider({
   });
 
   useEffect(() => {
+    console.log(session?.desc);
+
     const sessionToken = localStorage.getItem(sessionName);
     if (!data || !sessionToken) setSession(null);
     else setSession(data);
