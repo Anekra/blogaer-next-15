@@ -5,7 +5,7 @@ import { useSession } from "@/lib/contexts/SessionContext";
 import { useToast } from "@/lib/hooks/use-toast";
 import { FormEvent } from "react";
 
-export default function UserDescriptionForm() {
+export default function DescriptionForm() {
   const { session } = useSession();
   const { toast } = useToast();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -34,6 +34,7 @@ export default function UserDescriptionForm() {
       <Input
         type="text"
         name="description"
+        id="user-description"
         className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
         defaultValue={session?.desc || ""}
         placeholder="Something about you"

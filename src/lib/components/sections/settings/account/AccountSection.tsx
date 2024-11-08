@@ -5,7 +5,7 @@ import Image from "next/image";
 import Logo2Icon from "@/lib/components/icons/Logo2Icon";
 import { Input } from "@/lib/components/ui/input";
 import { useSession } from "@/lib/contexts/SessionContext";
-import UserDescriptionForm from "@/lib/components/forms/settings/UserDescriptionForm";
+import DescriptionForm from "@/lib/components/forms/settings/DescriptionForm";
 
 export default function AccountSection() {
   const { session } = useSession();
@@ -112,9 +112,9 @@ export default function AccountSection() {
         <div className="neu-base group flex shrink grow basis-0 flex-col gap-1 rounded-md p-4 hover:bg-foreground/10">
           <div className="flex items-center gap-2 font-bold text-accent-foreground">
             <span className="text-2xl font-semibold">🗒</span>
-            <h3>Short Description</h3>
+            <label htmlFor="user-description">Short Description</label>
           </div>
-          <UserDescriptionForm />
+          <DescriptionForm />
         </div>
       </div>
     </section>
