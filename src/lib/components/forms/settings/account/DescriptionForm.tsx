@@ -1,4 +1,3 @@
-import patchClientFetch from "@/lib/actions/client/patchClientFetch";
 import userPatchFetch from "@/lib/actions/server/userPatchFetch";
 import { Input } from "@/lib/components/ui/input";
 import { useSession } from "@/lib/contexts/SessionContext";
@@ -11,7 +10,7 @@ export default function DescriptionForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const description = (e.currentTarget.firstChild as HTMLInputElement).value;
-    const response = await userPatchFetch({ ...session, description }, "user");
+    const response = await userPatchFetch(session, { description });
     if (response.session) {
       localStorage.setItem(
         `${process.env.NEXT_PUBLIC_SESSION}`,
@@ -19,8 +18,14 @@ export default function DescriptionForm() {
       );
       toast({
         title: "Description updated successfully.",
-        duration: 1500,
-        className: "toast-base"
+        duration: 2000,
+        variant: "success"
+      });
+    } else {
+      toast({
+        title: response.error,
+        duration: 2000,
+        variant: "destructive"
       });
     }
   };
@@ -39,7 +44,10 @@ export default function DescriptionForm() {
         defaultValue={session?.desc || ""}
         placeholder="Something about you"
       />
-      <button className="btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
+      <button
+        type="submit"
+        className="btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100"
+      >
         {session?.desc ? "Edit" : "Add"}
       </button>
     </form>

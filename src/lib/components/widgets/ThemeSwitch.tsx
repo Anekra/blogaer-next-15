@@ -18,14 +18,14 @@ export default function ThemeSwitch({
 
   return (
     <div
-      className={`switch-container ${width}${
+      className={`switch-container h-full ${width}${
         isHover ? " neu-base bg-accent" : " bg-base-background"
       }`}
     >
       <input
         id="autosave-switch"
         type="checkbox"
-        className="absolute left-0 z-[1] size-full appearance-none rounded-full"
+        className="absolute z-[1] size-full appearance-none rounded-full"
         checked={isOn}
         onChange={(e) => {
           setTheme(e.currentTarget.checked ? "dark" : "light");

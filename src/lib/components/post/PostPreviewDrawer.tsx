@@ -36,20 +36,25 @@ export default function PostPreviewDrawer() {
     setLoading(true);
     const id = generateId();
     const title = `${content[0].children[0].text}`;
-    const res = await postClientFetch({ id, title, content, tags }, "post");
-    if (res) {
+    const resOk = await postClientFetch({ id, title, content, tags }, "/post");
+    if (resOk) {
       router.push(
         `/blog/${username.toLowerCase()}/${title
           .replace(/\s+/g, "-")
           .toLowerCase()}-${id}`
       );
       toast({
-        title: res.message,
+        title: "Adding post",
         duration: 3000,
         className: "toast-base"
       });
       setLoading(false);
     } else {
+      toast({
+        title: "Error occurred. please try again later",
+        duration: 3000,
+        className: "toast-base"
+      });
       setLoading(false);
     }
   };

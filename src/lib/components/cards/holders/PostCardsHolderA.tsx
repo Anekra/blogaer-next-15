@@ -6,11 +6,11 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardA from "@/lib/components/cards/PostGridCardA";
 import PostGridCardB from "@/lib/components/cards/PostGridCardB";
-import { GetPostsByPageDto } from "@/lib/types/dto/GetPostsByPageDto";
+import { GetPostsByPageDto } from "@/lib/types/dto/GetDto";
 
 export default function PostCardsHolderA() {
   const currentPath = usePathname();
-  const url = `${process.env.NEXT_PUBLIC_API_ROUTE}/post/public?pageNum=1&pageSize=10`;
+  const url = "/post/public?pageNum=1&pageSize=10";
   const {
     data: res,
     error,

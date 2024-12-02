@@ -9,7 +9,7 @@ export default function SaveAndPublishBtn({ slug }: { slug: string }) {
   const handleEditPost = async () => {
     const response = await patchClientFetch(
       { title, content, tags },
-      `post/${slug}`
+      `/post/${slug}`
     );
     if (response.message) {
       toast({

@@ -1,11 +1,6 @@
-import { CommonDto } from "@/lib/types/dto/CommonDto";
-
-export default async function deleteClientFetch(
-  slug: string,
-  route?: string
-): Promise<CommonDto> {
+export default async function deleteClientFetch(route: string, slug?: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ROUTE}/${route}/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_ROUTE}${route}${slug || ""}`,
     {
       method: "DELETE",
       credentials: "include",
@@ -15,5 +10,5 @@ export default async function deleteClientFetch(
     }
   );
 
-  return await response.json();
+  return response.ok;
 }

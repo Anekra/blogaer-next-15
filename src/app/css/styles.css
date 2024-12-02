@@ -18,7 +18,7 @@
 
   /* switch */
   .switch-container {
-    @apply relative flex h-full items-center rounded-full px-1;
+    @apply relative flex items-center rounded-full px-1;
   }
   .switch-toggle {
     @apply select-none rounded-full bg-primary-foreground font-bold transition-transform;
@@ -63,20 +63,9 @@
       6px 0 6px rgb(var(--neu-base-top) / 0.3);
   }
 
-  /* toast */
-  .toast-error {
-    @apply !neu-base-sm bg-red-700 dark:bg-red-400 font-bold border-none;
-  }
-  .toast-success {
-    @apply !neu-base-sm bg-green-400 dark:bg-green-700 font-bold border-none;
-  }
-  .toast-base {
-    @apply !neu-base-sm font-bold border-none;
-  }
-
   /* tags */
   .tags {
-    @apply relative ms-4 flex items-center rounded-r border-y-[0.19rem] border-r-[0.19rem] border-border px-3 text-xs before:absolute before:left-[-11px] before:h-6 before:w-6 before:rotate-45 before:rounded before:border-[3px] before:inset-y-[2px] before:border-[transparent_transparent_rgb(var(--border))_rgb(var(--border))] before:content-[''] after:absolute after:inset-y-[5px] after:left-[-2px] after:text-[11px] after:font-bold after:text-accent-foreground after:content-['०'];
+    @apply relative ms-4 flex items-center rounded-r border-y-[0.19rem] border-r-[0.19rem] border-border px-3 text-xs before:absolute before:inset-y-[2px] before:left-[-11px] before:h-6 before:w-6 before:rotate-45 before:rounded before:border-[3px] before:border-[transparent_transparent_rgb(var(--border))_rgb(var(--border))] before:content-[''] after:absolute after:inset-y-[5px] after:left-[-2px] after:text-[11px] after:font-bold after:text-accent-foreground after:content-['०'];
   }
 
   /* tooltip */
@@ -95,15 +84,15 @@
     @apply flex items-center;
   }
   .tooltip-wysiwyg::before {
-    @apply h-[60px] w-[144px] data-[tooltip-justify=start]:self-start data-[tooltip-justify=center]:self-center data-[tooltip-justify=end]:self-end;
+    @apply h-[60px] w-[144px] data-[tooltip-justify=start]:self-start data-[tooltip-justify=end]:self-end data-[tooltip-justify=center]:self-center;
   }
   .tooltip::before,
   .tooltip-wysiwyg::before,
   .tooltip-point::before {
-    @apply text-[12px] leading-4 text-foreground content-[attr(data-tooltip-text)] absolute z-[8] px-2 py-1 hidden rounded bg-base-background inset-y-0 translate-y-[calc((100%+4px)*-1)];
+    @apply absolute inset-y-0 z-[8] hidden translate-y-[calc((100%+4px)*-1)] rounded bg-base-background px-2 py-1 text-[12px] leading-4 text-foreground content-[attr(data-tooltip-text)];
   }
   .tooltip-point::after {
-    @apply content-[''] absolute z-[8] hidden -top-[35%] border-8 border-solid border-[rgb(var(--base-background))_transparent_transparent_transparent];
+    @apply absolute -top-[35%] z-[8] hidden border-8 border-solid border-[rgb(var(--base-background))_transparent_transparent_transparent] content-[''];
   }
 
   /* truncation */
@@ -125,6 +114,24 @@
     left: 0;
     right: 0;
     color: rgb(var(--foreground) / 0.5);
+  }
+
+  /* form */
+  .social-form-empty::after {
+    content: "This field cannot be empty!";
+    font-size: 14px;
+    display: flex;
+    position: absolute;
+    width: fit-content;
+    word-break: keep-all;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    padding: 0 4px;
+    border-radius: 4px;
+    background-color: rgb(var(--background));
+    color: rgb(var(--destructive-foreground));
   }
 
   /* gradient background */
@@ -243,6 +250,26 @@
     box-shadow:
       -4px -4px 8px rgb(var(--neu-base-top) / 0.5),
       4px 4px 8px rgb(var(--neu-base-bot));
+  }
+  .neu-base-success {
+    box-shadow:
+      -2px -2px 4px rgb(91, 255, 146),
+      2px 2px 4px rgb(5, 73, 41);
+  }
+  .dark .neu-base-success {
+    box-shadow:
+      -2px -2px 4px rgb(57, 228, 122),
+      2px 2px 4px rgb(1, 39, 28);
+  }
+  .neu-base-error {
+    box-shadow:
+      -2px -2px 4px rgb(255, 76, 76),
+      2px 2px 4px rgb(54, 2, 2);
+  }
+  .dark .neu-base-error {
+    box-shadow:
+      -2px -2px 4px rgb(221, 61, 61),
+      2px 2px 4px rgb(34, 0, 0);
   }
   .neu-base-inset {
     box-shadow:

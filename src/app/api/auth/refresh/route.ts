@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { RefreshTokenJson, Session } from "@/lib/types/common";
 
 export async function GET(request: NextRequest) {
-  console.log("#### refresh token route ###");
   const accessCookieName = `${process.env.ACCESS_TOKEN}`;
   const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
 
@@ -89,7 +88,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(
       { message: "Server currently down." },
-      { status: 202 }
+      { status: 503 }
     );
   }
 }

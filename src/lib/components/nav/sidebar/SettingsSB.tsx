@@ -28,7 +28,7 @@ export default function SettingsSB() {
               className={`flex w-full flex-col items-center py-2 lg:items-start${
                 currentPath === "/settings"
                   ? " pointer-events-none bg-foreground/25 font-bold"
-                  : " text-muted-foreground"
+                  : " text-muted-foreground hover:text-base-foreground"
               }`}
             >
               <span className="static text-[26px] leading-8 lg:hidden [&>*]:fill-none [&>*]:stroke-current">
@@ -41,7 +41,7 @@ export default function SettingsSB() {
               className={`flex w-full flex-col items-center py-2 lg:items-start${
                 currentPath === "/settings/security"
                   ? " pointer-events-none bg-foreground/25 font-bold"
-                  : " text-muted-foreground"
+                  : " text-muted-foreground hover:text-base-foreground"
               }`}
             >
               <span className="static text-xl lg:hidden">
@@ -54,7 +54,7 @@ export default function SettingsSB() {
               className={`flex w-full flex-col items-center py-2 lg:items-start${
                 currentPath === "/settings/preferences"
                   ? " pointer-events-none bg-foreground/25 font-bold"
-                  : " text-muted-foreground"
+                  : " text-muted-foreground hover:text-base-foreground"
               }`}
             >
               <span className="static text-xl lg:hidden">
@@ -67,7 +67,7 @@ export default function SettingsSB() {
               className={`flex w-full flex-col items-center py-2 lg:items-start${
                 currentPath === "/settings/subscription"
                   ? " pointer-events-none bg-foreground/25 font-bold"
-                  : " text-muted-foreground"
+                  : " text-muted-foreground hover:text-base-foreground"
               }`}
             >
               <span className="static text-xl lg:hidden">
@@ -84,7 +84,7 @@ export default function SettingsSB() {
             className={`flex w-full flex-col items-center rounded p-2 text-sm hover:bg-foreground/5 lg:items-start lg:text-base${
               currentPath === "/settings/subscription"
                 ? " pointer-events-none bg-foreground/25 font-bold"
-                : " text-muted-foreground"
+                : " text-muted-foreground hover:text-base-foreground"
             }`}
           >
             <span className="static text-xl lg:hidden">

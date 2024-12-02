@@ -1,14 +1,28 @@
+"use client";
 import Image from "next/image";
+import useSWRImmutable from "swr/immutable";
 
+import getClientFetch from "@/lib/actions/client/getClientFetch";
+import FacebookForm from "@/lib/components/forms/settings/socials/FacebookForm";
+import GithubForm from "@/lib/components/forms/settings/socials/GithubForm";
+import GitlabForm from "@/lib/components/forms/settings/socials/GitlabForm";
+import InstagramForm from "@/lib/components/forms/settings/socials/InstagramForm";
+import XForm from "@/lib/components/forms/settings/socials/XForm";
+import YoutubeForm from "@/lib/components/forms/settings/socials/YoutubeForm";
 import FacebookIcon from "@/lib/components/icons/FacebookIcon";
 import GithubIcon from "@/lib/components/icons/GithubIcon";
 import GitlabIcon from "@/lib/components/icons/GitlabIcon";
 import InstagramIcon from "@/lib/components/icons/InstagramIcon";
 import XIcon from "@/lib/components/icons/XIcon";
 import YoutubeIcon from "@/lib/components/icons/YoutubeIcon";
-import { Input } from "@/lib/components/ui/input";
+import { GetSocialsDto } from "@/lib/types/dto/GetDto";
 
-export default function SocialSection() {
+export default function SocialsSection() {
+  const { data: res } = useSWRImmutable<GetSocialsDto>(
+    "/user/account/socials",
+    getClientFetch
+  );
+
   return (
     <section className="flex grow flex-col gap-2 rounded-lg">
       <h2 className="text-lg font-bold">Social/Other Accounts</h2>
@@ -24,23 +38,14 @@ export default function SocialSection() {
               fill
             />
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl">
                 <GithubIcon />
               </span>
-              <h3>Github</h3>
+              <label htmlFor="github-link">Github</label>
             </div>
-            <form className="flex items-center gap-4">
-              <Input
-                type="text"
-                className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-white"
-                defaultValue="github.com/your_github_username"
-              />
-              <button className="btn-outline-socials !px-8 !text-white opacity-0 duration-300 group-hover:opacity-100 peer-focus-within:opacity-100">
-                Edit
-              </button>
-            </form>
+            <GithubForm link={res?.data.github} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -49,23 +54,14 @@ export default function SocialSection() {
               <InstagramIcon />
             </span>
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl">
                 <InstagramIcon />
               </span>
-              <h3>Instagram</h3>
+              <label htmlFor="instagram-link">Instagram</label>
             </div>
-            <form className="flex items-center gap-4">
-              <Input
-                type="text"
-                className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-neutral-300"
-                defaultValue="instagram.com/your_instagram_username"
-              />
-              <button className="btn-outline-socials !px-8 !text-white opacity-0 duration-300 group-hover:opacity-100 peer-focus-within:opacity-100">
-                Edit
-              </button>
-            </form>
+            <InstagramForm link={res?.data.instagram} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -78,23 +74,14 @@ export default function SocialSection() {
               fill
             />
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl">
                 <XIcon />
               </span>
-              <h3>X</h3>
+              <label htmlFor="x-link">X</label>
             </div>
-            <form className="flex items-center gap-4">
-              <Input
-                type="text"
-                className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-neutral-300"
-                defaultValue="x.com/your_x_username"
-              />
-              <button className="btn-outline-socials !px-8 !text-white opacity-0 duration-300 group-hover:opacity-100 peer-focus-within:opacity-100 peer-focus-within:shadow-[inset_0_0_0_2px_rgb(255_255_255)]">
-                Edit
-              </button>
-            </form>
+            <XForm link={res?.data.x} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -103,23 +90,14 @@ export default function SocialSection() {
               <YoutubeIcon />
             </span>
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl [&>*]:fill-none [&>*]:stroke-current">
                 <YoutubeIcon />
               </span>
-              <h3>Youtube</h3>
+              <label htmlFor="youtube-link">Youtube</label>
             </div>
-            <form className="flex items-center gap-4">
-              <Input
-                type="text"
-                className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-neutral-300"
-                defaultValue="youtube.com/your_youtube_username"
-              />
-              <button className="btn-outline-socials !px-8 !text-white opacity-0 duration-300 group-hover:opacity-100 peer-focus-within:opacity-100">
-                Edit
-              </button>
-            </form>
+            <YoutubeForm link={res?.data.youtube} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -128,23 +106,14 @@ export default function SocialSection() {
               <FacebookIcon />
             </span>
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl">
                 <FacebookIcon />
               </span>
               <h3>Facebook</h3>
             </div>
-            <form className="flex items-center gap-4">
-              <Input
-                type="text"
-                className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-neutral-300"
-                defaultValue="facebook.com/your_facebook_username"
-              />
-              <button className="btn-outline-socials !px-8 !text-white opacity-0 duration-300 group-hover:opacity-100 peer-focus-within:opacity-100">
-                Edit
-              </button>
-            </form>
+            <FacebookForm link={res?.data.facebook} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -157,23 +126,14 @@ export default function SocialSection() {
               fill
             />
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/70 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl">
                 <GitlabIcon />
               </span>
               <h3>Gitlab</h3>
             </div>
-            <form className="flex items-center gap-4">
-              <Input
-                type="text"
-                className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-neutral-300"
-                defaultValue="gitlab.com/your_gitlab_username"
-              />
-              <button className="btn-outline-socials !px-8 !text-white opacity-0 duration-300 group-hover:opacity-100 peer-focus-within:opacity-100">
-                Edit
-              </button>
-            </form>
+            <GitlabForm link={res?.data.gitlab} />
           </div>
         </div>
       </div>

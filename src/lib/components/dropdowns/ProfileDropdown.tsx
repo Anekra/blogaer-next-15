@@ -37,9 +37,9 @@ export default function ProfileDropdown() {
     await logout();
     router.push("/");
     toast({
-      description: "Logout successful.",
-      duration: 4000,
-      className: "toast-success"
+      title: "Logout successful.",
+      duration: 2000,
+      variant: "success"
     });
   };
 
@@ -91,7 +91,7 @@ export default function ProfileDropdown() {
               <ThemeSwitch
                 width="w-12"
                 padding="p-[1px]"
-                transform="translate-x-[150%]"
+                transform="translate-x-[120%]"
                 setTheme={setTheme}
                 resolvedTheme={resolvedTheme}
               />

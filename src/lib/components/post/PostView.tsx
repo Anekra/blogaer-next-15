@@ -14,7 +14,7 @@ import ThoughtsIcon from "@/lib/components/icons/thoughts/ThoughtsIcon";
 import TotalReadsIcon from "@/lib/components/icons/TotalReadsIcon";
 import XIcon from "@/lib/components/icons/XIcon";
 import useViewConfig from "@/lib/hooks/useViewConfig";
-import { GetPostByIdDto } from "@/lib/types/dto/GetPostByIdDto";
+import { GetPostByIdDto } from "@/lib/types/dto/GetDto";
 import { CustomElement } from "@/lib/types/slate";
 import { WysiwygType } from "@/lib/utils/enums";
 import { getSlugOrIdFromPath } from "@/lib/utils/helper";
@@ -23,7 +23,7 @@ export default function PostView() {
   const editor = useMemo(() => withReact(createEditor()), []);
   const { renderElement, renderLeaf } = useViewConfig(editor);
   const slug = getSlugOrIdFromPath(usePathname());
-  const url = `${process.env.NEXT_PUBLIC_API_ROUTE}/post/public/${slug}`;
+  const url = `/post/public/${slug}`;
   const {
     data: res,
     error,

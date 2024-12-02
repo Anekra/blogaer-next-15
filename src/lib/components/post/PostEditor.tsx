@@ -74,7 +74,7 @@ export default function PostEditor({
               title,
               content: value
             },
-            "draft"
+            "/draft"
           );
           history.replaceState(null, "", `/blog/post/edit/draft/${id}`);
         }
@@ -94,7 +94,7 @@ export default function PostEditor({
                     content: value,
                     tags
                   },
-                  `draft/${id}`
+                  `/draft/${id}`
                 );
                 setIsDoneEditing(true);
               } catch (_) {

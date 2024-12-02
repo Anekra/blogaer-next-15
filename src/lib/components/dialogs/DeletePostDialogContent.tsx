@@ -36,11 +36,11 @@ export default function DeletePostDialogContent({
         </DialogClose>
         <DialogClose
           onClick={async () => {
-            await deleteClientFetch(slugOrId, isDraft ? "draft" : "post");
+            await deleteClientFetch(isDraft ? "/draft/" : "/post/", slugOrId);
             toast({
               title: "Deleting post",
               duration: 1500,
-              className: "toast-base",
+              variant: "destructive",
               onAnimationEndCapture: (e) => {
                 if (e.animationName === "exit") {
                   setCurrentPosts((posts) =>

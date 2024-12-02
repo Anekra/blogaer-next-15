@@ -5,7 +5,8 @@ import Image from "next/image";
 import Logo2Icon from "@/lib/components/icons/Logo2Icon";
 import { Input } from "@/lib/components/ui/input";
 import { useSession } from "@/lib/contexts/SessionContext";
-import DescriptionForm from "@/lib/components/forms/settings/DescriptionForm";
+import DescriptionForm from "@/lib/components/forms/settings/account/DescriptionForm";
+import NameForm from "@/lib/components/forms/settings/account/NameForm";
 
 export default function AccountSection() {
   const { session } = useSession();
@@ -19,7 +20,7 @@ export default function AccountSection() {
             <span className="flex justify-center overflow-hidden rounded-3xl">
               <UserIcon className="bottom-px stroke-[2.5]" />
             </span>
-            <h3>Profile Picture</h3>
+            <label htmlFor="user-profile-img">Profile Picture</label>
           </div>
           <form className="flex grow items-center gap-4">
             {session?.img ? (
@@ -39,6 +40,8 @@ export default function AccountSection() {
             )}
             <Input
               type="file"
+              name="profile"
+              id="user-profile-img"
               className="peer cursor-pointer border-transparent bg-transparent opacity-0 duration-300 group-hover:bg-base-background/60 group-hover:opacity-100 group-hover:ring-2 group-hover:ring-neutral-300 peer-focus-visible:opacity-100"
             />
           </form>
@@ -46,7 +49,7 @@ export default function AccountSection() {
         <div className="neu-base group flex flex-col gap-1 rounded-md p-4 hover:bg-foreground/10">
           <div className="flex items-center gap-2 font-bold text-accent-foreground">
             <span className="text-2xl">🖼</span>
-            <h3>Profile Banner</h3>
+            <label htmlFor="user-banner">Profile Banner</label>
           </div>
           <form className="flex items-center gap-4">
             <span className="flex w-1/2 justify-center rounded-sm bg-base-background p-2">
@@ -54,6 +57,8 @@ export default function AccountSection() {
             </span>
             <Input
               type="file"
+              name="banner"
+              id="user-banner"
               className="peer cursor-pointer border-transparent bg-transparent opacity-0 duration-300 group-hover:bg-base-background/60 group-hover:opacity-100 group-hover:ring-2 group-hover:ring-neutral-300 peer-focus-visible:opacity-100"
             />
           </form>
@@ -61,15 +66,17 @@ export default function AccountSection() {
         <div className="neu-base group flex flex-col gap-1 rounded-md p-4 hover:bg-foreground/10">
           <div className="flex items-center gap-2 font-bold text-accent-foreground">
             <span className="text-2xl">🖂</span>
-            <h3>Email</h3>
+            <label htmlFor="user-email">Email</label>
           </div>
           <form className="flex items-center gap-4">
             <Input
               type="text"
-              className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
+              name="email"
+              id="user-email"
+              className="peer transition-[width] border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
               defaultValue={session?.email || ""}
             />
-            <button className="btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
+            <button className="hidden group-hover:block btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
               Edit
             </button>
           </form>
@@ -77,15 +84,17 @@ export default function AccountSection() {
         <div className="neu-base group flex shrink grow basis-0 flex-col gap-1 rounded-md p-4 hover:bg-foreground/10">
           <div className="flex items-center gap-2 font-bold text-accent-foreground">
             <span className="text-2xl font-semibold">@</span>
-            <h3>Username</h3>
+            <label htmlFor="user-username">Username</label>
           </div>
           <form className="flex items-center gap-4">
             <Input
               type="text"
-              className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
+              name="username"
+              id="user-username"
+              className="peer transition-[width] border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
               defaultValue={session?.username || ""}
             />
-            <button className="btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
+            <button className="hidden group-hover:block btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
               Edit
             </button>
           </form>
@@ -95,19 +104,9 @@ export default function AccountSection() {
             <span className="py-1">
               <PenIcon />
             </span>
-            <h3>Display Name</h3>
+            <label htmlFor="user-display-name">Display Name</label>
           </div>
-          <form className="flex items-center gap-4">
-            <Input
-              type="text"
-              className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
-              defaultValue={session?.name || ""}
-              placeholder="Your display name"
-            />
-            <button className="btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
-              {session?.name ? "Edit" : "Add"}
-            </button>
-          </form>
+          <NameForm />
         </div>
         <div className="neu-base group flex shrink grow basis-0 flex-col gap-1 rounded-md p-4 hover:bg-foreground/10">
           <div className="flex items-center gap-2 font-bold text-accent-foreground">

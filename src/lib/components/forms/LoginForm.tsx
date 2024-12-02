@@ -6,6 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 
 import login from "@/lib/actions/server/auth/login";
+import FormIndicator from "@/lib/components/forms/FormIndicator";
 import {
   FormControl,
   FormField,
@@ -17,8 +18,6 @@ import { Input } from "@/lib/components/ui/input";
 import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useToast } from "@/lib/hooks/use-toast";
 import { LoginFormSchema } from "@/lib/types/zodSchemas";
-
-import FormIndicator from "@/lib/components/forms/FormIndicator";
 
 type FormValues = {
   emailOrUsername: string;
@@ -51,7 +50,7 @@ export default function LoginForm() {
       toast({
         title: "Login successful.",
         duration: 2000,
-        className: "toast-success"
+        variant: "success"
       });
     } else {
       if (response.status) {
@@ -66,7 +65,7 @@ export default function LoginForm() {
       toast({
         title: response.message,
         duration: 2000,
-        className: "toast-error"
+        variant: "destructive"
       });
     }
     setLoading(false);
@@ -99,8 +98,8 @@ export default function LoginForm() {
                   type="email"
                   className={`duration-300${
                     fieldState.error
-                      ? " border border-red-500 focus:border-none focus-visible:ring-red-500"
-                      : " focus-visible:ring-ring"
+                      ? "border border-red-500 focus:border-none focus-visible:ring-red-500"
+                      : "focus-visible:ring-ring"
                   }`}
                   {...field}
                 />
@@ -130,8 +129,8 @@ export default function LoginForm() {
                   type="password"
                   className={`duration-300${
                     fieldState.error
-                      ? " border border-red-500 focus:border-none focus-visible:ring-red-500"
-                      : " focus-visible:ring-ring"
+                      ? "border border-red-500 focus:border-none focus-visible:ring-red-500"
+                      : "focus-visible:ring-ring"
                   }`}
                   {...field}
                 />

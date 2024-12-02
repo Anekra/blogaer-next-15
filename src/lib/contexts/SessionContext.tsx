@@ -41,38 +41,37 @@ export function SessionProvider({
         const searchParams = [{ param: "session", value: sessionToken }];
         const refreshUrl = newUrl(url, searchParams);
         const refreshRes = await fetch(refreshUrl);
-        console.log("refresh >>>", refreshRes.status);
         if (!refreshRes.ok) {
+          if (refreshRes.status === 503) return decodedSession;
+
           localStorage.removeItem(sessionName);
           await logout();
           return null;
         }
+
         const refreshJson = await refreshRes.json();
         localStorage.setItem(sessionName, refreshJson.session);
 
         return decodedSession;
-      } catch (_) {
+      } catch (error) {
         return decodedSession;
       }
     }
 
     if (userSession && !sessionToken) {
-      console.log("oauth2");
-      toast({
-        title: "Login successful.",
-        duration: 2000,
-        className: "toast-success"
-      });
       localStorage.removeItem("CSRFToken");
       localStorage.setItem(sessionName, userSession);
       const decodedSession = jwt.decode(userSession) as Session;
+      toast({
+        title: "Login successful.",
+        duration: 2000,
+        variant: "success"
+      });
       return decodedSession;
     }
   });
 
   useEffect(() => {
-    console.log(session?.desc);
-
     const sessionToken = localStorage.getItem(sessionName);
     if (!data || !sessionToken) setSession(null);
     else setSession(data);

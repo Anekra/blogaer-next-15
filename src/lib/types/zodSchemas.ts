@@ -33,3 +33,5 @@ export const LoginFormSchema = z.object({
   emailOrUsername: z.string().min(1, VALIDATION.EMAIL_OR_USERNAME_EMPTY),
   password: z.string().min(1, VALIDATION.PASSWORD_EMPTY)
 });
+
+export const UrlSchema = z.string().trim().url();

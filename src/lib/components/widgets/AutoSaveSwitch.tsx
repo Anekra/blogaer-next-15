@@ -25,11 +25,11 @@ export default function AutosaveSwitch() {
           >
             Autosave
           </label>
-          <div className="switch-container group-hover:neu-base-inset w-[58px] bg-base-background group-hover:bg-accent">
+          <div className="switch-container group-hover:neu-base-inset h-full w-[58px] bg-base-background group-hover:bg-accent">
             <input
               id="autosave-switch"
               type="checkbox"
-              className="absolute left-0 z-[1] size-full appearance-none rounded-full hover:cursor-pointer"
+              className="absolute z-[1] size-full appearance-none rounded-full hover:cursor-pointer"
               checked={isOn}
               onChange={(e) => {
                 setIsOn(e.target.checked);
@@ -37,7 +37,7 @@ export default function AutosaveSwitch() {
               }}
             />
             <span
-              className={`switch-toggle group-hover:neu-base p-1 text-base-background hover:text-accent group-hover:!bg-primary-foreground${
+              className={`switch-toggle group-hover:neu-base p-1 text-base-background${
                 isOn ? " translate-x-full" : " translate-x-0 !bg-accent"
               }`}
             >
@@ -55,7 +55,7 @@ export default function AutosaveSwitch() {
           </p>
         )}
       </div>
-      {!isOn && <button className="btn-outline-base">Save to draft</button>}
+      {!isOn && <button className="btn-outline-p">Save to draft</button>}
     </div>
   );
 }

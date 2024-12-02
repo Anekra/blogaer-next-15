@@ -1,4 +1,3 @@
-import isUrl from "is-url";
 import React, {
   ChangeEvent,
   useCallback,
@@ -11,7 +10,7 @@ import { useSlate } from "slate-react";
 
 import { CustomElement } from "@/lib/types/slate";
 import { WysiwygStyle } from "@/lib/utils/enums";
-import { toggleLink } from "@/lib/utils/helper";
+import { isUrl, toggleLink } from "@/lib/utils/helper";
 
 export default function PostLinkEditor({
   isVisible,
@@ -139,8 +138,8 @@ export default function PostLinkEditor({
               type="submit"
               className={`flex size-6 items-center justify-center rounded-3xl text-2xl${
                 isUrl(link)
-                  ? " text-green-500 hover:bg-green-500 hover:text-background hover:brightness-100"
-                  : " text-muted"
+                  ? "text-green-500 hover:bg-green-500 hover:text-background hover:brightness-100"
+                  : "text-muted"
               }`}
               onMouseEnter={() => {
                 if (!isUrl(link)) {

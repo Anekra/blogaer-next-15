@@ -12,7 +12,7 @@ export default async function UserSettingsLayout({
   return (
     <NavBarProvider>
       <NavBar />
-      <div className="flex w-full max-w-screen-2xl gap-4">
+      <div className="flex w-full max-w-screen-2xl">
         <SettingsSB />
         {children}
       </div>

@@ -1,3 +1,4 @@
+import { startRegistration } from "@simplewebauthn/browser";
 import { nanoid } from "nanoid";
 import {
   BaseSelection,
@@ -9,8 +10,11 @@ import {
   Node
 } from "slate";
 
+import getClientFetch from "@/lib/actions/client/getClientFetch";
+import postClientFetch from "@/lib/actions/client/postClientFetch";
 import { SearchParams, SlateEditor } from "@/lib/types/common";
 import { CustomElement } from "@/lib/types/slate";
+import { UrlSchema } from "@/lib/types/zodSchemas";
 import { LIST_TYPES, VOIDS } from "@/lib/utils/constants";
 import {
   HeadingSize,
@@ -285,6 +289,14 @@ export function newUrl(url: string, searchParams?: SearchParams) {
   return newUrl;
 }
 
+export function isUrl(url: string) {
+  try {
+    return UrlSchema.parse(url);
+  } catch (error) {
+    return false;
+  }
+}
+
 export function convertFileToBase64(file: File) {
   return new Promise<string>((resolve, reject) => {
     const fileReader = new FileReader();
@@ -306,4 +318,49 @@ export function getSlugOrIdFromPath(path: string) {
 
 export function generateId() {
   return nanoid(16).replaceAll("-", "~");
+}
+
+export async function addPasskey(toast: any) {
+  try {
+    const resJson = await getClientFetch("/auth/two-fa/webauthn/register");
+
+    const attestationResponse = await startRegistration({
+      optionsJSON: resJson.data.options
+    });
+
+    const resOk = await postClientFetch(
+      { options: attestationResponse },
+      "/auth/two-fa/webauthn/register"
+    );
+
+    if (resOk) {
+      toast({
+        title: "Your Passkey has been added.",
+        duration: 2000,
+        variant: "success"
+      });
+    } else {
+      toast({
+        title: "Error occurred, please try again later.",
+        duration: 2000,
+        variant: "destructive"
+      });
+    }
+
+    return true;
+  } catch (error) {
+    const errTitle =
+      error instanceof Error
+        ? error.name === "InvalidStateError"
+          ? "Passkey already registered!"
+          : error.message
+        : "Server error please try again later!";
+    toast({
+      title: errTitle,
+      duration: 2000,
+      variant: "destructive"
+    });
+
+    return false;
+  }
 }

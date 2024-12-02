@@ -5,7 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardC from "@/lib/components/cards/PostGridCardC";
 import { useCurrentPosts } from "@/lib/contexts/PostsContext";
-import { GetPostsByUserIdDto } from "@/lib/types/dto/GetPostsByUserIdDto";
+import { GetPostsByUserIdDto } from "@/lib/types/dto/GetDto";
 
 export default function PostCardsHolderB({ url }: { url: string }) {
   const { currentPosts, setCurrentPosts } = useCurrentPosts();
