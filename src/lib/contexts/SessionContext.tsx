@@ -57,6 +57,12 @@ export function SessionProvider({
         return decodedSession;
       }
     }
+  });
+
+  useEffect(() => {
+    const sessionToken = localStorage.getItem(sessionName);
+    if (!data || !sessionToken) setSession(null);
+    else setSession(data);
 
     if (userSession && !sessionToken) {
       localStorage.removeItem("CSRFToken");
@@ -67,14 +73,8 @@ export function SessionProvider({
         duration: 2000,
         variant: "success"
       });
-      return decodedSession;
+      setSession(decodedSession);
     }
-  });
-
-  useEffect(() => {
-    const sessionToken = localStorage.getItem(sessionName);
-    if (!data || !sessionToken) setSession(null);
-    else setSession(data);
 
     if (redirectMessage) {
       toast({
@@ -83,7 +83,7 @@ export function SessionProvider({
         className: "toast-base"
       });
     }
-  }, [sessionName, data, redirectMessage, toast]);
+  }, [sessionName, data, userSession, redirectMessage, toast]);
 
   return (
     <SessionContext.Provider value={{ session, setSession }}>

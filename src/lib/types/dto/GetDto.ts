@@ -1,6 +1,7 @@
 import {
   PagedPostDto,
   PagedPostWithNoUserDto,
+  SavedAccountsDto,
   TwoFADto,
   UserOauthDto
 } from "./CommonDto";
@@ -40,4 +41,9 @@ export type GetSecurityDto = {
     userTwoFA: TwoFADto;
     userOauth: UserOauthDto;
   };
+};
+
+export type GetSavedAccounts = {
+  status: string;
+  data: SavedAccountsDto[];
 };

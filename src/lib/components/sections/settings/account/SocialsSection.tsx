@@ -86,11 +86,11 @@ export default function SocialsSection() {
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
           <div className="absolute size-full max-h-[160px] self-center overflow-hidden rounded-md">
-            <span className="flex size-full items-center justify-center bg-base-foreground/30 text-8xl text-white blur-sm [&>*]:fill-red-600 [&>*]:stroke-none">
+            <span className="flex size-full items-center justify-center bg-base-foreground/10 text-8xl text-white blur-sm [&>*]:fill-red-600 [&>*]:stroke-none">
               <YoutubeIcon />
             </span>
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/60 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl [&>*]:fill-none [&>*]:stroke-current">
                 <YoutubeIcon />
@@ -102,11 +102,11 @@ export default function SocialsSection() {
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
           <div className="absolute size-full max-h-[160px] self-center overflow-hidden rounded-md">
-            <span className="flex size-full items-center justify-center bg-base-foreground/30 text-8xl blur-sm [&>*]:fill-blue-600 [&>*]:stroke-none">
+            <span className="flex size-full items-center justify-center bg-base-foreground/10 text-8xl blur-sm [&>*]:fill-blue-600 [&>*]:stroke-none">
               <FacebookIcon />
             </span>
           </div>
-          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/50 p-4 hover:bg-foreground/10">
+          <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/60 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
               <span className="text-2xl">
                 <FacebookIcon />

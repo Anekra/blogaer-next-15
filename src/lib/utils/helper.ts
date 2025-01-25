@@ -1,4 +1,8 @@
-import { startRegistration } from "@simplewebauthn/browser";
+import {
+  startAuthentication,
+  startRegistration
+} from "@simplewebauthn/browser";
+import { getBrowserFingerprint } from "fingerprint-browser";
 import { nanoid } from "nanoid";
 import {
   BaseSelection,
@@ -12,16 +16,20 @@ import {
 
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import postClientFetch from "@/lib/actions/client/postClientFetch";
+import loginWithPasskey from "@/lib/actions/server/auth/loginWithPasskey";
 import { SearchParams, SlateEditor } from "@/lib/types/common";
 import { CustomElement } from "@/lib/types/slate";
 import { UrlSchema } from "@/lib/types/zodSchemas";
 import { LIST_TYPES, VOIDS } from "@/lib/utils/constants";
 import {
+  ErrorTypes,
   HeadingSize,
   WysiwygAlign,
   WysiwygStyle,
   WysiwygType
 } from "@/lib/utils/enums";
+
+import loginWithAuthApp from "../actions/server/auth/loginWithAuthApp";
 
 export function addElement(editor: SlateEditor, element: CustomElement) {
   const { selection } = editor;
@@ -320,7 +328,7 @@ export function generateId() {
   return nanoid(16).replaceAll("-", "~");
 }
 
-export async function addPasskey(toast: any) {
+export async function registerPasskey(toast: any) {
   try {
     const resJson = await getClientFetch("/auth/two-fa/webauthn/register");
 
@@ -347,7 +355,7 @@ export async function addPasskey(toast: any) {
       });
     }
 
-    return true;
+    return resOk;
   } catch (error) {
     const errTitle =
       error instanceof Error
@@ -360,6 +368,75 @@ export async function addPasskey(toast: any) {
       duration: 2000,
       variant: "destructive"
     });
+
+    return false;
+  }
+}
+
+export async function verifyPasskeyLogin(emailOrUsername: string) {
+  try {
+    const clientId = getBrowserFingerprint();
+    const url = "/auth/two-fa/webauthn/login";
+    const generateRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_ROUTE}${url}/generate`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ emailOrUsername, clientId })
+      }
+    );
+    if (!generateRes.ok) throw new Error("Generate webauthn login failed!");
+
+    const generateJson = await generateRes.json();
+    if (!generateJson.data.options)
+      throw new Error("Generate webauthn login failed!");
+
+    const attestationResponse = await startAuthentication({
+      optionsJSON: generateJson.data.options
+    });
+
+    const verifyRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_ROUTE}${url}/verify`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ option: attestationResponse })
+      }
+    );
+    if (!verifyRes.ok) throw new Error("Verify webauthn login failed!");
+
+    const response = await loginWithPasskey(
+      emailOrUsername,
+      attestationResponse.id,
+      clientId
+    );
+
+    return response;
+  } catch (error) {
+    if (error instanceof Error && error.name === "NotAllowedError") {
+      return { status: "Forbidden", error: ErrorTypes.CANCELED_BY_USER };
+    }
+    return false;
+  }
+}
+
+export async function verifyAuthAppLogin(
+  emailOrUsername: string,
+  token: string
+) {
+  try {
+    const clientId = getBrowserFingerprint();
+    const response = await loginWithAuthApp(emailOrUsername, token, clientId);
+
+    return response;
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : error);
 
     return false;
   }

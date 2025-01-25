@@ -1,17 +1,16 @@
 "use server";
 import { cookies } from "next/headers";
-import { z } from "zod";
 
+import setCookies from "@/lib/actions/server/auth/setCookies";
 import { AuthDto } from "@/lib/types/dto/CommonDto";
-import { LoginFormSchema } from "@/lib/types/zodSchemas";
 
-import setCookies from "./setCookies";
-
-export default async function login(
-  values: z.infer<typeof LoginFormSchema> & { clientId: string }
+export default async function loginWithAuthApp(
+  emailOrUsername: string,
+  token: string,
+  clientId: string
 ) {
   try {
-    const url = `${process.env.API_ROUTE}/auth/login`;
+    const url = `${process.env.API_ROUTE}/auth/two-fa/auth-app/login`;
     const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
     const cookie = await cookies();
     const refreshToken = cookie.get(refreshCookieName)?.value;
@@ -22,20 +21,18 @@ export default async function login(
         Origin: "http://localhost:3000",
         Cookie: `${refreshCookieName}=${refreshToken}`
       },
-      body: JSON.stringify(values)
+      body: JSON.stringify({ emailOrUsername, token, clientId })
     });
 
+    if (!response.ok) return false;
+
     const resJson: AuthDto = await response.json();
-
-    console.log(resJson);
-
-    if (!response.ok) return resJson;
 
     await setCookies(resJson, refreshCookieName);
 
     return true;
   } catch (error) {
-    console.error("login.ts ERROR >>>", error);
+    console.error("loginWithAuthApp.ts ERROR >>>", error);
     return false;
   }
 }

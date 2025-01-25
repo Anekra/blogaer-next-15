@@ -1,9 +1,9 @@
-import { CommonResponseDto } from "@/lib/types/dto/CommonDto";
+import { CommonDto } from "@/lib/types/dto/CommonDto";
 
 export default async function patchClientFetch(
   values: any,
   route: string
-): Promise<CommonResponseDto> {
+): Promise<CommonDto> {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}${route}`, {
     method: "PATCH",
     credentials: "include",

@@ -1,10 +1,10 @@
 import { KeyRoundIcon } from "lucide-react";
 import { FormEvent } from "react";
 
-import deleteClientFetch from "@/lib/actions/client/deleteClientFetch";
 import { useToast } from "@/lib/hooks/use-toast";
+import { registerPasskey } from "@/lib/utils/helper";
 
-export default function WebAuthnDeleteForm({
+export default function WebAuthnAddForm({
   setIsPasskey
 }: {
   setIsPasskey: (value: boolean) => void;
@@ -12,13 +12,8 @@ export default function WebAuthnDeleteForm({
   const { toast } = useToast();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await deleteClientFetch("/user/security/two-fa/passkey");
-    setIsPasskey(false);
-    toast({
-      title: "Passkey deleted.",
-      duration: 1500,
-      variant: "success"
-    });
+    const resOk = await registerPasskey(toast);
+    if (resOk) setIsPasskey(true);
   };
 
   return (
@@ -31,11 +26,8 @@ export default function WebAuthnDeleteForm({
         <KeyRoundIcon />
         <label>Passkey</label>
       </span>
-      <button
-        type="submit"
-        className="btn-solid-base-round bg-destructive text-destructive-foreground"
-      >
-        Delete
+      <button type="submit" className="btn-solid-base-rounder">
+        Add
       </button>
     </form>
   );

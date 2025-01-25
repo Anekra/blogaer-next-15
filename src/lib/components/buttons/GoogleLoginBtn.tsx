@@ -2,11 +2,10 @@
 import { getBrowserFingerprint } from "fingerprint-browser";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { useLoading } from "@/lib/contexts/LoadingContext";
-import { newUrl } from "@/lib/utils/helper";
-
 import GoogleIcon from "@/lib/components/icons/GoogleIcon";
+import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useToast } from "@/lib/hooks/use-toast";
+import { newUrl } from "@/lib/utils/helper";
 
 export default function GoogleLoginBtn() {
   const { setLoading } = useLoading();
@@ -15,8 +14,8 @@ export default function GoogleLoginBtn() {
   const redirectUrl = useSearchParams().get("request_url");
   const handleGoogleLogin = async () => {
     const random = crypto.randomUUID();
-    const fingerprint = getBrowserFingerprint();
-    const state = `${random}-${fingerprint}`;
+    const clientId = getBrowserFingerprint();
+    const state = `${random}-${clientId}`;
     localStorage.setItem("CSRFToken", state);
     const searchParams = redirectUrl
       ? [
@@ -33,11 +32,11 @@ export default function GoogleLoginBtn() {
     const localState = localStorage.getItem("CSRFToken");
 
     if (res.status === 302 && paramState === localState) {
-      router.push(resJson.url);
+      router.replace(resJson.url);
     } else {
       setLoading(false);
       toast({
-        title: "Denied CSRF detected!",
+        title: "Request denied, CSRF detected!",
         duration: 2000,
         className: "toast-error"
       });

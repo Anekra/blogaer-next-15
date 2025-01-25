@@ -39,6 +39,14 @@
     @apply text-primary-foreground hover:cursor-pointer hover:brightness-150;
   }
 
+  /* input */
+  input[type="number"] {
+    @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
+  }
+  .otp-input {
+    @apply bg-background tracking-[32px] focus:outline-none;
+  }
+
   /* tabs */
   input[name="profile-tab-name"] + label {
     @apply flex px-5 py-3 duration-300;

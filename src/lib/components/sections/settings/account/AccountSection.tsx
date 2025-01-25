@@ -2,11 +2,11 @@
 import { PenIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 
+import DescriptionForm from "@/lib/components/forms/settings/account/DescriptionForm";
+import NameForm from "@/lib/components/forms/settings/account/NameForm";
 import Logo2Icon from "@/lib/components/icons/Logo2Icon";
 import { Input } from "@/lib/components/ui/input";
 import { useSession } from "@/lib/contexts/SessionContext";
-import DescriptionForm from "@/lib/components/forms/settings/account/DescriptionForm";
-import NameForm from "@/lib/components/forms/settings/account/NameForm";
 
 export default function AccountSection() {
   const { session } = useSession();
@@ -73,10 +73,10 @@ export default function AccountSection() {
               type="text"
               name="email"
               id="user-email"
-              className="peer transition-[width] border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
+              className="peer border-transparent bg-transparent transition-[width] duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
               defaultValue={session?.email || ""}
             />
-            <button className="hidden group-hover:block btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
+            <button className="btn-outline-base hidden !px-8 group-hover:block">
               Edit
             </button>
           </form>
@@ -91,10 +91,10 @@ export default function AccountSection() {
               type="text"
               name="username"
               id="user-username"
-              className="peer transition-[width] border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
+              className="peer border-transparent bg-transparent transition-[width] duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
               defaultValue={session?.username || ""}
             />
-            <button className="hidden group-hover:block btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100">
+            <button className="btn-outline-base hidden !px-8 group-hover:block">
               Edit
             </button>
           </form>

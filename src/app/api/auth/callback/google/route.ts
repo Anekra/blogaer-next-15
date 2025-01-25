@@ -1,5 +1,7 @@
-import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+
+import setCookies from "@/lib/actions/server/auth/setCookies";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -53,17 +55,20 @@ export async function GET(request: NextRequest) {
   try {
     const states = state.split("-");
     const fingerPrint = states[states.length - 1];
+    const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
+    const cookie = await cookies();
+    const refreshToken = cookie.get(refreshCookieName)?.value;
     const res = await fetch(`${process.env.API_ROUTE}/auth/google`, {
       method: "GET",
       credentials: "include",
       headers: {
         Authorization: `Oauth2 ${code}-${fingerPrint}`,
         "Content-Type": "application/json",
-        Origin: "http://localhost:3000"
+        Origin: "http://localhost:3000",
+        Cookie: `${refreshCookieName}=${refreshToken}`
       }
     });
     const resJson = await res.json();
-    console.log("<<< google oauth route >>>", resJson);
 
     const redirectCookie = request.cookies.get("redirectUrl")?.value;
     if (!res.ok) {
@@ -82,68 +87,8 @@ export async function GET(request: NextRequest) {
     const url = new URL(redirectCookie || "/home", request.nextUrl);
     const nextRes = NextResponse.redirect(url, 308);
     nextRes.cookies.delete("redirectUrl");
-    const isSecure = process.env.NODE_ENV === "production";
-    // access cookie
-    nextRes.cookies.set(
-      `${process.env.ACCESS_TOKEN}`,
-      resJson.data.access,
-      isSecure
-        ? {
-            httpOnly: true,
-            sameSite: "none",
-            secure: true,
-            maxAge: 1 * 10 * 60
-          }
-        : {
-            httpOnly: true,
-            maxAge: 1 * 10 * 60
-          }
-    );
-    // refresh cookie
-    nextRes.cookies.set(
-      `${process.env.REFRESH_TOKEN}`,
-      resJson.data.refresh,
-      isSecure
-        ? {
-            httpOnly: true,
-            sameSite: "lax",
-            secure: true,
-            maxAge: 24 * 60 * 60
-          }
-        : {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60
-          }
-    );
 
-    const sessionData = {
-      username: resJson.data.username,
-      name: resJson.data.name,
-      email: resJson.data.email,
-      desc: resJson.data.desc,
-      role: resJson.data.role,
-      img: resJson.data.img
-    };
-    const sessionCookieName = `${process.env.SESSION}`;
-    const encryptedData = jwt.sign(sessionData, sessionCookieName, {
-      expiresIn: "10m"
-    });
-
-    nextRes.cookies.set(
-      sessionCookieName,
-      encryptedData,
-      isSecure
-        ? {
-            httpOnly: true,
-            sameSite: "lax",
-            secure: true,
-            maxAge: 1 * 1 * 10
-          }
-        : {
-            httpOnly: true,
-            maxAge: 1 * 1 * 10
-          }
-    );
+    await setCookies(resJson, refreshCookieName);
 
     return nextRes;
   } catch (error) {

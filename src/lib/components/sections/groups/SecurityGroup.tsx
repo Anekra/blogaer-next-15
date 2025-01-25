@@ -15,12 +15,10 @@ export default function SecurityGroup() {
   );
 
   return (
-    <main className="grid w-full max-w-screen-2xl grid-cols-9 gap-8 px-6 py-4 lg:px-8">
-      <React.Fragment>
-        <ChangePassSection isPass={res?.data.userPassword} />
-        <TwoFASection data={res?.data.userTwoFA} />
-        <OauthSection data={res?.data.userOauth} />
-      </React.Fragment>
+    <main className="grid w-full max-w-screen-2xl grid-cols-12 gap-8 px-6 py-4 lg:px-8">
+      <TwoFASection data={res?.data.userTwoFA} />
+      <ChangePassSection isPass={res?.data.userPassword} />
+      <OauthSection data={res?.data.userOauth} />
     </main>
   );
 }

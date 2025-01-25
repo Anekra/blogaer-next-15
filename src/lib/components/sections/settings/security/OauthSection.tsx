@@ -7,7 +7,7 @@ import { UserOauthDto } from "@/lib/types/dto/CommonDto";
 
 export default function OauthSection({ data }: { data?: UserOauthDto }) {
   return (
-    <section className="col-span-9 flex min-w-[420px] flex-col gap-2 rounded-lg ql:max-w-screen-sm xl:col-span-6">
+    <section className="col-span-12 flex min-w-[420px] flex-col gap-2 rounded-lg">
       <h2 className="text-lg font-bold">Oauth Login</h2>
       <div className="glass-container flex flex-col items-center gap-6 p-6 [&>*]:w-full [&>*]:max-w-[420px] ql:[&>*]:max-w-screen-sm">
         <div className="neu-base flex flex-col gap-2 rounded">

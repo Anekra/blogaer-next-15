@@ -1,8 +1,9 @@
+import { FormEvent } from "react";
+
 import userPatchFetch from "@/lib/actions/server/userPatchFetch";
 import { Input } from "@/lib/components/ui/input";
 import { useSession } from "@/lib/contexts/SessionContext";
 import { useToast } from "@/lib/hooks/use-toast";
-import { FormEvent } from "react";
 
 export default function DescriptionForm() {
   const { session } = useSession();
@@ -46,7 +47,7 @@ export default function DescriptionForm() {
       />
       <button
         type="submit"
-        className="btn-outline-base !px-8 opacity-0 duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100"
+        className="btn-outline-base hidden !px-8 group-hover:block"
       >
         {session?.desc ? "Edit" : "Add"}
       </button>

@@ -50,7 +50,7 @@ export default function GitlabForm({ link }: { link?: string }) {
         type="text"
         name="gitlabLink"
         id="gitlab-link"
-        className="peer border-transparent bg-transparent transition-[width] duration-300 focus:placeholder-shown:!ring-destructive-foreground group-hover:bg-base-background/90 group-hover:ring-2 group-hover:ring-white"
+        className="peer border-transparent !bg-transparent transition-[width] focus:placeholder-shown:!ring-destructive-foreground group-hover:!bg-base-background/90 group-hover:ring-2 group-hover:ring-white"
         defaultValue={link || ""}
         placeholder="Your Gitlab profile link"
       />

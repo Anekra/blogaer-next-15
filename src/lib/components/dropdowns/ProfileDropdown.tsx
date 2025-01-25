@@ -108,15 +108,15 @@ export default function ProfileDropdown() {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DialogContent className="flex w-fit flex-col gap-8 px-12 py-10">
+      <DialogContent>
         <DialogTitle>Confirm logout</DialogTitle>
         <DialogDescription>You sure want to logout?</DialogDescription>
-        <div className="flex justify-between gap-4">
-          <DialogClose className="btn-outline-base">CANCEL</DialogClose>
-          <form action={handleLogout}>
+        <div className="mt-6 flex justify-between gap-4">
+          <DialogClose className="btn-outline-base w-full py-3">CANCEL</DialogClose>
+          <form action={handleLogout} className="w-full">
             <DialogClose
               onClick={(e) => e.stopPropagation()}
-              className="btn-solid-p"
+              className="btn-solid-p w-full py-3"
               type="submit"
             >
               LOGOUT

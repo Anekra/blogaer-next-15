@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from "@/lib/components/ui/dialog";
 import { useToast } from "@/lib/hooks/use-toast";
-import { addPasskey } from "@/lib/utils/helper";
+import { registerPasskey } from "@/lib/utils/helper";
 
 export default function UserTwoFADialog({
   setIsPasskey
@@ -20,7 +20,7 @@ export default function UserTwoFADialog({
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const handleAddPasskey = async () => {
-    const resOk = await addPasskey(toast);
+    const resOk = await registerPasskey(toast);
     if (resOk) setIsPasskey(true);
     setOpen(false);
   };
@@ -28,7 +28,7 @@ export default function UserTwoFADialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="btn-solid-base-round hidden shrink-0 group-hover:block">
+      <DialogTrigger className="btn-solid-base-rounder hidden shrink-0 group-hover:block">
         Add new method
       </DialogTrigger>
       <DialogContent>

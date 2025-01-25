@@ -32,12 +32,6 @@ export type Auth = {
   img?: string;
 };
 
-export type AuthJson = {
-  status: string;
-  message: string;
-  data: Auth;
-};
-
 export type RefreshToken = {
   username: string;
   access: string;
@@ -69,3 +63,5 @@ export type SearchParams = { param: string; value: string }[];
 export type CurrentPost = PostDto | PostWithNoUserDto;
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
+
+export type AnyObj = { [key: string]: any };

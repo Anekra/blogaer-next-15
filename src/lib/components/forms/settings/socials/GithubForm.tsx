@@ -50,7 +50,7 @@ export default function GithubForm({ link }: { link?: string }) {
         type="text"
         name="githubLink"
         id="github-link"
-        className="peer border-transparent bg-transparent transition-[width] duration-300 focus:placeholder-shown:!ring-destructive-foreground group-hover:bg-base-background/90"
+        className="peer border-transparent !bg-transparent transition-[width] focus:placeholder-shown:!ring-destructive-foreground group-hover:!bg-base-background/90 group-hover:ring-2 group-hover:ring-white"
         defaultValue={link || ""}
         placeholder="Your Github profile link"
       />

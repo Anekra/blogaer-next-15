@@ -1,8 +1,16 @@
+import { AnyObj, Auth } from "../common";
 import { PostDto, PostWithNoUserDto } from "./PostDto";
 
-export type CommonResponseDto = {
+export type AuthDto = {
   status: string;
-  data?: string;
+  data?: Auth;
+  message?: string;
+  error?: string;
+};
+
+export type CommonDto = {
+  status: string;
+  data?: AnyObj;
   message?: string;
   error?: string;
 };
@@ -36,4 +44,11 @@ export type TwoFADto = {
   twoFAMethod?: string;
   isTwoFAEnabled?: boolean;
   isPasskey?: boolean;
+  isAuthApp?: boolean;
+};
+
+export type SavedAccountsDto = {
+  username: string;
+  email: string;
+  img: string;
 };

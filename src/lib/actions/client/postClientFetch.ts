@@ -1,5 +1,7 @@
+import { AnyObj } from "@/lib/types/common";
+
 export default async function postClientFetch(
-  values: any,
+  values: AnyObj,
   route: string
 ): Promise<boolean> {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}${route}`, {

@@ -10,6 +10,7 @@ import { useNavBar } from "@/lib/contexts/NavBarContext";
 export default function NavBar() {
   const [isScrollingDown, setIsScrollingDown] = useState<boolean | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [scrollCount, setScrollCount] = useState(0);
   const [prevY, setPrevY] = useState(0);
   const { setNavBarCollapsed } = useNavBar();
   const currentPath = usePathname().toLowerCase();
@@ -22,18 +23,21 @@ export default function NavBar() {
       if (!isHeaderFixed) {
         window.onscroll = () => {
           const currentY = window.scrollY;
-          if (prevY > currentY) {
-            setIsScrollingDown(false);
-            setNavBarCollapsed(false);
-          } else if (prevY < currentY) {
-            setIsScrollingDown(true);
-            setNavBarCollapsed(true);
+          if (scrollCount < 2) setScrollCount(scrollCount + 1);
+          if (scrollCount > 1) {
+            if (prevY > currentY) {
+              setIsScrollingDown(false);
+              setNavBarCollapsed(false);
+            } else if (prevY < currentY) {
+              setIsScrollingDown(true);
+              setNavBarCollapsed(true);
+            }
           }
           setPrevY(currentY);
         };
       }
     }
-  }, [prevY, isHeaderFixed, setNavBarCollapsed]);
+  }, [prevY, isHeaderFixed, setNavBarCollapsed, scrollCount]);
 
   if (isMounted) {
     return (
@@ -44,7 +48,7 @@ export default function NavBar() {
             : isScrollingDown && !isHeaderFixed
               ? " fixed"
               : " sticky"
-        }${isScrollingDown && !isHeaderFixed ? " -translate-y-full" : " translate-y-0"}${
+        }${isScrollingDown && !isHeaderFixed && scrollCount > 1 ? " -translate-y-full" : " translate-y-0"}${
           window.scrollY === 0 && isRootPath
             ? ""
             : " bg-background shadow-[0_1.5px_1px_0_rgb(0_0_0/0.3)]"

@@ -41,6 +41,7 @@ export enum HotKeys {
 }
 
 export enum ErrorTypes {
-  FETCH_FAILED_ERROR = "Failed to fetch",
-  UNEXPECTED_ERROR = "An unexpected error occurred"
+  FETCH_FAILED_ERROR = "Failed to fetch!",
+  UNEXPECTED_ERROR = "An unexpected error occurred!",
+  CANCELED_BY_USER = "Login canceled by user!"
 }
