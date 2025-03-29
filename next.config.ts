@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
         hostname: "images.ctfassets.net",
         port: "",
         pathname: "/xz1dnu24egyd/**"
+      },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+        port: "",
+        pathname: "/x5V8Wfe.png"
       }
     ]
   }
