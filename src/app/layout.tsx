@@ -8,8 +8,8 @@ import localFont from "next/font/local";
 import { cookies } from "next/headers";
 import { ViewTransitions } from "next-view-transitions";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sonner";
 
-import { Toaster } from "@/lib/components/ui/toaster";
 import { LoadingProvider } from "@/lib/contexts/LoadingContext";
 import { NextThemesProvider } from "@/lib/contexts/NextThemeProvider";
 import { SessionProvider } from "@/lib/contexts/SessionContext";
@@ -51,7 +51,7 @@ export default async function RootLayout({
                 showSpinner={false}
               />
               <LoadingProvider>
-                {children} <Toaster />
+                {children} <Toaster closeButton richColors />
               </LoadingProvider>
             </NextThemesProvider>
           </SessionProvider>

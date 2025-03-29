@@ -1,23 +1,21 @@
 import { FormEvent } from "react";
+import { toast } from "sonner";
 
 import deleteClientFetch from "@/lib/actions/client/deleteClientFetch";
 import { DialogClose } from "@/lib/components/ui/dialog";
-import { useToast } from "@/lib/hooks/use-toast";
 
 export default function WebAuthnDeleteForm({
   setIsPasskey
 }: {
   setIsPasskey: (value: boolean) => void;
 }) {
-  const { toast } = useToast();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await deleteClientFetch("/user/security/two-fa/passkey");
     setIsPasskey(false);
-    toast({
-      title: "Passkey deleted.",
-      duration: 1500,
-      variant: "success"
+    toast.success("Passkey deleted.", {
+      position: "bottom-right",
+      duration: 1500
     });
   };
 

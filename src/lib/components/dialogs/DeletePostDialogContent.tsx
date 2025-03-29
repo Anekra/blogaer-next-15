@@ -1,5 +1,6 @@
 import { usePathname } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 import deleteClientFetch from "@/lib/actions/client/deleteClientFetch";
 import {
@@ -9,7 +10,6 @@ import {
   DialogTitle
 } from "@/lib/components/ui/dialog";
 import { useCurrentPosts } from "@/lib/contexts/PostsContext";
-import { useToast } from "@/lib/hooks/use-toast";
 
 export default function DeletePostDialogContent({
   postIndex
@@ -21,7 +21,6 @@ export default function DeletePostDialogContent({
   const slugOrId = selectedPost.id;
   const currentPath = usePathname();
   const isDraft = currentPath.startsWith("/blog/post/draft");
-  const { toast } = useToast();
 
   return (
     <DialogContent className="flex w-fit flex-col gap-8 px-12 py-10">
@@ -37,16 +36,13 @@ export default function DeletePostDialogContent({
         <DialogClose
           onClick={async () => {
             await deleteClientFetch(isDraft ? "/draft/" : "/post/", slugOrId);
-            toast({
-              title: "Deleting post",
+            toast.info("Deleting post", {
+              position: "bottom-right",
               duration: 1500,
-              variant: "destructive",
-              onAnimationEndCapture: (e) => {
-                if (e.animationName === "exit") {
-                  setCurrentPosts((posts) =>
-                    posts.filter((_, i) => i !== postIndex)
-                  );
-                }
+              onDismiss() {
+                setCurrentPosts((posts) =>
+                  posts.filter((_, i) => i !== postIndex)
+                );
               }
             });
           }}

@@ -9,7 +9,6 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/lib/components/ui/dialog";
-import { useToast } from "@/lib/hooks/use-toast";
 import { registerPasskey } from "@/lib/utils/helper";
 
 export default function UserTwoFADialog({
@@ -18,9 +17,8 @@ export default function UserTwoFADialog({
   setIsPasskey: (value: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const { toast } = useToast();
   const handleAddPasskey = async () => {
-    const resOk = await registerPasskey(toast);
+    const resOk = await registerPasskey();
     if (resOk) setIsPasskey(true);
     setOpen(false);
   };

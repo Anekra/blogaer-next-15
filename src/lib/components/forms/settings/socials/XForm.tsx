@@ -1,13 +1,12 @@
 import { FormEvent } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import patchClientFetch from "@/lib/actions/client/patchClientFetch";
 import { Input } from "@/lib/components/ui/input";
-import { useToast } from "@/lib/hooks/use-toast";
 import { UrlSchema } from "@/lib/types/zodSchemas";
 
 export default function XForm({ link }: { link?: string }) {
-  const { toast } = useToast();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const xLink = (e.currentTarget.firstChild as HTMLInputElement).value;
@@ -18,24 +17,21 @@ export default function XForm({ link }: { link?: string }) {
         "/user/socials"
       );
       if (response.message) {
-        toast({
-          title: `Your X link has been ${link ? "updated." : "added."}`,
-          duration: 2000,
-          variant: "success"
+        toast.success(`Your X link has been ${link ? "updated." : "added."}`, {
+          position: "bottom-right",
+          duration: 1500
         });
       } else {
-        toast({
-          title: response.error,
-          duration: 2000,
-          variant: "destructive"
+        toast.error(response.error, {
+          position: "bottom-right",
+          duration: 1500
         });
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        toast({
-          title: "Not a valid url!",
-          duration: 2000,
-          variant: "destructive"
+        toast.error("Not a valid url!", {
+          position: "bottom-right",
+          duration: 1500
         });
       }
     }

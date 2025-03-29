@@ -1,5 +1,6 @@
 import { TrashIcon, SmartphoneIcon } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { toast } from "sonner";
 
 import deleteClientFetch from "@/lib/actions/client/deleteClientFetch";
 import {
@@ -10,14 +11,12 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/lib/components/ui/dialog";
-import { useToast } from "@/lib/hooks/use-toast";
 
 export default function AuthAppDeleteDialog({
   setIsAuthApp
 }: {
   setIsAuthApp: (value: boolean) => void;
 }) {
-  const { toast } = useToast();
   const [dialogOpened, setDialogOpened] = useState(false);
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,10 +24,9 @@ export default function AuthAppDeleteDialog({
     if (resOk) {
       setDialogOpened(false);
       setIsAuthApp(false);
-      toast({
-        title: "Authenticator app deleted.",
-        duration: 1500,
-        variant: "success"
+      toast.success("Authenticator app deleted.", {
+        position: "bottom-right",
+        duration: 1500
       });
     }
   };

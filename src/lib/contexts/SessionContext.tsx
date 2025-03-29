@@ -8,10 +8,10 @@ import {
   useEffect,
   useState
 } from "react";
+import { toast } from "sonner";
 import useSWR from "swr";
 
 import logout from "@/lib/actions/server/auth/logout";
-import { useToast } from "@/lib/hooks/use-toast";
 import { Session } from "@/lib/types/common";
 import { newUrl } from "@/lib/utils/helper";
 
@@ -29,7 +29,6 @@ export function SessionProvider({
 }) {
   const [session, setSession] = useState<Session>(null);
   const redirectMessage = useSearchParams().get("redirect");
-  const { toast } = useToast();
   const sessionName = `${process.env.NEXT_PUBLIC_SESSION}`;
   const { data } = useSWR("/api/auth/refresh", async (url) => {
     const sessionToken = localStorage.getItem(sessionName);
@@ -68,22 +67,20 @@ export function SessionProvider({
       localStorage.removeItem("CSRFToken");
       localStorage.setItem(sessionName, userSession);
       const decodedSession = jwt.decode(userSession) as Session;
-      toast({
-        title: "Login successful.",
-        duration: 2000,
-        variant: "success"
+      toast.success("Login successful.", {
+        position: "bottom-right",
+        duration: 2000
       });
       setSession(decodedSession);
     }
 
     if (redirectMessage) {
-      toast({
-        title: redirectMessage,
-        duration: 3000,
-        className: "toast-base"
+      toast(redirectMessage, {
+        position: "bottom-right",
+        duration: 2000
       });
     }
-  }, [sessionName, data, userSession, redirectMessage, toast]);
+  }, [sessionName, data, userSession, redirectMessage]);
 
   return (
     <SessionContext.Provider value={{ session, setSession }}>

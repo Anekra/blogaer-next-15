@@ -28,7 +28,7 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "neu-base bg-background text-foreground",
+        default: "neu-base bg-foreground text-background",
         destructive:
           "neu-base-error group bg-destructive text-foreground",
         success:

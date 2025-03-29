@@ -1,6 +1,7 @@
 import { SmartphoneIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import postClientFetch from "@/lib/actions/client/postClientFetch";
@@ -13,7 +14,6 @@ import {
   DialogTrigger
 } from "@/lib/components/ui/dialog";
 import { useLoading } from "@/lib/contexts/LoadingContext";
-import { useToast } from "@/lib/hooks/use-toast";
 
 type Data = {
   url: string;
@@ -22,7 +22,6 @@ type Data = {
 } | null;
 
 export default function AuthAppAddDialog() {
-  const { toast } = useToast();
   const [data, setData] = useState<Data>(null);
   const [opened, setOpened] = useState(false);
   const handleOpenChange = async (isOpen: boolean) => {
@@ -42,31 +41,28 @@ export default function AuthAppAddDialog() {
     setLoading(true);
     setShowIcon(false);
     try {
-      const res = await postClientFetch(
-        { token, secretId: data?.secretId },
-        "/auth/two-fa/auth-app/verify"
-      );
+      const res = await postClientFetch("/auth/two-fa/auth-app/verify", {
+        token,
+        secretId: data?.secretId
+      });
       if (res) {
         setIsResOk(true);
-        toast({
-          title: "Login successful",
-          duration: 1500,
-          variant: "success"
+        toast.success("Authenticator app successfully added.", {
+          position: "bottom-right",
+          duration: 1500
         });
       } else {
         setIsResOk(false);
-        toast({
-          title: "Login successful",
-          duration: 1500,
-          variant: "destructive"
+        toast.error("Server error please try again later!", {
+          position: "bottom-right",
+          duration: 1500
         });
       }
     } catch (_) {
       setIsResOk(false);
-      toast({
-        title: "Login successful",
-        duration: 1500,
-        variant: "destructive"
+      toast.error("Server currently down please try again later!", {
+        position: "bottom-right",
+        duration: 1500
       });
     } finally {
       setLoading(false);

@@ -1,6 +1,7 @@
 import { SmartphoneIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
+import { toast } from "sonner";
 
 import AuthAppInputForm from "@/lib/components/forms/settings/two-fa/auth-app/AuthAppInputForm";
 import {
@@ -10,7 +11,6 @@ import {
   DialogTitle
 } from "@/lib/components/ui/dialog";
 import { useLoading } from "@/lib/contexts/LoadingContext";
-import { useToast } from "@/lib/hooks/use-toast";
 import { verifyAuthAppLogin } from "@/lib/utils/helper";
 
 export default function AuthAppVerifyDialog({
@@ -20,7 +20,6 @@ export default function AuthAppVerifyDialog({
   username: string;
   openState: [boolean, Dispatch<SetStateAction<boolean>>];
 }) {
-  const { toast } = useToast();
   const router = useRouter();
   const redirectUrl = useSearchParams().get("request_url");
   const { isLoading, setLoading, setShowIcon } = useLoading();
@@ -34,25 +33,22 @@ export default function AuthAppVerifyDialog({
         setIsResOk(true);
         setOpened(false);
         router.replace(redirectUrl || "/home");
-        toast({
-          title: "Login successful.",
-          duration: 1500,
-          variant: "success"
+        toast.success("Login successful.", {
+          position: "bottom-right",
+          duration: 1500
         });
       } else {
         setIsResOk(false);
-        toast({
-          title: "Login failed!",
-          duration: 1500,
-          variant: "destructive"
+        toast.error("Server error please try again later!", {
+          position: "bottom-right",
+          duration: 1500
         });
       }
     } catch (_) {
       setIsResOk(false);
-      toast({
-        title: "Login Failed!",
-        duration: 1500,
-        variant: "destructive"
+      toast.error("Server currently down please try again later!", {
+        position: "bottom-right",
+        duration: 1500
       });
     } finally {
       setLoading(false);

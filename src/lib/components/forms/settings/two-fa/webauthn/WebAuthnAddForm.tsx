@@ -1,7 +1,6 @@
 import { KeyRoundIcon } from "lucide-react";
 import { FormEvent } from "react";
 
-import { useToast } from "@/lib/hooks/use-toast";
 import { registerPasskey } from "@/lib/utils/helper";
 
 export default function WebAuthnAddForm({
@@ -9,10 +8,9 @@ export default function WebAuthnAddForm({
 }: {
   setIsPasskey: (value: boolean) => void;
 }) {
-  const { toast } = useToast();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const resOk = await registerPasskey(toast);
+    const resOk = await registerPasskey();
     if (resOk) setIsPasskey(true);
   };
 

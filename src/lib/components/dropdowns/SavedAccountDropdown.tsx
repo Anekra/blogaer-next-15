@@ -1,5 +1,6 @@
 import { MoreVerticalIcon } from "lucide-react";
 import { FormEvent } from "react";
+import { toast } from "sonner";
 
 import deleteClientFetch from "@/lib/actions/client/deleteClientFetch";
 import {
@@ -9,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/lib/components/ui/dropdown-menu";
-import { useToast } from "@/lib/hooks/use-toast";
 import { SavedAccountsDto } from "@/lib/types/dto/CommonDto";
 
 export default function SavedAccountDropdown({
@@ -25,19 +25,16 @@ export default function SavedAccountDropdown({
     React.SetStateAction<SavedAccountsDto[] | null>
   >;
 }) {
-  const { toast } = useToast();
-
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await deleteClientFetch(`/saved-accounts/${username}/${1538822399}`);
+    await deleteClientFetch(`/saved-accounts/${username}`);
     setSavedAccounts((account) => {
       if (!account) return savedAccounts;
       return account.filter((_, i) => i !== index);
     });
-    toast({
-      title: "Saved account deleted.",
-      duration: 1500,
-      variant: "success"
+    toast.success("Saved account deleted.", {
+      position: "bottom-right",
+      duration: 1500
     });
   };
 

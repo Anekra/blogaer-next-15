@@ -2,13 +2,13 @@ import { UserIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import checkTwoFA from "@/lib/actions/server/auth/checkTwoFA";
 import AuthAppVerifyDialog from "@/lib/components/dialogs/auth-app/AuthAppVerifyDialog";
 import SavedAccountDropdown from "@/lib/components/dropdowns/SavedAccountDropdown";
-import { useToast } from "@/lib/hooks/use-toast";
 import { SavedAccountsDto } from "@/lib/types/dto/CommonDto";
-import { ErrorTypes } from "@/lib/utils/enums";
+import { ErrorType } from "@/lib/utils/enums";
 import { verifyPasskeyLogin } from "@/lib/utils/helper";
 
 export default function SavedAccountCard({
@@ -27,10 +27,8 @@ export default function SavedAccountCard({
   const [opened, setOpened] = useState(false);
   const router = useRouter();
   const redirectUrl = useSearchParams().get("request_url");
-  const { toast } = useToast();
   const handleOnClick = async () => {
     const resCheck = await checkTwoFA(username);
-    console.log(resCheck);
     if (resCheck?.data?.method === "app") {
       setOpened(true);
     } else {
@@ -41,15 +39,18 @@ export default function SavedAccountCard({
         const errorMessage =
           typeof resLogin !== "boolean"
             ? resLogin?.error
-            : ErrorTypes.FETCH_FAILED_ERROR;
-        toast({
-          title: errorMessage,
-          duration: 2000,
-          variant:
-            errorMessage === ErrorTypes.CANCELED_BY_USER
-              ? "default"
-              : "destructive"
-        });
+            : ErrorType.FETCH_FAILED_ERROR;
+        if (errorMessage === ErrorType.CANCELED_BY_USER) {
+          toast.error(errorMessage, {
+            position: "bottom-right",
+            duration: 2000
+          });
+        } else {
+          toast(errorMessage, {
+            position: "bottom-right",
+            duration: 2000
+          });
+        }
       }
     }
   };
