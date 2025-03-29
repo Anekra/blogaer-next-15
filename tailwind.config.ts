@@ -88,20 +88,41 @@ module.exports = {
             height: "0"
           }
         },
-        blink: {
-          "0%": { opacity: 1 },
-          "100%": { opacity: 0 }
+        "fade-in": {
+          from: { opacity: 1 },
+          to: { opacity: 0 }
         },
         fadeout: {
-          "0%": { opacity: 1 },
-          "100%": { opacity: 0 }
+          from: { opacity: 1 },
+          to: { opacity: 0 }
+        },
+        "slide-ltr": {
+          "35%": {
+            opacity: 1,
+          },
+          "40%": {
+            opacity: 0,
+            transform: "translateX(150px)"
+          },
+          "60%": {
+            opacity: 0,
+            transform: "translateX(-150px)"
+          },
+          "61%": {
+            opacity: 1,
+          },
+          "100%": {
+            transform: "translateX(0)"
+          }
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        blink: "blink 1s ease-in infinite",
-        fadeout: "fadeout 3s linear"
+        "fade-in": "fade-in 2s ease-in",
+        "blinking": "fade-in 2s ease-in-out infinite",
+        fadeout: "fadeout 3s ease-out",
+        "slide-ltr": "slide-ltr 2s linear infinite"
       }
     }
   },
