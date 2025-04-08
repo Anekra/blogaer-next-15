@@ -15,6 +15,30 @@
     background: rgb(var(--accent));
     border-radius: 10px;
   }
+  ::-webkit-scrollbar-button:single-button {
+    background-color: rgb(var(--base-background));
+    background-repeat: no-repeat;
+  }
+  ::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-position: center 2px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(100,100,100)' d='M5.143 2.153a1 1 0 0 1 1.715 0l3.999 6.665a1 1 0 0 1-.858 1.515H2.001a1 1 0 0 1-.858-1.515z'/></svg>");
+  }
+  ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(200,200,200)' d='M5.143 2.153a1 1 0 0 1 1.715 0l3.999 6.665a1 1 0 0 1-.858 1.515H2.001a1 1 0 0 1-.858-1.515z'/></svg>");
+  }
+  ::-webkit-scrollbar-button:single-button:vertical:decrement:active {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(255,255,255)' d='M5.143 2.153a1 1 0 0 1 1.715 0l3.999 6.665a1 1 0 0 1-.858 1.515H2.001a1 1 0 0 1-.858-1.515z'/></svg>");
+  }
+  ::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-position: center 2px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(100,100,100)' d='M5.143 9.847a1 1 0 0 0 1.715 0l3.999-6.665a1 1 0 0 0-.858-1.515H2.001a1 1 0 0 0-.858 1.515z'/></svg>");
+  }
+  ::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(200,200,200)' d='M5.143 9.847a1 1 0 0 0 1.715 0l3.999-6.665a1 1 0 0 0-.858-1.515H2.001a1 1 0 0 0-.858 1.515z'/></svg>");
+  }
+  ::-webkit-scrollbar-button:single-button:vertical:increment:active {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(255,255,255)' d='M5.143 9.847a1 1 0 0 0 1.715 0l3.999-6.665a1 1 0 0 0-.858-1.515H2.001a1 1 0 0 0-.858 1.515z'/></svg>");
+  }
 
   /* switch */
   .switch-container {
@@ -41,7 +65,7 @@
 
   /* input */
   input[type="number"] {
-    @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
+    @apply [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
   }
   .otp-input {
     @apply bg-background tracking-[32px] focus:outline-none;
@@ -80,7 +104,7 @@
   .tooltip,
   .tooltip-wysiwyg,
   .tooltip-point {
-    @apply relative flex flex-col;
+    @apply relative flex flex-col items-center justify-center;
   }
   .tooltip-wysiwyg {
     @apply cursor-not-allowed;
@@ -91,16 +115,13 @@
   .tooltip-point:hover::after {
     @apply flex items-center;
   }
-  .tooltip-wysiwyg::before {
-    @apply h-[60px] w-[144px] data-[tooltip-justify=start]:self-start data-[tooltip-justify=end]:self-end data-[tooltip-justify=center]:self-center;
-  }
   .tooltip::before,
   .tooltip-wysiwyg::before,
   .tooltip-point::before {
-    @apply absolute inset-y-0 z-[8] hidden translate-y-[calc((100%+4px)*-1)] rounded bg-base-background px-2 py-1 text-[12px] leading-4 text-foreground content-[attr(data-tooltip-text)];
+    @apply absolute top-0 z-10 hidden translate-y-[calc((100%+4px)*-1)] rounded bg-base-background p-2 text-[12px] text-left font-normal text-base-foreground content-[attr(data-tooltip-text)];
   }
-  .tooltip-point::after {
-    @apply absolute -top-[35%] z-[8] hidden border-8 border-solid border-[rgb(var(--base-background))_transparent_transparent_transparent] content-[''];
+  .tooltip-wysiwyg::before {
+    @apply h-[60px] w-[144px] data-[tooltip-justify=start]:self-start data-[tooltip-justify=end]:self-end data-[tooltip-justify=center]:self-center;
   }
 
   /* truncation */
@@ -284,19 +305,19 @@
       inset -2px -2px 4px rgb(var(--neu-base-top)),
       inset 2px 2px 4px rgb(var(--neu-base-bot));
   }
-  .neu-base-circle {
+  .neu-p-border {
     border: 4px solid transparent;
     background: linear-gradient(
         145deg,
-        rgb(var(--neu-base-top) / 0.5),
-        rgb(var(--neu-base-bot) / 0.5)
+        rgb(var(--neu-p-top) / 0.5),
+        rgb(var(--neu-p-bot) / 0.5)
       )
       border-box;
     box-shadow:
-      -4px -4px 8px rgb(var(--neu-base-top)),
-      4px 4px 8px rgb(var(--neu-base-bot));
+      -4px -4px 8px rgb(var(--neu-p-top)),
+      4px 4px 8px rgb(var(--neu-p-bot));
   }
-  .neu-base-xt {
+  .neu-base-lg {
     box-shadow:
       -6px 0 6px rgb(var(--neu-base-top) / 0.1),
       0 -6px 6px rgb(var(--neu-base-top) / 0.1),
