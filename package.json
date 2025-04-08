@@ -24,6 +24,7 @@
     "@uiw/codemirror-extensions-langs": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.21",
     "autoprefixer": "10.4.15",
+    "caniuse-lite": "^1.0.30001709",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cookies-next": "^4.2.1",
