@@ -4,7 +4,7 @@ import BackBtn from "@/lib/components/buttons/BackBtn";
 import SavedAccountCardsHolder from "@/lib/components/cards/holders/SavedAccountCardsHolder";
 import LogoIcon from "@/lib/components/icons/LogoIcon";
 
-export default async function Login() {
+export default async function LoginPage() {
   return (
     <main className="radial-background relative flex min-h-screen items-center justify-center py-6">
       <BackBtn className="absolute left-0 top-0 m-6" />
