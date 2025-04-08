@@ -1,5 +1,5 @@
 "use server";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { z } from "zod";
 
 import { AuthDto } from "@/lib/types/dto/CommonDto";
@@ -7,18 +7,18 @@ import { LoginFormSchema } from "@/lib/types/zodSchemas";
 
 import setCookies from "./setCookies";
 
-export default async function login(
-  values: z.infer<typeof LoginFormSchema> & { clientId: string }
-) {
+export default async function login(values: z.infer<typeof LoginFormSchema>) {
   try {
+    const cookie = await cookies();
     const url = `${process.env.API_ROUTE}/auth/login`;
     const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-    const cookie = await cookies();
     const refreshToken = cookie.get(refreshCookieName)?.value;
+    const userAgent = (await headers()).get('user-agent');
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "User-Agent": `${userAgent}`,
         Origin: "http://localhost:3000",
         Cookie: `${refreshCookieName}=${refreshToken}`
       },
@@ -35,7 +35,7 @@ export default async function login(
 
     return true;
   } catch (error) {
-    console.error("login.ts ERROR >>>", error);
+    console.error("login.ts >>>", error);
     return false;
   }
 }
