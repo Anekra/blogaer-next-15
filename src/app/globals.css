@@ -79,8 +79,8 @@
     --secondary-foreground: 232 159 58;
     --darker-secondary-foreground: 122 84 31;
 
-    --muted: 38 38 38;
-    --muted-foreground: 163 163 163;
+    --muted: 50 50 50;
+    --muted-foreground: 140 140 140;
 
     --accent: 58 58 58;
     --accent-foreground: 158 158 158;
@@ -115,7 +115,7 @@
   }
 
   body {
-    @apply bg-background text-foreground overflow-x-hidden border-border;
+    @apply overflow-x-hidden border-border bg-background text-foreground;
     font-family: Arial, Helvetica, sans-serif;
   }
   a p,
@@ -128,6 +128,15 @@
     @apply border-neutral-400 dark:border-neutral-700;
   }
   input::placeholder {
-    @apply dark:text-neutral-500 opacity-75;
+    @apply opacity-75 dark:text-neutral-500;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:active,
+  input:-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+  button[type="submit"]:disabled {
+    cursor: not-allowed;
   }
 }
