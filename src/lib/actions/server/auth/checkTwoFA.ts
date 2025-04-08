@@ -21,6 +21,7 @@ export default async function checkTwoFA(
     });
 
     const resJson: CommonDto = await res.json();
+    if (!res.ok) throw new Error(resJson.error);
 
     return resJson;
   } catch (error) {
