@@ -7,7 +7,7 @@ import { useLoading } from "@/lib/contexts/LoadingContext";
 import { newUrl } from "@/lib/utils/helper";
 
 export default function GoogleLoginBtn() {
-  const { setLoading } = useLoading();
+  const { isLoading, setLoading } = useLoading();
   const router = useRouter();
   const redirectUrl = useSearchParams().get("request_url");
   const handleGoogleLogin = async () => {
@@ -40,8 +40,9 @@ export default function GoogleLoginBtn() {
 
   return (
     <button
-      onClick={handleGoogleLogin}
+      onMouseUp={handleGoogleLogin}
       className="text-4xl text-primary-foreground hover:brightness-125"
+      disabled={isLoading}
     >
       <GoogleIcon />
     </button>
