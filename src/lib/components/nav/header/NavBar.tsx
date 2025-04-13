@@ -1,4 +1,5 @@
 "use client";
+import { MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { useEffect, useState } from "react";
@@ -42,21 +43,21 @@ export default function NavBar() {
   if (isMounted) {
     return (
       <header
-        className={`top-0 z-[8] flex h-[66px] w-screen items-center justify-between gap-6 px-6 py-2 transition-transform duration-500${
+        className={`${
           isRootPath
-            ? " fixed"
+            ? "fixed"
             : isScrollingDown && !isHeaderFixed
-              ? " fixed"
-              : " sticky"
-        }${isScrollingDown && !isHeaderFixed && scrollCount > 1 ? " -translate-y-full" : " translate-y-0"}${
+              ? "fixed"
+              : "sticky"
+        } ${isScrollingDown && !isHeaderFixed && scrollCount > 1 ? "-translate-y-full" : "translate-y-0"} ${
           window.scrollY === 0 && isRootPath
-            ? ""
-            : " bg-background shadow-[0_1.5px_1px_0_rgb(0_0_0/0.3)]"
-        }`}
+            ? "bg-transparent"
+            : "bg-background shadow-[0_1.5px_1px_0_rgb(0_0_0/0.3)]"
+        } top-0 z-[8] flex h-[66px] w-screen items-center justify-between gap-6 px-6 py-2 transition-transform duration-500`}
       >
         <div className="flex gap-4">
-          <button className="flex items-center rounded text-6xl active:bg-secondary md:hidden">
-            ☰
+          <button className="flex items-center rounded text-3xl active:bg-secondary md:hidden">
+            <MenuIcon />
           </button>
           <Link href="/">
             <LogoIcon isAtTheTop={prevY === 0 && isRootPath} />
