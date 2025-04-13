@@ -2,7 +2,6 @@ import {
   startAuthentication,
   startRegistration
 } from "@simplewebauthn/browser";
-import { getBrowserFingerprint } from "fingerprint-browser";
 import { nanoid } from "nanoid";
 import {
   BaseSelection,
@@ -13,6 +12,7 @@ import {
   Transforms,
   Node
 } from "slate";
+import { toast } from "sonner";
 
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import postClientFetch from "@/lib/actions/client/postClientFetch";
@@ -22,7 +22,7 @@ import { CustomElement } from "@/lib/types/slate";
 import { UrlSchema } from "@/lib/types/zodSchemas";
 import { LIST_TYPES, VOIDS } from "@/lib/utils/constants";
 import {
-  ErrorTypes,
+  ErrorType,
   HeadingSize,
   WysiwygAlign,
   WysiwygStyle,
@@ -328,7 +328,7 @@ export function generateId() {
   return nanoid(16).replaceAll("-", "~");
 }
 
-export async function registerPasskey(toast: any) {
+export async function registerPasskey() {
   try {
     const resJson = await getClientFetch("/auth/two-fa/webauthn/register");
 
@@ -336,22 +336,19 @@ export async function registerPasskey(toast: any) {
       optionsJSON: resJson.data.options
     });
 
-    const resOk = await postClientFetch(
-      { options: attestationResponse },
-      "/auth/two-fa/webauthn/register"
-    );
+    const resOk = await postClientFetch("/auth/two-fa/webauthn/register", {
+      options: attestationResponse
+    });
 
     if (resOk) {
-      toast({
-        title: "Your Passkey has been added.",
-        duration: 2000,
-        variant: "success"
+      toast.success("Your Passkey has been added.", {
+        position: "bottom-right",
+        duration: 2000
       });
     } else {
-      toast({
-        title: "Error occurred, please try again later.",
-        duration: 2000,
-        variant: "destructive"
+      toast.error("Error occurred, please try again later.", {
+        position: "bottom-right",
+        duration: 2000
       });
     }
 
@@ -363,10 +360,9 @@ export async function registerPasskey(toast: any) {
           ? "Passkey already registered!"
           : error.message
         : "Server error please try again later!";
-    toast({
-      title: errTitle,
-      duration: 2000,
-      variant: "destructive"
+    toast.error(errTitle, {
+      position: "bottom-right",
+      duration: 2000
     });
 
     return false;
@@ -375,7 +371,6 @@ export async function registerPasskey(toast: any) {
 
 export async function verifyPasskeyLogin(emailOrUsername: string) {
   try {
-    const clientId = getBrowserFingerprint();
     const url = "/auth/two-fa/webauthn/login";
     const generateRes = await fetch(
       `${process.env.NEXT_PUBLIC_API_ROUTE}${url}/generate`,
@@ -385,7 +380,7 @@ export async function verifyPasskeyLogin(emailOrUsername: string) {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ emailOrUsername, clientId })
+        body: JSON.stringify({ emailOrUsername })
       }
     );
     if (!generateRes.ok) throw new Error("Generate webauthn login failed!");
@@ -413,14 +408,13 @@ export async function verifyPasskeyLogin(emailOrUsername: string) {
 
     const response = await loginWithPasskey(
       emailOrUsername,
-      attestationResponse.id,
-      clientId
+      attestationResponse.id
     );
 
     return response;
   } catch (error) {
     if (error instanceof Error && error.name === "NotAllowedError") {
-      return { status: "Forbidden", error: ErrorTypes.CANCELED_BY_USER };
+      return { status: "Forbidden", error: ErrorType.CANCELED_BY_USER };
     }
     return false;
   }
@@ -431,8 +425,7 @@ export async function verifyAuthAppLogin(
   token: string
 ) {
   try {
-    const clientId = getBrowserFingerprint();
-    const response = await loginWithAuthApp(emailOrUsername, token, clientId);
+    const response = await loginWithAuthApp(emailOrUsername, token);
 
     return response;
   } catch (error) {
