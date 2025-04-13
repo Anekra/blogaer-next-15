@@ -12,10 +12,18 @@ export const protectedRoutes = [
   "/blog/post/published",
   "/blog/post/create",
   "/blog/post/preview",
-  "/blog/post/edit"
+  "/blog/post/edit",
+  "/request-form"
 ];
 
 export const authRoutes = ["/login", "/register"];
+
+export const requestFormRoutes = [
+  "/request-form/security/add-password",
+  "/request-form/security/reset-password",
+  "/request-form/security/update-username",
+  "/request-form/security/update-email"
+];
 
 export const VALIDATION = {
   USERNAME_EMPTY: "Username cannot be empty!",
@@ -30,7 +38,9 @@ export const VALIDATION = {
   PASSWORD_WHITESPACE: "Password cannot contain whitespace!",
   PASSWORD_STRENGTH:
     "Password must contain at least one uppercase, lowercase, number, and special character!",
-  EMAIL_OR_USERNAME_EMPTY: "Email or username cannot be empty!"
+  EMAIL_OR_USERNAME_EMPTY: "Email or username cannot be empty!",
+  OTP_EMPTY: "Otp code cannot be empty!",
+  OTP_MINIMUM: "Otp code must be 6 digits number!"
 };
 
 export const LIST_TYPES: string[] = [
