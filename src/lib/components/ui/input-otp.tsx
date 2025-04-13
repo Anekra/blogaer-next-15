@@ -36,8 +36,11 @@ InputOTPGroup.displayName = "InputOTPGroup";
 
 const InputOTPSlot = React.forwardRef<
   React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & { index: number }
->(({ index, className, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<"div"> & {
+    index: number;
+    caretClassName?: string;
+  }
+>(({ index, className, caretClassName, ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext);
   const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index];
 
@@ -45,7 +48,7 @@ const InputOTPSlot = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "relative flex h-16 w-16 items-center justify-center border-b-4 border-muted text-[60px] transition-all",
+        "relative flex size-16 items-center justify-center border-b-4 border-muted text-[60px] transition-all",
         isActive && "z-10 border-foreground ring-offset-background",
         className
       )}
@@ -54,7 +57,12 @@ const InputOTPSlot = React.forwardRef<
       {char}
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-12 w-px animate-blink bg-foreground duration-1000" />
+          <div
+            className={cn(
+              "h-12 w-px animate-blinking bg-foreground duration-1000",
+              caretClassName
+            )}
+          />
         </div>
       )}
     </div>
