@@ -1,8 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getBrowserFingerprint } from "fingerprint-browser";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 import checkTwoFA from "@/lib/actions/server/auth/checkTwoFA";
@@ -17,9 +17,8 @@ import {
 } from "@/lib/components/ui/form";
 import { Input } from "@/lib/components/ui/input";
 import { useLoading } from "@/lib/contexts/LoadingContext";
-import { useToast } from "@/lib/hooks/use-toast";
 import { LoginFormSchema } from "@/lib/types/zodSchemas";
-import { ErrorTypes } from "@/lib/utils/enums";
+import { ErrorType } from "@/lib/utils/enums";
 import { verifyPasskeyLogin } from "@/lib/utils/helper";
 
 type FormValues = {
@@ -29,7 +28,6 @@ type FormValues = {
 
 export default function LoginForm() {
   const { setLoading } = useLoading();
-  const { toast } = useToast();
   const router = useRouter();
   const redirectUrl = useSearchParams().get("request_url");
   const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -42,13 +40,11 @@ export default function LoginForm() {
   });
   const handleLogin = async (values: FormValues) => {
     setLoading(true);
-    const clientId = getBrowserFingerprint();
-
     const isTwoFAResOk = await checkTwoFA(values.emailOrUsername);
 
     let response = null;
     if (!isTwoFAResOk) {
-      response = await login({ ...values, clientId });
+      response = await login(values);
     } else {
       response = await verifyPasskeyLogin(values.emailOrUsername);
     }
@@ -66,11 +62,10 @@ export default function LoginForm() {
       const errorMessage =
         typeof response !== "boolean"
           ? response?.error
-          : ErrorTypes.FETCH_FAILED_ERROR;
-      toast({
-        title: errorMessage,
-        duration: 2000,
-        variant: "destructive"
+          : ErrorType.FETCH_FAILED_ERROR;
+      toast.error(errorMessage, {
+        position: "bottom-right",
+        duration: 1500
       });
     } else {
       router.replace(redirectUrl || "/home");
@@ -82,8 +77,8 @@ export default function LoginForm() {
     <FormProvider {...form}>
       <form
         method="POST"
-        onSubmit={form.handleSubmit(async (values) => handleLogin(values))}
         className="flex flex-col"
+        onSubmit={form.handleSubmit(async (values) => handleLogin(values))}
         noValidate
       >
         <FormField
@@ -91,7 +86,7 @@ export default function LoginForm() {
           name="emailOrUsername"
           render={({ field, fieldState }) => (
             <FormItem
-              className={`flex flex-col${fieldState.error ? " mb-2" : " mb-4"}`}
+              className={`${fieldState.error ? "mb-2" : "mb-4"} flex flex-col`}
             >
               <div className="flex items-center">
                 <FormLabel>Email or username</FormLabel>
