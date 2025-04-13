@@ -33,15 +33,30 @@ export enum HeadingSize {
   H = "text-5xl"
 }
 
-export enum HotKeys {
+export enum HotKey {
   "mod+b" = "bold",
   "mod+i" = "italic",
   "mod+u" = "underline",
   "mod+delete" = "strikethrough"
 }
 
-export enum ErrorTypes {
+export enum ErrorType {
   FETCH_FAILED_ERROR = "Failed to fetch!",
   UNEXPECTED_ERROR = "An unexpected error occurred!",
   CANCELED_BY_USER = "Login canceled by user!"
+}
+
+export enum RedirectParam {
+  RequestExpired = "Request expired."
+}
+
+export enum EmailSubject {
+  AddPassword = "add-password",
+  ResetPassword = "reset-password",
+  UpdateEmail = "update-email",
+  UpdateUsername = "update-username"
+}
+
+export enum EmailInfo {
+  Success = "Email has been sent successfully, please check your email."
 }
