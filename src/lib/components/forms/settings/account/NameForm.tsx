@@ -1,32 +1,29 @@
 import { FormEvent } from "react";
+import { toast } from "sonner";
 
-import userPatchFetch from "@/lib/actions/server/userPatchFetch";
+import userPatch from "@/lib/actions/server/userPatch";
 import { Input } from "@/lib/components/ui/input";
 import { useSession } from "@/lib/contexts/SessionContext";
-import { useToast } from "@/lib/hooks/use-toast";
 
 export default function NameForm() {
   const { session } = useSession();
-  const { toast } = useToast();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const name = (e.currentTarget.firstChild as HTMLInputElement).value;
-    const response = await userPatchFetch(session, { name });
+    const response = await userPatch(session, { name });
     if (response.session) {
       localStorage.setItem(
         `${process.env.NEXT_PUBLIC_SESSION}`,
         response.session
       );
-      toast({
-        title: "Display name updated successfully.",
-        duration: 2000,
-        variant: "success"
+      toast.success("Display name updated successfully.", {
+        position: "bottom-right",
+        duration: 1500
       });
     } else {
-      toast({
-        title: response.error,
-        duration: 2000,
-        variant: "destructive"
+      toast.error(response.error, {
+        position: "bottom-right",
+        duration: 1500
       });
     }
   };

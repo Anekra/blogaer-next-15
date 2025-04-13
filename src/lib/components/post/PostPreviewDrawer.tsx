@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
+import { toast } from "sonner";
 
 import postClientFetch from "@/lib/actions/client/postClientFetch";
 import FullPreviewDialog from "@/lib/components/dialogs/FullPreviewDialog";
@@ -16,7 +17,6 @@ import {
 import { useContent } from "@/lib/contexts/ContentContext";
 import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useSession } from "@/lib/contexts/SessionContext";
-import { useToast } from "@/lib/hooks/use-toast";
 import useViewConfig from "@/lib/hooks/useViewConfig";
 import { generateId, getTotalWords } from "@/lib/utils/helper";
 
@@ -28,7 +28,6 @@ export default function PostPreviewDrawer() {
   const { content } = useContent();
   const { setLoading } = useLoading();
   const { tags } = useContent();
-  const { toast } = useToast();
   const words = getTotalWords(content);
   const publishPost = async () => {
     const username = session?.username;
@@ -36,24 +35,22 @@ export default function PostPreviewDrawer() {
     setLoading(true);
     const id = generateId();
     const title = `${content[0].children[0].text}`;
-    const resOk = await postClientFetch({ id, title, content, tags }, "/post");
+    const resOk = await postClientFetch("/post", { id, title, content, tags });
     if (resOk) {
       router.push(
         `/blog/${username.toLowerCase()}/${title
           .replace(/\s+/g, "-")
           .toLowerCase()}-${id}`
       );
-      toast({
-        title: "Adding post",
-        duration: 3000,
-        className: "toast-base"
+      toast.info("Adding post", {
+        position: "bottom-right",
+        duration: 2000
       });
       setLoading(false);
     } else {
-      toast({
-        title: "Error occurred. please try again later",
-        duration: 3000,
-        className: "toast-base"
+      toast.error("Server error, please try again later", {
+        position: "bottom-right",
+        duration: 1500
       });
       setLoading(false);
     }

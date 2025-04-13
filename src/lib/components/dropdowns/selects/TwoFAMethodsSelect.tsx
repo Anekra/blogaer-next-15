@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 import patchClientFetch from "@/lib/actions/client/patchClientFetch";
 import {
   Select,
@@ -7,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/lib/components/ui/select";
-import { useToast } from "@/lib/hooks/use-toast";
 
 export default function TwoFAMethodsSelect({
   twoFAMethod,
@@ -16,21 +17,18 @@ export default function TwoFAMethodsSelect({
   twoFAMethod?: string;
   handleOptionChange: (value: string) => void;
 }) {
-  const { toast } = useToast();
   const handleOnValueChange = async (v: string) => {
     handleOptionChange(v);
     const res = await patchClientFetch({ twoFaMethod: v }, "/user/settings");
     if (res) {
-      toast({
-        title: "Two factor authentication method changed successfully.",
-        duration: 1800,
-        variant: "success"
+      toast.success("Two factor authentication method changed successfully.", {
+        position: "bottom-right",
+        duration: 1500
       });
     } else {
-      toast({
-        title: "Something went wrong please try again later!",
-        duration: 1800,
-        variant: "destructive"
+      toast.success("Server error, please try again later!", {
+        position: "bottom-right",
+        duration: 1500
       });
     }
   };

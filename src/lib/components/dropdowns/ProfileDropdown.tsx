@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Link } from "next-view-transitions";
+import { toast } from "sonner";
 
 import logout from "@/lib/actions/server/auth/logout";
 import {
@@ -25,7 +26,6 @@ import {
 } from "@/lib/components/ui/dropdown-menu";
 import ThemeSwitch from "@/lib/components/widgets/ThemeSwitch";
 import { useSession } from "@/lib/contexts/SessionContext";
-import { toast } from "@/lib/hooks/use-toast";
 
 export default function ProfileDropdown() {
   const { session, setSession } = useSession();
@@ -36,10 +36,9 @@ export default function ProfileDropdown() {
     setSession(null);
     await logout();
     router.push("/");
-    toast({
-      title: "Logout successful.",
-      duration: 2000,
-      variant: "success"
+    toast.success("Logout successful.", {
+      position: "bottom-right",
+      duration: 2000
     });
   };
 
@@ -76,7 +75,7 @@ export default function ProfileDropdown() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/settings" className="w-full">
+              <Link href="/settings/account" className="w-full">
                 Settings
               </Link>
             </DropdownMenuItem>
@@ -111,18 +110,21 @@ export default function ProfileDropdown() {
       <DialogContent>
         <DialogTitle>Confirm logout</DialogTitle>
         <DialogDescription>You sure want to logout?</DialogDescription>
-        <div className="mt-6 flex justify-between gap-4">
-          <DialogClose className="btn-outline-base w-full py-3">CANCEL</DialogClose>
-          <form action={handleLogout} className="w-full">
-            <DialogClose
-              onClick={(e) => e.stopPropagation()}
-              className="btn-solid-p w-full py-3"
-              type="submit"
-            >
-              LOGOUT
-            </DialogClose>
-          </form>
-        </div>
+        <form
+          action={handleLogout}
+          className="mt-6 flex justify-between gap-4 *:basis-full"
+        >
+          <DialogClose type="button" className="btn-outline-base-rounder">
+            CANCEL
+          </DialogClose>
+          <DialogClose
+            onClick={(e) => e.stopPropagation()}
+            className="btn-solid-p-rounder"
+            type="submit"
+          >
+            LOGOUT
+          </DialogClose>
+        </form>
       </DialogContent>
     </Dialog>
   );
