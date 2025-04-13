@@ -8,7 +8,6 @@ import UserTwoFADialog from "@/lib/components/dialogs/UserTwoFADialog";
 import WebAuthnDeleteDialog from "@/lib/components/dialogs/webauthn/WebAuthnDeleteDialog";
 import TwoFAMethodsSelect from "@/lib/components/dropdowns/selects/TwoFAMethodsSelect";
 import WebAuthnAddForm from "@/lib/components/forms/settings/two-fa/webauthn/WebAuthnAddForm";
-import TokenTest from "@/lib/components/TokenTest";
 import OnOffSwitch from "@/lib/components/widgets/OnOffSwitch";
 import { TwoFADto } from "@/lib/types/dto/CommonDto";
 
@@ -86,13 +85,6 @@ export default function TwoFASection({ data }: { data?: TwoFADto }) {
             ) : (
               <AuthAppAddDialog />
             )}
-            <div className="flex items-center justify-between gap-2">
-              <span className="flex gap-2">
-                <KeyRoundIcon />
-                <label>TOKEN</label>
-              </span>
-              <TokenTest />
-            </div>
           </div>
         </div>
       </div>
