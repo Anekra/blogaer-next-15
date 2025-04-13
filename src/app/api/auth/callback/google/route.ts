@@ -53,17 +53,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const states = state.split("-");
-    const fingerPrint = states[states.length - 1];
     const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
     const cookie = await cookies();
     const refreshToken = cookie.get(refreshCookieName)?.value;
+    const userAgent = request.headers.get("user-agent");
     const res = await fetch(`${process.env.API_ROUTE}/auth/google`, {
       method: "GET",
       credentials: "include",
       headers: {
-        Authorization: `Oauth2 ${code}-${fingerPrint}`,
+        Authorization: `Oauth2 ${code}`,
         "Content-Type": "application/json",
+        "User-Agent": `${userAgent}`,
         Origin: "http://localhost:3000",
         Cookie: `${refreshCookieName}=${refreshToken}`
       }
