@@ -62,7 +62,7 @@ export default function AuthAppInputForm({
                   name="token"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="otp">
+                      <FormLabel htmlFor="token">
                         Enter the token in your authenticator app here
                       </FormLabel>
                       <FormControl>
@@ -71,7 +71,7 @@ export default function AuthAppInputForm({
                           inputMode="numeric"
                           maxLength={6}
                           {...field}
-                          id="otp"
+                          id="token"
                           className="group"
                           onChange={handleTokenChange}
                         >
