@@ -81,41 +81,42 @@ export default function OauthSection({ data }: { data?: UserOauthDto }) {
             )}
           </div>
         </div>
-        <div className="neu-base flex flex-col rounded">
-          <h3 className="rounded-t-sm bg-base-foreground/10 px-4 py-2 text-center font-semibold">
-            Remove oauth associations
-          </h3>
-          <div className="flex flex-col gap-4 p-4">
-            {data?.github && (
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="relative flex size-7 justify-center rounded-3xl bg-foreground text-2xl [&>*]:absolute [&>*]:bottom-[-1.5px] [&>*]:fill-background [&>*]:stroke-background">
-                    <GithubIcon />
-                  </span>
-                  <p>{"github.com"}</p>
+        {(data?.github || data?.apple || data?.google || data?.microsoft) && (
+          <div className="neu-base flex flex-col rounded">
+            <h3 className="rounded-t-sm bg-base-foreground/10 px-4 py-2 text-center font-semibold">
+              Remove oauth associations
+            </h3>
+            <div className="flex flex-col gap-4 p-4">
+              {data?.github && (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex size-7 justify-center rounded-3xl bg-foreground text-2xl [&>*]:absolute [&>*]:bottom-[-1.5px] [&>*]:fill-background [&>*]:stroke-background">
+                      <GithubIcon />
+                    </span>
+                    <p>{"github.com"}</p>
+                  </div>
+                  <button className="btn-text-destructive">Remove</button>
                 </div>
-                <button className="btn-text-destructive">Remove</button>
-              </div>
-            )}
-            {data?.apple && (
-              <div className="flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 text-3xl">
-                  <AppleIcon />
-                  <p className="text-base">apple.com</p>
-                </span>
-                <button className="btn-text-destructive">Remove</button>
-              </div>
-            )}
-            {data?.google && (
-              <div className="flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 text-3xl">
-                  <GoogleIcon colored />
-                  <p className="text-base">andika.eka.102@gmail.com</p>
-                </span>
-                <button className="btn-text-destructive">Remove</button>
-              </div>
-            )}
-            {/* {data?.gitlab && (
+              )}
+              {data?.apple && (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 text-3xl">
+                    <AppleIcon />
+                    <p className="text-base">apple.com</p>
+                  </span>
+                  <button className="btn-text-destructive">Remove</button>
+                </div>
+              )}
+              {data?.google && (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 text-3xl">
+                    <GoogleIcon colored />
+                    <p className="text-base">andika.eka.102@gmail.com</p>
+                  </span>
+                  <button className="btn-text-destructive">Remove</button>
+                </div>
+              )}
+              {/* {data?.gitlab && (
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <span className="text-3xl [&>*]:fill-[#E24329] [&>*]:stroke-none">
@@ -159,17 +160,18 @@ export default function OauthSection({ data }: { data?: UserOauthDto }) {
                 <button className="btn-text-destructive">Remove</button>
               </div>
             )} */}
-            {data?.microsoft && (
-              <div className="flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 text-3xl">
-                  <MicrosoftIcon />
-                  <p className="text-base">microsoft.com</p>
-                </span>
-                <button className="btn-text-destructive">Remove</button>
-              </div>
-            )}
+              {data?.microsoft && (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 text-3xl">
+                    <MicrosoftIcon />
+                    <p className="text-base">microsoft.com</p>
+                  </span>
+                  <button className="btn-text-destructive">Remove</button>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
