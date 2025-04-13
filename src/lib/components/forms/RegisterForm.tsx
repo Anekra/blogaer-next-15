@@ -30,8 +30,8 @@ export default function RegisterForm() {
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((values) => register(values))}
         className="flex flex-col gap-4"
+        onSubmit={form.handleSubmit((values) => register(values))}
         noValidate
       >
         <FormField

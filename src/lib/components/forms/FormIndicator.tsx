@@ -12,9 +12,11 @@ export default function FormIndicator({
 }) {
   if (fieldError?.message) {
     return (
-      <p className="pe-1 text-lg font-black text-destructive-foreground">!</p>
+      <p className="pe-1 text-sm font-black leading-none text-destructive-foreground">
+        !
+      </p>
     );
   } else if (!fieldError && value && formType === "register") {
-    return <p className="text-lg text-green-500">✔</p>;
+    return <p className="text-sm text-green-500">✔</p>;
   }
 }
