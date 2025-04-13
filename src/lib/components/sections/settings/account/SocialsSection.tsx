@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import useSWRImmutable from "swr/immutable";
 
-import getClientFetch from "@/lib/actions/client/getClientFetch";
 import FacebookForm from "@/lib/components/forms/settings/socials/FacebookForm";
 import GithubForm from "@/lib/components/forms/settings/socials/GithubForm";
 import GitlabForm from "@/lib/components/forms/settings/socials/GitlabForm";
@@ -15,14 +13,9 @@ import GitlabIcon from "@/lib/components/icons/GitlabIcon";
 import InstagramIcon from "@/lib/components/icons/InstagramIcon";
 import XIcon from "@/lib/components/icons/XIcon";
 import YoutubeIcon from "@/lib/components/icons/YoutubeIcon";
-import { GetSocialsDto } from "@/lib/types/dto/GetDto";
+import type { GetSocialsDto } from "@/lib/types/dto/CommonDto";
 
-export default function SocialsSection() {
-  const { data: res } = useSWRImmutable<GetSocialsDto>(
-    "/user/account/socials",
-    getClientFetch
-  );
-
+export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
   return (
     <section className="flex grow flex-col gap-2 rounded-lg">
       <h2 className="text-lg font-bold">Social/Other Accounts</h2>
@@ -45,7 +38,7 @@ export default function SocialsSection() {
               </span>
               <label htmlFor="github-link">Github</label>
             </div>
-            <GithubForm link={res?.data.github} />
+            <GithubForm link={data?.github || ""} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -61,7 +54,7 @@ export default function SocialsSection() {
               </span>
               <label htmlFor="instagram-link">Instagram</label>
             </div>
-            <InstagramForm link={res?.data.instagram} />
+            <InstagramForm link={data?.instagram || ""} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -81,7 +74,7 @@ export default function SocialsSection() {
               </span>
               <label htmlFor="x-link">X</label>
             </div>
-            <XForm link={res?.data.x} />
+            <XForm link={data?.x || ""} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -97,7 +90,7 @@ export default function SocialsSection() {
               </span>
               <label htmlFor="youtube-link">Youtube</label>
             </div>
-            <YoutubeForm link={res?.data.youtube} />
+            <YoutubeForm link={data?.youtube || ""} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -113,7 +106,7 @@ export default function SocialsSection() {
               </span>
               <h3>Facebook</h3>
             </div>
-            <FacebookForm link={res?.data.facebook} />
+            <FacebookForm link={data?.facebook || ""} />
           </div>
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
@@ -133,7 +126,7 @@ export default function SocialsSection() {
               </span>
               <h3>Gitlab</h3>
             </div>
-            <GitlabForm link={res?.data.gitlab} />
+            <GitlabForm link={data?.gitlab || ""} />
           </div>
         </div>
       </div>
