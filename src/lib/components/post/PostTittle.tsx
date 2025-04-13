@@ -1,6 +1,8 @@
-import Image from "next/image";
 import React from "react";
 import { RenderElementProps } from "slate-react";
+
+import LikeIt from "@/lib/components/icons/thoughts/LikeIt";
+import LoveIt from "@/lib/components/icons/thoughts/LoveIt";
 
 export default function PostTittle({
   props,
@@ -18,9 +20,9 @@ export default function PostTittle({
     <React.Fragment>
       <h1
         {...attributes}
-        className={`text-5xl font-bold ${element.headingSize} ${element.align}${
-          !text && !viewOnly ? " ph relative" : ""
-        }${tags ? " mb-4" : ""}`}
+        className={`${
+          !text && !viewOnly ? "ph relative" : "static"
+        } ${tags ? "mb-4" : "mb-0"} ${element.headingSize} ${element.align} text-5xl font-bold`}
       >
         {children}
       </h1>
@@ -33,27 +35,13 @@ export default function PostTittle({
               </span>
             ))}
           </div>
-          <div className="[&>*]:tooltip flex items-center gap-4 [&>*]:flex [&>*]:items-center [&>*]:gap-1">
-            <div data-text="Comments">
-              <Image
-                src="/like_it.svg"
-                alt="Like it thought icon"
-                width={50}
-                height={50}
-                priority
-                className="flex items-center justify-center [&>*]:size-6"
-              />
+          <div className="*:tooltip flex items-center gap-4 *:flex *:items-center *:gap-1">
+            <div data-tooltip-text="Comments">
+              <LikeIt />
               <p>0</p>
             </div>
-            <div data-text="Reads">
-              <Image
-                src="/love_it.svg"
-                alt="Love it thought icon"
-                width={50}
-                height={50}
-                priority
-                className="flex items-center justify-center [&>*]:size-6"
-              />
+            <div data-tooltip-text="Reads">
+              <LoveIt />
               <p>0</p>
             </div>
           </div>
