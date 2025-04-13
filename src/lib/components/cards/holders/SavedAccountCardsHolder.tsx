@@ -1,7 +1,6 @@
 "use client";
-import { getBrowserFingerprint } from "fingerprint-browser";
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import GoogleLoginBtn from "@/lib/components/buttons/GoogleLoginBtn";
@@ -10,19 +9,18 @@ import LoginForm from "@/lib/components/forms/LoginForm";
 import { SavedAccountsDto } from "@/lib/types/dto/CommonDto";
 import { GetSavedAccounts } from "@/lib/types/dto/GetDto";
 
+import GithubLoginBtn from "../../buttons/GithubLoginBtn";
+
 export default function SavedAccountCardsHolder() {
   const [isSavedAccounts, setIsSavedAccounts] = useState(true);
   const [currentData, setCurrentData] = useState<SavedAccountsDto[] | null>(
     null
   );
-  const { data: res } = useSWR<GetSavedAccounts>(
-    `/saved-accounts/`,
-    async (url: string) => {
-      const clientId = getBrowserFingerprint();
-      return await getClientFetch(`${url}${clientId}`);
-    }
-  );
   const handleOnClick = () => setIsSavedAccounts(false);
+  const { data: res } = useSWRImmutable<GetSavedAccounts>(
+    `/saved-accounts/`,
+    getClientFetch
+  );
 
   useEffect(() => {
     if (res?.data) setCurrentData(res.data);
@@ -62,7 +60,10 @@ export default function SavedAccountCardsHolder() {
               Login with different account
             </button>
           ) : (
-            <GoogleLoginBtn />
+            <React.Fragment>
+              <GoogleLoginBtn />
+              <GithubLoginBtn />
+            </React.Fragment>
           )}
         </div>
       </div>
