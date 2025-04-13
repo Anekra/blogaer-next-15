@@ -52,3 +52,23 @@ export type SavedAccountsDto = {
   email: string;
   img: string;
 };
+
+export type UserRequestDto = {
+  request: string;
+  limit: number;
+  status: string;
+};
+
+export type EmailUsernameRequestDto = {
+  emailRequest: boolean;
+  usernameRequest: boolean;
+};
+
+export type GetSocialsDto = {
+  github: string;
+  instagram: string;
+  x: string;
+  youtube: string;
+  facebook: string;
+  gitlab: string;
+};

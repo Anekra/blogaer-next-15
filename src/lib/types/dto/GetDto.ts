@@ -1,9 +1,12 @@
 import {
+  EmailUsernameRequestDto,
+  GetSocialsDto,
   PagedPostDto,
   PagedPostWithNoUserDto,
   SavedAccountsDto,
   TwoFADto,
-  UserOauthDto
+  UserOauthDto,
+  UserRequestDto
 } from "./CommonDto";
 import { PostDto } from "./PostDto";
 
@@ -22,28 +25,32 @@ export type GetPostsByUserIdDto = {
   data: PagedPostWithNoUserDto;
 };
 
-export type GetSocialsDto = {
+export type GetAccountSectionDto = {
   status: string;
   data: {
-    github: string;
-    instagram: string;
-    x: string;
-    youtube: string;
-    facebook: string;
-    gitlab: string;
+    userRequests: EmailUsernameRequestDto;
+    socials: GetSocialsDto;
   };
 };
 
-export type GetSecurityDto = {
+export type GetSecuritySectionDto = {
   status: string;
   data: {
     userPassword?: boolean;
     userTwoFA: TwoFADto;
     userOauth: UserOauthDto;
+    userRequest: UserRequestDto;
   };
 };
 
 export type GetSavedAccounts = {
   status: string;
   data: SavedAccountsDto[];
+};
+
+export type GetOtpTimeDto = {
+  status: string;
+  data: {
+    time: string;
+  };
 };
