@@ -16,7 +16,7 @@ import useSelection from "@/lib/hooks/useSelection";
 import { PostDto } from "@/lib/types/dto/PostDto";
 import { CustomElement } from "@/lib/types/slate";
 import { INITIAL_VALUE, VOIDS } from "@/lib/utils/constants";
-import { HotKeys } from "@/lib/utils/enums";
+import { HotKey } from "@/lib/utils/enums";
 import {
   collapseSelection,
   generateId,
@@ -69,12 +69,12 @@ export default function PostEditor({
         if (title) {
           const id = generateId();
           await postClientFetch(
+            "/draft",
             {
               id,
               title,
               content: value
-            },
-            "/draft"
+            }
           );
           history.replaceState(null, "", `/blog/post/edit/draft/${id}`);
         }
@@ -143,10 +143,10 @@ export default function PostEditor({
             renderLeaf={renderLeaf}
             onFocus={() => setSelection(selection)}
             onKeyDown={(e) => {
-              Object.keys(HotKeys).forEach((key) => {
+              Object.keys(HotKey).forEach((key) => {
                 if (isHotkey(key, e)) {
                   e.preventDefault();
-                  const style = HotKeys[key as keyof typeof HotKeys];
+                  const style = HotKey[key as keyof typeof HotKey];
                   toggleStyle(editor, style);
                 }
               });

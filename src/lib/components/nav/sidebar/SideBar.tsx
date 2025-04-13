@@ -162,9 +162,9 @@ export default function SideBar() {
             </span>
           )}
           <Link
-            href="/settings"
+            href="/settings/account"
             className={`${
-              currentPath === "/settings" ? "bg-foreground/25 font-bold" : ""
+              currentPath === "/settings/account" ? "bg-foreground/25 font-bold" : ""
             } ${
               isCollapsed ? "flex-col items-center" : "gap-4"
             } flex justify-center rounded p-2`}

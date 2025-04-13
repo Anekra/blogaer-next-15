@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export default async function logout() {
   const accessCookieName = `${process.env.ACCESS_TOKEN}`;
   const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-  const url = `${process.env.API_ROUTE}/logout`;
+  const url = `${process.env.API_ROUTE}/auth/logout`;
   const cookie = await cookies();
   const refreshToken = cookie.get(refreshCookieName)?.value;
   cookie.delete(accessCookieName);

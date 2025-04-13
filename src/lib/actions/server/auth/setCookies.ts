@@ -8,6 +8,7 @@ export default async function setCookies(
   responseJson: AuthDto,
   refreshCookieName: string
 ) {
+  if (!responseJson.data) return;
   const cookie = await cookies();
   const isSecure = process.env.NODE_ENV === "production";
   // access cookie

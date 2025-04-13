@@ -56,13 +56,13 @@ export default function UserProfilePage() {
           Joined since 30 Des 2024
         </p>
         <div className="flex w-full grow justify-center">
-          <button className="btn-solid-p-round grow self-end font-bold">
+          <button className="btn-solid-p-rounder grow self-end font-bold">
             FOLLOW
           </button>
         </div>
       </aside>
       <main className="group flex grow flex-col">
-        <nav className="neu-base-xt z-[1] flex w-fit rounded-lg">
+        <nav className="neu-base-lg z-[1] flex w-fit rounded-lg">
           <input
             type="radio"
             id="blog-tab"

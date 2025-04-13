@@ -24,9 +24,9 @@ export default function SettingsSB() {
           <h1 className="text-xl font-bold text-accent-foreground">Settings</h1>
           <div className="flex h-fit w-full flex-col text-sm lg:text-base [&>*]:rounded [&>*]:px-2 hover:[&>*]:bg-foreground/5">
             <Link
-              href="/settings"
+              href="/settings/account"
               className={`flex w-full flex-col items-center py-2 lg:items-start${
-                currentPath === "/settings"
+                currentPath === "/settings/account"
                   ? " pointer-events-none bg-foreground/25 font-bold"
                   : " text-muted-foreground hover:text-base-foreground"
               }`}
