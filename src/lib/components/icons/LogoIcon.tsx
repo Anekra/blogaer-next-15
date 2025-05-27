@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils/shadcn';
+import { cn } from "@/lib/utils/shadcn";
 
 export default function LogoIcon({
-  className = 'h-[50px] w-[80px] text-primary-foreground',
+  className = "h-[50px] w-[80px] text-primary-foreground",
   isAtTheTop
 }: {
   className?: string;
@@ -14,11 +14,11 @@ export default function LogoIcon({
       viewBox="0 0 182 110"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
-        `fill-current hover:[filter:url(#filter-convex)] active:[filter:url(#filter-inset)]${
+        `${
           isAtTheTop
-            ? ' hover:fill-[url(#gradient-p-convex)] active:fill-[rgb(163_95_57)] dark:active:fill-[rgb(238,184,153)]'
-            : ' hover:fill-[url(#gradient-base-convex)] active:fill-[rgb(var(--accent))]'
-        }`,
+            ? "hover:fill-[url(#gradient-p-convex)] active:fill-[rgb(163_95_57)] dark:active:fill-[rgb(238,184,153)]"
+            : "hover:fill-[url(#gradient-base-convex)] active:fill-[rgb(var(--accent))]"
+        } fill-current hover:[filter:url(#filter-convex)] active:[filter:url(#filter-inset)]`,
         className
       )}
     >
