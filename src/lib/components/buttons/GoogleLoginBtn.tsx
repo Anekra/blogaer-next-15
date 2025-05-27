@@ -29,9 +29,21 @@ export default function GoogleLoginBtn() {
 
     if (res.status === 302 && paramState === localState) {
       router.replace(resJson.url);
-    } else {
+    } else if (paramState !== localState) {
       setLoading(false);
       toast.error("Request denied, CSRF detected!", {
+        position: "bottom-right",
+        duration: 2000
+      });
+    } else if (res.status === 408) {
+      setLoading(false);
+      toast.error("Request timeout!", {
+        position: "bottom-right",
+        duration: 2000
+      });
+    } else {
+      setLoading(false);
+      toast.error("Server error, please try again later!", {
         position: "bottom-right",
         duration: 2000
       });
