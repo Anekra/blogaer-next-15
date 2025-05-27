@@ -70,6 +70,8 @@ export async function GET(request: NextRequest) {
     });
     const resJson = await res.json();
 
+    console.log("res.status >>", res.status);
+
     const redirectCookie = request.cookies.get("redirectUrl")?.value;
     if (!res.ok) {
       if (redirectCookie) errRedirect.cookies.delete("redirectUrl");
