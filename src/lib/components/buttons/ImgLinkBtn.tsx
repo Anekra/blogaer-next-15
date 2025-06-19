@@ -1,5 +1,7 @@
-import { Link2 } from 'lucide-react';
-import React, { useRef } from 'react';
+import { Link2 } from "lucide-react";
+import React, { useRef } from "react";
+import { useSlate } from "slate-react";
+
 import {
   Dialog,
   DialogContent,
@@ -7,25 +9,23 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from '../ui/dialog';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { setImageElement } from '@/lib/utils/helper';
-import { useSlate } from 'slate-react';
+} from "@/lib/components/ui/dialog";
+import { Input } from "@/lib/components/ui/input";
+import { Label } from "@/lib/components/ui/label";
+import { setImageElement } from "@/lib/utils/helper";
 
 export default function ImgLinkBtn() {
   const editor = useSlate();
   const linkRef = useRef<HTMLInputElement>(null);
   const captionRef = useRef<HTMLInputElement>(null);
   const altRef = useRef<HTMLInputElement>(null);
+
   return (
     <Dialog>
-      <DialogTrigger>
-        <button className="flex h-[200px] w-[200px] flex-col items-center justify-center rounded border hover:border-primary-foreground hover:text-primary-foreground">
-          <input type="file" name="image" className="hidden" />
-          <Link2 className="h-auto w-20" />
-          <label>Insert Image Link</label>
-        </button>
+      <DialogTrigger className="flex size-[200px] flex-col items-center justify-center rounded border hover:border-primary-foreground hover:text-primary-foreground">
+        <label className="order-2">Insert Image Link</label>
+        <input type="file" name="image" className="hidden" />
+        <Link2 className="h-auto w-20" />
       </DialogTrigger>
       <DialogContent className="bg-base-background">
         <DialogHeader>
@@ -68,11 +68,11 @@ export default function ImgLinkBtn() {
         </div>
         <DialogFooter>
           <button
-            className="btn-p-solid-a"
+            className="btn-solid-p"
             onClick={() => {
-              const link = linkRef.current?.value || ''
-              const caption = captionRef.current?.value || ''
-              const alt = altRef.current?.value || ''
+              const link = linkRef.current?.value || "";
+              const caption = captionRef.current?.value || "";
+              const alt = altRef.current?.value || "";
               setImageElement(editor, link, caption, alt);
             }}
           >
