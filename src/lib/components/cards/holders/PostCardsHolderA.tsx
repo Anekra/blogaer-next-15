@@ -6,11 +6,11 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardA from "@/lib/components/cards/PostGridCardA";
 import PostGridCardB from "@/lib/components/cards/PostGridCardB";
-import { GetPostsByPageDto } from "@/lib/types/dto/GetDto";
+import { GetPostsByPageDto } from "@/lib/types/dto/ReqDto";
 
 export default function PostCardsHolderA() {
   const currentPath = usePathname();
-  const url = "/post/public?pageNum=1&pageSize=10";
+  const url = "/post/public?number=1&size=10";
   const {
     data: res,
     error,
@@ -20,19 +20,20 @@ export default function PostCardsHolderA() {
     shouldRetryOnError: false
   });
 
-  if (isLoading) return <p>loading...</p>;
-  if (!res || error) return <p>error: {JSON.stringify(error.toString())}</p>;
-  if (res.data.totalPosts === 0) return <p>No data found.</p>;
+  if (!res || isLoading) return <p>loading...</p>;
+  if (error) return <p>error</p>;
+  if (res.data?.totalPosts === 0) return <p>No data found!</p>;
+  if (res.error) return <p>{res.status}</p>;
 
   return (
     <main
-      className={`grid w-full auto-rows-fr grid-cols-1 justify-center gap-4 px-6 py-8${
+      className={`${
         currentPath === "/"
-          ? " ml:grid-cols-2 xl:grid-cols-3"
-          : " ms:grid-cols-2 ql:grid-cols-3"
-      }`}
+          ? "ml:grid-cols-2 xl:grid-cols-3"
+          : "ms:grid-cols-2 ql:grid-cols-3"
+      } grid w-full auto-rows-fr grid-cols-1 justify-center gap-4 py-8`}
     >
-      {res.data.posts.map((post, i) => {
+      {res.data?.posts.map((post, i) => {
         return currentPath === "/" ? (
           <PostGridCardA key={i} post={post} />
         ) : (
