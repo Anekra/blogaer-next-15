@@ -18,9 +18,8 @@ export default function UserProfilePage() {
             <Image
               src={session.img}
               alt="Profile"
-              fill
               className="object-cover"
-              unoptimized
+              fill
             />
           </div>
         ) : (

@@ -22,15 +22,14 @@ export default function PostGridCardA({ post }: { post: PostDto }) {
       style={{ viewTransitionName: `${slug}` }}
     >
       <div className="neu-p z-[1] flex h-[160px] w-3/4 flex-col gap-3 rounded-lg bg-card p-3 transition-[width_background-color_box-shadow] group-hover:w-full group-hover:bg-background/60 group-hover:shadow-none">
-        <div className="absolute left-0 top-0 size-11 overflow-hidden rounded-br-lg rounded-tl-lg">
+        <div className="absolute left-0 top-0 flex size-11 items-center justify-center overflow-hidden rounded-br-lg rounded-tl-lg">
           {post?.userImg ? (
-            <div className="relative size-10 overflow-hidden rounded-full border-[3.5px] border-primary-foreground">
+            <div className="relative size-10 overflow-hidden">
               <Image
                 src={post.userImg}
                 alt="Profile"
-                fill
                 className="object-cover"
-                unoptimized
+                fill
               />
             </div>
           ) : (
