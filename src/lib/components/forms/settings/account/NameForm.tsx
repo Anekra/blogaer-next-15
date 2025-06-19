@@ -38,7 +38,7 @@ export default function NameForm() {
         type="text"
         name="name"
         id="user-display-name"
-        className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
+        className="peer border-transparent duration-300 group-hover:bg-base-background/60"
         defaultValue={session?.name || ""}
         placeholder="Your display name"
       />

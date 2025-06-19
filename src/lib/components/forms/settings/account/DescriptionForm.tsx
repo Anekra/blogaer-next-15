@@ -39,7 +39,7 @@ export default function DescriptionForm() {
         type="text"
         name="description"
         id="user-description"
-        className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60 group-hover:ring-2 group-hover:ring-neutral-300"
+        className="peer border-transparent bg-transparent duration-300 group-hover:bg-base-background/60"
         defaultValue={session?.desc || ""}
         placeholder="Something about you"
       />

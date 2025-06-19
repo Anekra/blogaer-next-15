@@ -14,7 +14,7 @@ export default async function UserWithSBLayout({
   return (
     <NavBarProvider>
       <NavBar />
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen gap-6">
         <SideBarProvider>
           <SideBar />
         </SideBarProvider>
