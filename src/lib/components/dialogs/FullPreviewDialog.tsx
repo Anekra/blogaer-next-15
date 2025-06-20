@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogTrigger
 } from "@/lib/components/ui/dialog";
+import { DrawerHeader, DrawerTitle } from "@/lib/components/ui/drawer";
 import { CustomElement } from "@/lib/types/slate";
 import { WysiwygType } from "@/lib/utils/enums";
 
@@ -32,6 +33,9 @@ export default function FullPreviewDialog({
         <button>Open in dialog</button>
       </DialogTrigger>
       <DialogContent className="flex max-h-[95vh] max-w-[95vw] gap-4 overflow-y-auto">
+        <DrawerHeader>
+          <DrawerTitle />
+        </DrawerHeader>
         <aside className="w-3/12"></aside>
         <article className="w-full">
           <Slate editor={editor} initialValue={content}>
