@@ -18,7 +18,7 @@ export default function DeletePostDialogContent({
 }) {
   const { currentPosts, setCurrentPosts } = useCurrentPosts();
   const selectedPost = currentPosts[postIndex];
-  const slugOrId = selectedPost.id;
+  const id = selectedPost.id;
   const currentPath = usePathname();
   const isDraft = currentPath.startsWith("/blog/post/draft");
 
@@ -35,7 +35,7 @@ export default function DeletePostDialogContent({
         </DialogClose>
         <DialogClose
           onClick={async () => {
-            await deleteClientFetch(isDraft ? "/draft/" : "/post/", slugOrId);
+            await deleteClientFetch(isDraft ? "/draft/" : "/post/", id);
             toast.info("Deleting post", {
               position: "bottom-right",
               duration: 1500,
@@ -46,7 +46,7 @@ export default function DeletePostDialogContent({
               }
             });
           }}
-          className="btn-solid-p rounded bg-primary px-6 py-2"
+          className="btn-solid-destructive"
         >
           Delete
         </DialogClose>
