@@ -49,7 +49,7 @@ export default function YoutubeForm({ link }: { link?: string }) {
         type="text"
         name="youtubeLink"
         id="youtube-link"
-        className="peer border-transparent !bg-transparent transition-[width] focus:placeholder-shown:!ring-destructive-foreground group-hover:!bg-base-background/90 group-hover:ring-2 group-hover:ring-white"
+        className="peer border-transparent !bg-transparent transition-[width] focus:placeholder-shown:!ring-destructive-foreground group-hover:!bg-background/90 group-hover:ring-2 group-hover:ring-white group-hover:ring-offset-black"
         defaultValue={link || ""}
         placeholder="Your Youtube channel link"
       />
