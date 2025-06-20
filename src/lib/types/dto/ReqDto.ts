@@ -1,6 +1,7 @@
 import {
   EmailUsernameRequestDto,
   GetSocialsDto,
+  PagedDraftWithNoUserDto,
   PagedPostDto,
   PagedPostWithNoUserDto,
   SavedAccountsDto,
@@ -8,49 +9,75 @@ import {
   UserOauthDto,
   UserRequestDto
 } from "./CommonDto";
+import { DraftDto } from "./DraftDto";
 import { PostDto } from "./PostDto";
 
 export type GetPostByIdDto = {
   status: string;
-  data: PostDto;
+  data?: PostDto;
+  error?: string;
+};
+
+export type GetDraftByIdDto = {
+  status: string;
+  data?: DraftDto;
+  error?: string;
 };
 
 export type GetPostsByPageDto = {
   status: string;
-  data: PagedPostDto;
+  data?: PagedPostDto;
+  error?: string;
 };
 
 export type GetPostsByUserIdDto = {
   status: string;
-  data: PagedPostWithNoUserDto;
+  data?: PagedPostWithNoUserDto;
+  error?: string;
+};
+
+export type GetDraftsByUserIdDto = {
+  status: string;
+  data?: PagedDraftWithNoUserDto;
+  error?: string;
 };
 
 export type GetAccountSectionDto = {
   status: string;
-  data: {
+  data?: {
     userRequests: EmailUsernameRequestDto;
     socials: GetSocialsDto;
   };
+  error?: string;
 };
 
 export type GetSecuritySectionDto = {
   status: string;
-  data: {
+  data?: {
     userPassword?: boolean;
     userTwoFA: TwoFADto;
     userOauth: UserOauthDto;
     userRequest: UserRequestDto;
   };
+  error?: string;
 };
 
 export type GetSavedAccounts = {
   status: string;
-  data: SavedAccountsDto[];
+  data?: SavedAccountsDto[];
+  error?: string;
 };
 
 export type GetOtpTimeDto = {
   status: string;
-  data: {
+  data?: {
     time: string;
   };
+  error?: string;
+};
+
+export type PostWithResIdDto = {
+  status: string;
+  data?: { id: string };
+  error?: string;
 };
