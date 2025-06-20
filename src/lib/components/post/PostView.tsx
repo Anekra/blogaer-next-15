@@ -1,4 +1,5 @@
 "use client";
+import { UserIcon } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
@@ -14,24 +15,26 @@ import ThoughtsIcon from "@/lib/components/icons/thoughts/ThoughtsIcon";
 import TotalReadsIcon from "@/lib/components/icons/TotalReadsIcon";
 import XIcon from "@/lib/components/icons/XIcon";
 import useViewConfig from "@/lib/hooks/useViewConfig";
-import { GetPostByIdDto } from "@/lib/types/dto/GetDto";
+import { GetPostByIdDto } from "@/lib/types/dto/ReqDto";
 import { CustomElement } from "@/lib/types/slate";
 import { WysiwygType } from "@/lib/utils/enums";
-import { getSlugOrIdFromPath } from "@/lib/utils/helper";
+import { getSlugFromPath } from "@/lib/utils/helper";
 
 export default function PostView() {
   const editor = useMemo(() => withReact(createEditor()), []);
   const { renderElement, renderLeaf } = useViewConfig(editor);
-  const slug = getSlugOrIdFromPath(usePathname());
-  const url = `/post/public/${slug}`;
-  const {
-    data: res,
-    error,
-    isLoading
-  } = useSWRImmutable<GetPostByIdDto>(url, getClientFetch);
+  const slug = getSlugFromPath(usePathname());
+  const slugs = slug.split("-");
+  const id = slugs[slugs.length - 1];
+  const url = `/post/public/${id}`;
+  const { data: res, error } = useSWRImmutable<GetPostByIdDto>(
+    url,
+    getClientFetch
+  );
 
-  if (isLoading) return <p>loading...</p>;
-  if (!res || error) return <p>error</p>;
+  if (!res) return <p className="dots-loading">loading</p>;
+  if (error) return <p>Error</p>;
+  if (!res.data) return <p>Post not found!</p>;
 
   const post = res.data;
   const content = post.content;
@@ -46,16 +49,22 @@ export default function PostView() {
         >
           <a
             href={`/${username.toLowerCase()}`}
-            className="group/image group-hover/card:card-image absolute size-full overflow-hidden rounded-3xl brightness-50 transition-[width_height] group-hover/card:top-6 group-hover/card:size-[100px] group-hover/card:rounded-full group-hover/card:brightness-100"
+            className="group/image group-hover/card:card-image absolute flex size-full items-center justify-center overflow-hidden rounded-3xl brightness-50 transition-[width_height] group-hover/card:top-6 group-hover/card:size-[100px] group-hover/card:rounded-full group-hover/card:brightness-100"
           >
-            <Image
-              src="/profile1.jpeg"
-              alt="Profile"
-              width={200}
-              height={100}
-              priority={false}
-              className="size-full rounded-3xl object-cover group-hover/image:brightness-125 group-active/image:brightness-100"
-            />
+            {post?.userImg ? (
+              <div className="relative size-[160px] overflow-hidden">
+                <Image
+                  src={post.userImg}
+                  alt="Profile"
+                  className="object-cover"
+                  fill
+                />
+              </div>
+            ) : (
+              <span className="relative flex size-[160px] items-end justify-center overflow-hidden rounded-full text-primary-foreground shadow-[inset_0_0_0_8px_rgb(var(--primary-foreground))]">
+                <UserIcon className="absolute -bottom-3 size-full fill-current" />
+              </span>
+            )}
           </a>
           <div className="absolute z-[1] flex w-full flex-col items-center gap-2 group-hover/card:mt-4">
             <a
@@ -104,7 +113,9 @@ export default function PostView() {
           <Slate editor={editor} initialValue={content}>
             <Editable
               readOnly
-              renderElement={(props) => renderElement(props, editor, post.tags)}
+              renderElement={(props) =>
+                renderElement(props, editor, post?.tags)
+              }
               renderLeaf={renderLeaf}
               className="flex w-full max-w-[65vw] flex-col gap-6 self-center"
             />
