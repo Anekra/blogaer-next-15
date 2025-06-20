@@ -1,27 +1,34 @@
 "use client";
 import isHotkey from "is-hotkey";
 import { usePathname } from "next/navigation";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import { Descendant, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { Editable, ReactEditor, Slate, withReact } from "slate-react";
 
 import patchClientFetch from "@/lib/actions/client/patchClientFetch";
-import postClientFetch from "@/lib/actions/client/postClientFetch";
+import postClientWithResFetch from "@/lib/actions/client/postClientWithResFetch";
 import PostLinkEditor from "@/lib/components/post/PostLinkEditor";
 import PostWysiwyg from "@/lib/components/post/PostWysiwyg";
 import { useContent } from "@/lib/contexts/ContentContext";
 import useEditorConfig from "@/lib/hooks/useEditorConfig";
 import useSelection from "@/lib/hooks/useSelection";
+import { DraftDto } from "@/lib/types/dto/DraftDto";
 import { PostDto } from "@/lib/types/dto/PostDto";
+import { PostWithResIdDto } from "@/lib/types/dto/ReqDto";
 import { CustomElement } from "@/lib/types/slate";
 import { INITIAL_VALUE, VOIDS } from "@/lib/utils/constants";
 import { HotKey } from "@/lib/utils/enums";
 import {
   collapseSelection,
-  generateId,
   getElementType,
-  getSlugOrIdFromPath,
+  serializeContent,
   toggleStyle
 } from "@/lib/utils/helper";
 
@@ -29,18 +36,19 @@ export default function PostEditor({
   post,
   children
 }: {
-  post?: PostDto;
+  post?: PostDto | DraftDto;
   children?: React.ReactNode;
 }) {
   const [isMounted, setIsMounted] = useState(false);
   const currentPath = usePathname();
-  const { content, setContent, setIsDoneEditing, tags } = useContent();
+  const { content, setContent, setIsDoneEditing, setTags } = useContent();
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
   const { renderElement, renderLeaf } = useEditorConfig(editor);
   const [selection, setSelection] = useSelection(editor);
   const [showLinkEditor, setShowLinkEditor] = useState(false);
-  const [timeout, setTimeoutId] = useState<any>(null);
+  const [currentId, setCurrentId] = useState<string | undefined>("");
   const elementType = getElementType(editor);
+  const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleShowLinkEditor = (visible: boolean) => {
     setShowLinkEditor(visible);
 
@@ -64,48 +72,62 @@ export default function PostEditor({
   );
   const onValueChangeHandler = useCallback(
     async (value: Descendant[]) => {
-      const title = `${value[0].children[0].text}`;
-      if (currentPath === "/blog/post/create") {
-        if (title) {
-          const id = generateId();
-          await postClientFetch(
-            "/draft",
-            {
-              id,
-              title,
-              content: value
-            }
-          );
-          history.replaceState(null, "", `/blog/post/edit/draft/${id}`);
-        }
-      } else {
-        if (currentPath.startsWith("/blog/post/edit/draft/")) {
-          clearTimeout(timeout === null ? undefined : timeout);
-          setIsDoneEditing(false);
-          setTimeoutId(
-            setTimeout(async () => {
-              console.log(`${title}`);
-              const id = getSlugOrIdFromPath(currentPath);
-              try {
-                await patchClientFetch(
-                  {
-                    slugOrId: id,
-                    title: title || "Untitled post",
-                    content: value,
-                    tags
-                  },
-                  `/draft/${id}`
-                );
-                setIsDoneEditing(true);
-              } catch (_) {
-                setIsDoneEditing(true);
-              }
-            }, 5000)
-          );
-        }
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
       }
+      setIsDoneEditing(false);
+
+      debounceTimeoutRef.current = setTimeout(async () => {
+        const title = `${value[0]?.children[0]?.text.trim().replaceAll(" ", "-") || ""}`;
+        console.log(`Debounced: Saving new draft with title: "${title}"`);
+        if (currentPath === "/blog/post/create") {
+          try {
+            const resJson = await postClientWithResFetch<PostWithResIdDto>(
+              "/draft",
+              {
+                title,
+                text: serializeContent(value),
+                content: value
+              }
+            );
+            history.replaceState(
+              null,
+              "",
+              `/blog/post/edit/draft/${resJson.data?.id}`
+            );
+            setCurrentId(resJson.data?.id);
+            setIsDoneEditing(true);
+            debounceTimeoutRef.current = null;
+          } catch (error) {
+            setIsDoneEditing(true);
+            console.error("Failed to create draft:", error);
+          }
+        }
+        if (
+          currentId &&
+          currentPath.startsWith(`/blog/post/edit/draft/${currentId}`)
+        ) {
+          try {
+            await patchClientFetch(
+              {
+                id: currentId,
+                title,
+                text: serializeContent(value),
+                content: value
+              },
+              `/draft/${currentId}`
+            );
+            console.log("patching draft");
+            setIsDoneEditing(true);
+            debounceTimeoutRef.current = null;
+          } catch (_) {
+            setIsDoneEditing(true);
+            debounceTimeoutRef.current = null;
+          }
+        }
+      }, 5000);
     },
-    [currentPath, timeout, setIsDoneEditing, tags]
+    [currentPath, setIsDoneEditing, currentId]
   );
 
   useEffect(() => {
@@ -115,8 +137,16 @@ export default function PostEditor({
     ) {
       setContent(post?.content || INITIAL_VALUE);
     }
+    if (post?.id) setCurrentId(post.id);
+    if (post && "tags" in post) setTags(post.tags);
     setIsMounted(true);
-  }, [setContent, post]);
+
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, [setContent, post, setTags]);
 
   if (isMounted) {
     return (
@@ -126,13 +156,16 @@ export default function PostEditor({
         onChange={onChangeHandler}
         onValueChange={onValueChangeHandler}
       >
-        <section className="flex flex-col gap-2" id="wysiwyg-toolbar">
+        <section className="flex w-2/12 flex-col gap-2" id="wysiwyg-toolbar">
           <PostWysiwyg
             isLinkEditorOpen={showLinkEditor}
             handleShowLinkEditor={handleShowLinkEditor}
           />
         </section>
-        <article className="w-9/12 rounded px-4" id="story-form">
+        <article
+          className={`${children != null ? "xl:w-8/12" : "w-10/12"} rounded px-4`}
+          id="story-form"
+        >
           <PostLinkEditor
             handleShowLinkEditor={handleShowLinkEditor}
             isVisible={showLinkEditor}
@@ -166,7 +199,7 @@ export default function PostEditor({
         </article>
         {children != null &&
           currentPath.startsWith("/blog/post/edit/published/") && (
-            <section>{children}</section>
+            <section className="xl:w-2/12">{children}</section>
           )}
       </Slate>
     );
