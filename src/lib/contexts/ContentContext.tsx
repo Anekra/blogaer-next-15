@@ -11,7 +11,7 @@ import {
 import { CustomElement } from "@/lib/types/slate";
 import { INITIAL_VALUE } from "@/lib/utils/constants";
 
-type ContentContextType = {
+export type ContentContextType = {
   content: CustomElement[];
   setContent: Dispatch<SetStateAction<CustomElement[]>>;
   tags: string[];
