@@ -7,32 +7,30 @@ import SaveAndPublishBtn from "@/lib/components/buttons/SaveAndPublishBtn";
 import ViewPostBtn from "@/lib/components/buttons/ViewPostBtn";
 import ProfileDropdown from "@/lib/components/dropdowns/ProfileDropdown";
 import PostPreviewDrawer from "@/lib/components/post/PostPreviewDrawer";
-import AutosaveSwitch from "@/lib/components/widgets/AutoSaveSwitch";
+import AutoSaveSwitch from "@/lib/components/widgets/AutoSaveSwitch";
 import SearchBar from "@/lib/components/widgets/SearchBar";
 import ThemeSwitch from "@/lib/components/widgets/ThemeSwitch";
 import { useSession } from "@/lib/contexts/SessionContext";
-import { getSlugOrIdFromPath } from "@/lib/utils/helper";
+import { getSlugFromPath } from "@/lib/utils/helper";
 
 export default function NavItems({ isAtTheTop }: { isAtTheTop: boolean }) {
   const currentPath = usePathname();
-  const slug = getSlugOrIdFromPath(currentPath);
-  const slugs = slug.split("-");
-  const postId = slugs[slugs.length - 1];
+  const slug = getSlugFromPath(currentPath);
   const { session } = useSession();
   const { setTheme, resolvedTheme } = useTheme();
 
   return (
     <nav className="flex items-center justify-between gap-6 md:grow">
-      {(currentPath === `/blog/post/edit/draft/${postId}` ||
-        currentPath === "/blog/post/create") && <AutosaveSwitch />}
+      {(currentPath.startsWith("/blog/post/edit/draft/") ||
+        currentPath === "/blog/post/create") && <AutoSaveSwitch />}
       <div className="hidden items-center justify-end justify-self-end md:flex md:grow md:gap-4">
         {(currentPath === "/home" || currentPath === "/blog/explore") && (
           <SearchBar />
         )}
         {session && (
           <div className="flex items-center gap-4">
-            {(currentPath === "/blog/post/create" ||
-              currentPath === `/blog/post/edit/draft/${postId}`) && (
+            {(currentPath.startsWith("/blog/post/edit/draft/") ||
+              currentPath === "/blog/post/create") && (
               <React.Fragment>
                 <PostPreviewDrawer />
               </React.Fragment>
