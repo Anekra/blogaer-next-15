@@ -27,7 +27,7 @@ import {
 } from "@/lib/components/ui/input-otp";
 import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useSession } from "@/lib/contexts/SessionContext";
-import { GetOtpTimeDto } from "@/lib/types/dto/GetDto";
+import { GetOtpTimeDto } from "@/lib/types/dto/ReqDto";
 import { UpdateEmailFormSchema } from "@/lib/types/zodSchemas";
 import { VALIDATION } from "@/lib/utils/constants";
 import { EmailSubject } from "@/lib/utils/enums";

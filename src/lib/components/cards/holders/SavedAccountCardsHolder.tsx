@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 
 import getClientFetch from "@/lib/actions/client/getClientFetch";
+import GithubLoginBtn from "@/lib/components/buttons/GithubLoginBtn";
 import GoogleLoginBtn from "@/lib/components/buttons/GoogleLoginBtn";
 import SavedAccountCard from "@/lib/components/cards/SavedAccountCard";
 import LoginForm from "@/lib/components/forms/LoginForm";
 import { SavedAccountsDto } from "@/lib/types/dto/CommonDto";
-import { GetSavedAccounts } from "@/lib/types/dto/GetDto";
-
-import GithubLoginBtn from "../../buttons/GithubLoginBtn";
+import { GetSavedAccounts } from "@/lib/types/dto/ReqDto";
 
 export default function SavedAccountCardsHolder() {
   const [isSavedAccounts, setIsSavedAccounts] = useState(true);
