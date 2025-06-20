@@ -33,7 +33,7 @@ export default function PostImage({
         height={300}
         unoptimized
       />
-      {!viewOnly && (
+      {!viewOnly ? (
         <Input
           type="text"
           value={element.imageCaption}
@@ -46,6 +46,8 @@ export default function PostImage({
             if (e.key.match("Enter")) e.currentTarget.blur();
           }}
         />
+      ) : (
+        <p className="text-accent-foreground">{element.imageCaption}</p>
       )}
       <span className="hidden">{children}</span>
     </figure>
