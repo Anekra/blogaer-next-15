@@ -2,7 +2,6 @@ import {
   startAuthentication,
   startRegistration
 } from "@simplewebauthn/browser";
-import { nanoid } from "nanoid";
 import {
   BaseSelection,
   Editor,
@@ -71,11 +70,6 @@ export function addDivider(editor: SlateEditor) {
   // focusEditor(editor);
 }
 
-export function removeElement(editor: SlateEditor) {
-  // focusEditor(editor);
-  Transforms.removeNodes(editor);
-}
-
 export function getElement(editor: SlateEditor) {
   const { selection } = editor;
   if (!selection || !selection.anchor) return;
@@ -113,6 +107,19 @@ export function getPath(editor: SlateEditor, location: BaseSelection) {
   return Editor.path(editor, location);
 }
 
+export function getHeadingSizeKey(value: HeadingSize): string {
+  return Object.keys(HeadingSize)[Object.values(HeadingSize).indexOf(value)];
+}
+
+export function getTotalWords(content: CustomElement[]) {
+  return content
+    .map((n) => {
+      return Node.string(n).split(/\s+/).length;
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    .toLocaleString();
+}
+
 export function setCodeElement(editor: SlateEditor, value: string) {
   const { selection } = editor;
   if (!selection) return;
@@ -145,6 +152,19 @@ export function setImageCaption(editor: SlateEditor, caption: string) {
 
 export function selectElement(editor: SlateEditor, path: Path) {
   Transforms.select(editor, path);
+}
+
+export function serializeContent(nodes: any[]) {
+  let texts = "";
+  nodes.forEach((value) => {
+    texts += Node.string(value);
+  });
+  return texts;
+}
+
+export function removeElement(editor: SlateEditor) {
+  // focusEditor(editor);
+  Transforms.removeNodes(editor);
 }
 
 export function toggleType(
@@ -275,19 +295,6 @@ export function collapseSelection(editor: SlateEditor) {
   Transforms.collapse(editor);
 }
 
-export function getHeadingSizeKey(value: HeadingSize): string {
-  return Object.keys(HeadingSize)[Object.values(HeadingSize).indexOf(value)];
-}
-
-export function getTotalWords(content: CustomElement[]) {
-  return content
-    .map((n) => {
-      return Node.string(n).split(/\s+/).length;
-    })
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-    .toLocaleString();
-}
-
 export function newUrl(url: string, searchParams?: SearchParams) {
   const newUrl = new URL(url, `${process.env.NEXT_PUBLIC_BASE_URL}`);
   if (searchParams)
@@ -318,19 +325,15 @@ export function convertFileToBase64(file: File) {
   });
 }
 
-export function getSlugOrIdFromPath(path: string) {
-  const parts = path.split("/");
-  const lastName = parts[parts.length - 1];
-  return lastName;
-}
-
-export function generateId() {
-  return nanoid(16).replaceAll("-", "~");
+export function getSlugFromPath(path: string) {
+  const paths = path.split("/");
+  const lastPath = paths[paths.length - 1];
+  return lastPath;
 }
 
 export async function registerPasskey() {
   try {
-    const resJson = await getClientFetch("/auth/two-fa/webauthn/register");
+    const resJson = await getClientFetch<any>("/auth/two-fa/webauthn/register");
 
     const attestationResponse = await startRegistration({
       optionsJSON: resJson.data.options
