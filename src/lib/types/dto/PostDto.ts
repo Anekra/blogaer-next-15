@@ -1,10 +1,14 @@
-type CommentDto = {
-  commentId: string;
-  commentText: string;
+export type CommentDto = {
+  id: string;
+  userId: string;
+  postId: string;
+  text: string;
 };
-type ReactionDto = {
-  reactionId: string;
-  reactionList: string[];
+export type ThoughtDto = {
+  id: string;
+  userId: string;
+  postId: string;
+  thoughts: string[];
 };
 export type PostDto = {
   id: string;
@@ -14,8 +18,7 @@ export type PostDto = {
   content: any[];
   categories: string[];
   tags: string[];
-  comments: CommentDto[];
-  reactions: ReactionDto[];
+  reads: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -25,8 +28,7 @@ export type PostWithNoUserDto = {
   content: any[];
   categories: string[];
   tags: string[];
-  comments: CommentDto[];
-  reactions: ReactionDto[];
+  reads: number;
   createdAt: string;
   updatedAt: string;
 };
