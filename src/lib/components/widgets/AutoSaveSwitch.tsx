@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { useContent } from "@/lib/contexts/ContentContext";
 
-export default function AutosaveSwitch() {
+export default function AutoSaveSwitch() {
   const currentPath = usePathname();
   const { isDoneEditing } = useContent();
   const [isOn, setIsOn] = useState(true);
@@ -19,9 +19,9 @@ export default function AutosaveSwitch() {
         <div className="group flex h-8 items-center">
           <label
             htmlFor="autosave-switch"
-            className={`px-1 hover:cursor-pointer group-hover:text-primary-foreground${
-              isOn ? " text-primary-foreground" : " text-accent"
-            }`}
+            className={`${
+              isOn ? "text-primary-foreground" : "text-accent"
+            } px-1 hover:cursor-pointer group-hover:text-primary-foreground`}
           >
             Autosave
           </label>
@@ -37,9 +37,9 @@ export default function AutosaveSwitch() {
               }}
             />
             <span
-              className={`switch-toggle group-hover:neu-base p-1 text-base-background${
-                isOn ? " translate-x-full" : " translate-x-0 !bg-accent"
-              }`}
+              className={`${
+                isOn ? "translate-x-full" : "translate-x-0 !bg-accent"
+              } switch-toggle group-hover:neu-base p-1 text-base-background`}
             >
               {isOn ? "On" : "Off"}
             </span>
@@ -47,9 +47,9 @@ export default function AutosaveSwitch() {
         </div>
         {currentPath !== "/blog/post/create" && (
           <p
-            className={`w-full whitespace-nowrap${
-              isDoneEditing ? "" : " dots-loading"
-            }`}
+            className={`${
+              isDoneEditing ? "w-full" : "dots-loading w-full"
+            } whitespace-nowrap`}
           >
             {isDoneEditing ? "saved in draft" : "saving"}
           </p>
