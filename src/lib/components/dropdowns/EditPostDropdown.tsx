@@ -25,21 +25,16 @@ export default function EditPostDropdown({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <DialogTrigger className="w-full">
-                <Link
-                  href={editUrl}
-                  className="flex size-full items-center gap-3 rounded"
-                >
-                  <Edit2Icon width={18} /> Edit
-                </Link>
-              </DialogTrigger>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <DialogTrigger className="flex size-full items-center gap-3 rounded">
+            <Link href={editUrl}>
+              <DropdownMenuItem className="cursor-pointer">
+                <Edit2Icon width={18} /> Edit
+              </DropdownMenuItem>
+            </Link>
+            <DialogTrigger className="w-full">
+              <DropdownMenuItem className="cursor-pointer">
                 <Trash2Icon width={18} /> Delete
-              </DialogTrigger>
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            </DialogTrigger>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
