@@ -65,7 +65,10 @@ export default function PostWysiwyg({
     "Cannot change the first element styles! Except for its alignment.";
 
   return (
-    <div ref={wysiwygRef} className="sticky top-24 flex flex-col gap-3">
+    <div
+      ref={wysiwygRef}
+      className="sticky top-24 flex flex-col items-center gap-3"
+    >
       <div>
         <button
           className="flex w-full items-center justify-center gap-2 rounded border border-accent px-2 font-bold hover:border-foreground active:bg-foreground/50"
@@ -78,14 +81,14 @@ export default function PostWysiwyg({
           Paragraph
         </button>
       </div>
-      <hr />
+      <hr className="w-32" />
       <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*]:relative [&>*]:size-10 [&>*]:text-3xl">
         <button
           data-tooltip-text={tooltipText}
           data-tooltip-justify="start"
           className={`group relative flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
-            elementType === WysiwygType.Code ? " bg-foreground/25" : ""
-          }${isNoneSelected ? "" : " disabled:tooltip-wysiwyg"}`}
+            elementType === WysiwygType.Code ? "bg-foreground/25" : ""
+          }${isNoneSelected ? "" : "disabled:tooltip-wysiwyg"}`}
           onMouseDown={(e) => {
             e.preventDefault();
             addCodeEditor(editor);
@@ -101,8 +104,8 @@ export default function PostWysiwyg({
           data-tooltip-text={tooltipText}
           data-tooltip-justify="center"
           className={`flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
-            elementType === WysiwygType.Image ? " bg-foreground/25" : ""
-          }${isNoneSelected ? "" : " disabled:tooltip-wysiwyg"}`}
+            elementType === WysiwygType.Image ? "bg-foreground/25" : ""
+          }${isNoneSelected ? "" : "disabled:tooltip-wysiwyg"}`}
           onMouseDown={(e) => {
             e.preventDefault();
             addImageHolder(editor);
@@ -115,8 +118,8 @@ export default function PostWysiwyg({
           data-tooltip-text={tooltipText}
           data-tooltip-justify="end"
           className={`group flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
-            elementType === WysiwygType.Divider ? " bg-foreground/25" : ""
-          }${isNoneSelected ? "" : " disabled:tooltip-wysiwyg"}`}
+            elementType === WysiwygType.Divider ? "bg-foreground/25" : ""
+          }${isNoneSelected ? "" : "disabled:tooltip-wysiwyg"}`}
           onMouseDown={(e) => {
             e.preventDefault();
             addDivider(editor);
@@ -129,7 +132,7 @@ export default function PostWysiwyg({
           </span>
         </button>
       </div>
-      <hr />
+      <hr className="w-32" />
       <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*:first-child]:font-serif [&>*:nth-child(2)]:font-serif [&>*]:relative [&>*]:size-10 [&>*]:text-3xl">
         <DropdownMenu onOpenChange={(open) => setDropdownOpen(open)}>
           <div
@@ -260,7 +263,7 @@ export default function PostWysiwyg({
           </button>
         </div>
       </div>
-      <hr />
+      <hr className="w-32" />
       <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*]:relative [&>*]:size-10 [&>*]:font-serif [&>*]:text-3xl">
         <div
           onMouseEnter={handleTooltipVisibility}
@@ -268,10 +271,8 @@ export default function PostWysiwyg({
         >
           <button
             className={`flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
-              isStyleActive(editor, WysiwygStyle.Bold)
-                ? " bg-foreground/25"
-                : ""
-            }${isHeadingEl ? " bg-foreground/25" : ""}`}
+              isStyleActive(editor, WysiwygStyle.Bold) ? "bg-foreground/25" : ""
+            }${isHeadingEl ? "bg-foreground/25" : ""}`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleStyle(editor, WysiwygStyle.Bold);
