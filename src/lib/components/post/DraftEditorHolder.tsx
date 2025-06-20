@@ -5,14 +5,14 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostEditor from "@/lib/components/post/PostEditor";
 import PostTags from "@/lib/components/post/PostTags";
-import { GetDraftBySlugDto } from "@/lib/types/dto/ReqDto";
+import { GetDraftByIdDto } from "@/lib/types/dto/ReqDto";
 import { getSlugFromPath } from "@/lib/utils/helper";
 
 export default function DraftEditorHolder() {
   const currentPath = usePathname();
   const id = getSlugFromPath(currentPath);
   const url = `/draft/${id}`;
-  const { data: res, error } = useSWRImmutable<GetDraftBySlugDto>(
+  const { data: res, error } = useSWRImmutable<GetDraftByIdDto>(
     url,
     getClientFetch
   );

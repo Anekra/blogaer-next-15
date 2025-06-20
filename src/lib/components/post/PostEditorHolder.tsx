@@ -5,7 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostEditor from "@/lib/components/post/PostEditor";
 import PostTags from "@/lib/components/post/PostTags";
-import { GetPostBySlugDto } from "@/lib/types/dto/ReqDto";
+import { GetPostByIdDto } from "@/lib/types/dto/ReqDto";
 import { getSlugFromPath } from "@/lib/utils/helper";
 
 export default function PostEditorHolder() {
@@ -14,7 +14,7 @@ export default function PostEditorHolder() {
   const slugs = slug.split("-");
   const id = slugs[slugs.length - 1];
   const url = `/post/public/${id}`;
-  const { data: res, error } = useSWRImmutable<GetPostBySlugDto>(
+  const { data: res, error } = useSWRImmutable<GetPostByIdDto>(
     url,
     getClientFetch
   );
