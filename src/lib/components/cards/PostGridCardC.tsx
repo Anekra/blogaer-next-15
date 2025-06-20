@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 import { useSession } from "@/lib/contexts/SessionContext";
+import { DraftWithNoUserDto } from "@/lib/types/dto/DraftDto";
 import { PostWithNoUserDto } from "@/lib/types/dto/PostDto";
 
 import EditPostDropdown from "../dropdowns/EditPostDropdown";
@@ -13,7 +14,7 @@ import Logo2Icon from "../icons/Logo2Icon";
 export default function PostGridCardC({
   postData: { post, postIndex }
 }: {
-  postData: { post: PostWithNoUserDto; postIndex: number };
+  postData: { post: PostWithNoUserDto | DraftWithNoUserDto; postIndex: number };
 }) {
   const { session } = useSession();
   const username = session?.username;
@@ -22,8 +23,9 @@ export default function PostGridCardC({
     .filter((content) => content.type === "image")
     .at(0);
   const currentPath = usePathname();
-  const isDraft = currentPath.startsWith("/blog/post/draft");
   const slug = `${title.replaceAll(" ", "-").toLowerCase()}-${post.id}`;
+  const isDraft = currentPath.startsWith("/blog/post/draft");
+  const reads = "reads" in post ? post.reads : "";
   const url = isDraft
     ? `/blog/post/edit/draft/${post.id}`
     : `/blog/${username?.toLowerCase()}/${slug}`;
@@ -43,38 +45,29 @@ export default function PostGridCardC({
             />
           </div>
         ) : (
-          <div className="flex size-full grow items-center justify-center overflow-hidden rounded-md bg-accent/40">
+          <div className="flex size-full grow items-center justify-center overflow-hidden rounded-md bg-primary/20">
             <Logo2Icon />
           </div>
         )}
       </div>
-      <Link
-        href={url}
-        className="absolute bottom-0 flex h-[66px] w-full flex-wrap items-center p-2 transition-[height_background-color] group-hover:h-full group-hover:bg-background/60 group-hover:px-4 group-hover:text-center"
-        onClick={(e) => {
-          const tagEl = ((e.target as any).tagName as string).toLowerCase();
-          if (tagEl === "button" || tagEl === "svg" || tagEl === "path") {
-            e.preventDefault();
-          }
-        }}
-      >
-        <div>
-          <h4 className="truncate-1 absolute bottom-6 left-2 rounded box-decoration-clone text-[18px] font-bold group-hover:static  group-hover:inline group-hover:bg-foreground/10 group-hover:px-2 group-hover:text-3xl ml:text-[22px]">
+      <div className="absolute bottom-0 flex h-[66px] w-full flex-wrap items-center p-2 transition-[height_background-color] group-hover:h-full group-hover:bg-background/60 group-hover:px-4 group-hover:text-center">
+        <Link href={url}>
+          <h4 className="truncate-1 absolute bottom-6 left-2 rounded box-decoration-clone text-[18px] font-bold group-hover:static group-hover:inline group-hover:bg-background group-hover:px-2 group-hover:text-3xl ml:text-[22px]">
             {title}
           </h4>
-          <p className="absolute bottom-2 left-2 text-xs text-foreground/80">
-            0 reads | {date}
-          </p>
-        </div>
-        <div className="absolute bottom-6 right-2">
-          <EditPostDropdown
-            postData={{
-              editUrl: isDraft ? url : `/blog/post/edit/published/${slug}`,
-              postIndex
-            }}
-          />
-        </div>
-      </Link>
+        </Link>
+        <p className="absolute bottom-2 left-2 text-xs text-foreground/80">
+          {isDraft ? date : `${reads} reads | ${date}`}
+        </p>
+      </div>
+      <div className="absolute bottom-6 right-2">
+        <EditPostDropdown
+          postData={{
+            editUrl: isDraft ? url : `/blog/post/edit/published/${slug}`,
+            postIndex
+          }}
+        />
+      </div>
     </div>
   );
 }
