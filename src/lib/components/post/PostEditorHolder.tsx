@@ -5,15 +5,16 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostEditor from "@/lib/components/post/PostEditor";
 import PostTags from "@/lib/components/post/PostTags";
-import { GetPostByIdDto } from "@/lib/types/dto/GetDto";
-import { getSlugOrIdFromPath } from "@/lib/utils/helper";
+import { GetPostBySlugDto } from "@/lib/types/dto/ReqDto";
+import { getSlugFromPath } from "@/lib/utils/helper";
 
 export default function PostEditorHolder() {
   const currentPath = usePathname();
-  const isDraft = currentPath.startsWith("/blog/post/edit/draft");
-  const slugOrId = getSlugOrIdFromPath(currentPath);
-  const url = `/${isDraft ? "draft" : "post/public"}/${slugOrId}`;
-  const { data: res, error } = useSWRImmutable<GetPostByIdDto>(
+  const slug = getSlugFromPath(currentPath);
+  const slugs = slug.split("-");
+  const id = slugs[slugs.length - 1];
+  const url = `/post/public/${id}`;
+  const { data: res, error } = useSWRImmutable<GetPostBySlugDto>(
     url,
     getClientFetch
   );
