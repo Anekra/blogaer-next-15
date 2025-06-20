@@ -4,6 +4,8 @@ import type { ReactEditor } from "slate-react";
 
 import { PostDto, PostWithNoUserDto } from "@/lib/types/dto/PostDto";
 
+import { DraftDto, DraftWithNoUserDto } from "./dto/DraftDto";
+
 export type Session = {
   username: string;
   email: string;
@@ -60,7 +62,11 @@ export type EditPost = {
 
 export type SearchParams = { param: string; value: string }[];
 
-export type CurrentPost = PostDto | PostWithNoUserDto;
+export type CurrentPost =
+  | PostDto
+  | PostWithNoUserDto
+  | DraftDto
+  | DraftWithNoUserDto;
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 

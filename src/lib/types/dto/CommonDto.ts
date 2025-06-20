@@ -1,4 +1,5 @@
 import { AnyObj, Auth } from "../common";
+import { DraftWithNoUserDto } from "./DraftDto";
 import { PostDto, PostWithNoUserDto } from "./PostDto";
 
 export type AuthDto = {
@@ -27,6 +28,13 @@ export type PagedPostWithNoUserDto = {
   totalPages: number;
   totalPosts: number;
   posts: PostWithNoUserDto[];
+};
+
+export type PagedDraftWithNoUserDto = {
+  currentPage: number;
+  totalPages: number;
+  totalDrafts: number;
+  drafts: DraftWithNoUserDto[];
 };
 
 export type UserOauthDto = {
