@@ -4,7 +4,7 @@ import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 import { toast } from "sonner";
 
-import postClientFetch from "@/lib/actions/client/postClientFetch";
+import postClientWithResFetch from "@/lib/actions/client/postClientWithResFetch";
 import FullPreviewDialog from "@/lib/components/dialogs/FullPreviewDialog";
 import PreviewIcon from "@/lib/components/icons/PreviewIcon";
 import TagsIcon from "@/lib/components/icons/TagsIcon";
@@ -12,13 +12,17 @@ import PostTags from "@/lib/components/post/PostTags";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
   DrawerTrigger
 } from "@/lib/components/ui/drawer";
 import { useContent } from "@/lib/contexts/ContentContext";
 import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useSession } from "@/lib/contexts/SessionContext";
 import useViewConfig from "@/lib/hooks/useViewConfig";
-import { generateId, getTotalWords } from "@/lib/utils/helper";
+import { PostWithResIdDto } from "@/lib/types/dto/ReqDto";
+import { getTotalWords, serializeContent } from "@/lib/utils/helper";
 
 export default function PostPreviewDrawer() {
   const editor = withReact(createEditor());
@@ -33,14 +37,18 @@ export default function PostPreviewDrawer() {
     const username = session?.username;
     if (!username) return;
     setLoading(true);
-    const id = generateId();
     const title = `${content[0].children[0].text}`;
-    const resOk = await postClientFetch("/post", { id, title, content, tags });
-    if (resOk) {
+    const resJson = await postClientWithResFetch<PostWithResIdDto>("/post", {
+      title,
+      text: serializeContent(content),
+      content,
+      tags
+    });
+    if (resJson.data?.id) {
       router.push(
         `/blog/${username.toLowerCase()}/${title
           .replace(/\s+/g, "-")
-          .toLowerCase()}-${id}`
+          .toLowerCase()}-${resJson.data?.id}`
       );
       toast.info("Adding post", {
         position: "bottom-right",
@@ -61,8 +69,14 @@ export default function PostPreviewDrawer() {
       <DrawerTrigger asChild>
         <button className="btn-solid-p">Preview</button>
       </DrawerTrigger>
-      <DrawerContent className="focus:outline-none">
-        <div className="flex h-3/4 max-h-[85vh] flex-col justify-center gap-6 overflow-y-auto px-12 pb-16 pt-8 md:flex-row">
+      <DrawerContent>
+        <DrawerHeader className="*:text-center">
+          <DrawerTitle>Post Preview</DrawerTitle>
+          <DrawerDescription>
+            Review and add tags to your post
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className="flex max-h-[75vh] min-h-[50vh] flex-col justify-center gap-6 overflow-y-auto px-12 pb-12 pt-2 md:flex-row">
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex items-center gap-2 text-2xl font-bold">
               <PreviewIcon />
