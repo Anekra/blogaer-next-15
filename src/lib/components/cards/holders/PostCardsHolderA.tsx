@@ -7,6 +7,7 @@ import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardA from "@/lib/components/cards/PostGridCardA";
 import PostGridCardB from "@/lib/components/cards/PostGridCardB";
 import { GetPostsByPageDto } from "@/lib/types/dto/ReqDto";
+import { displayError } from "@/lib/utils/helper";
 
 export default function PostCardsHolderA() {
   const currentPath = usePathname();
@@ -20,8 +21,8 @@ export default function PostCardsHolderA() {
     shouldRetryOnError: false
   });
 
-  if (!res || isLoading) return <p>loading...</p>;
-  if (error) return <p>error</p>;
+  if (isLoading) return <p>loading...</p>;
+  if (error || !res) return <p>{displayError(error, res)}</p>;
   if (res.data?.totalPosts === 0) return <p>No data found!</p>;
   if (res.error) return <p>{res.status}</p>;
 

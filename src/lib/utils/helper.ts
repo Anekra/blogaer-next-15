@@ -70,6 +70,30 @@ export function addDivider(editor: SlateEditor) {
   // focusEditor(editor);
 }
 
+export function displayError(error: any, res: any) {
+  let errorMsg = "An unexpected error occurred. Please try again later.";
+
+  if (error) {
+    if (typeof error.message === "string") {
+      if (error.message.includes("<!DOCTYPE")) {
+        errorMsg = "Server is not available! Please try again later.";
+      } else if (error.message.includes("Failed to fetch")) {
+        errorMsg = "Network error! Please check your connection.";
+      } else if (error.message.includes("404")) {
+        errorMsg = "Resource not found!";
+      } else if (error.message.includes("timeout")) {
+        errorMsg = "Request timed out! Please try again.";
+      } else {
+        errorMsg = error.message;
+      }
+    }
+  } else if (!res) {
+    errorMsg = "No response from server!";
+  }
+
+  return errorMsg;
+}
+
 export function getElement(editor: SlateEditor) {
   const { selection } = editor;
   if (!selection || !selection.anchor) return;
