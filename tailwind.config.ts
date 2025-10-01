@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -30,10 +30,14 @@ module.exports = {
         foreground: "rgb(var(--foreground))",
         "base-background": "rgb(var(--base-background))",
         "base-foreground": "rgb(var(--base-foreground))",
-        primary: "rgb(var(--primary))",
-        "primary-foreground": "rgb(var(--primary-foreground))",
-        secondary: "rgb(var(--secondary))",
-        "secondary-foreground": "rgb(var(--secondary-foreground))",
+        primary: {
+          DEFAULT: "rgb(var(--primary))",
+          foreground: "rgb(var(--primary-foreground))"
+        },
+        secondary: {
+          DEFAULT: "rgb(var(--secondary))",
+          foreground: "rgb(var(--secondary-foreground))"
+        },
         "darker-secondary-foreground":
           "rgb(var(--darker-secondary-foreground))",
         "custom-bg1": "rgb(var(--custom-bg1))",
@@ -98,7 +102,7 @@ module.exports = {
         },
         "slide-ltr": {
           "35%": {
-            opacity: 1,
+            opacity: 1
           },
           "40%": {
             opacity: 0,
@@ -109,7 +113,7 @@ module.exports = {
             transform: "translateX(-150px)"
           },
           "61%": {
-            opacity: 1,
+            opacity: 1
           },
           "100%": {
             transform: "translateX(0)"
@@ -120,11 +124,13 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 2s ease-in",
-        "blinking": "fade-in 2s ease-in-out infinite",
+        blinking: "fade-in 2s ease-in-out infinite",
         fadeout: "fadeout 3s ease-out",
         "slide-ltr": "slide-ltr 2s linear infinite"
       }
     }
   },
-  plugins: [require("tailwindcss-animate")]
+  plugins: []
 };
+
+export default config;

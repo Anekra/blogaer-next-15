@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer utilities {
   /* scroll bar */
@@ -45,7 +43,7 @@
     @apply relative flex items-center rounded-full px-1;
   }
   .switch-toggle {
-    @apply select-none rounded-full bg-primary-foreground font-bold transition-transform;
+    @apply bg-primary-foreground rounded-full font-bold transition-transform select-none;
   }
   .switch-container:hover {
     @apply neu-base-inset;
@@ -76,7 +74,7 @@
     @apply flex px-5 py-3 duration-300;
   }
   input[name="profile-tab-name"]:checked + label {
-    @apply rounded-t-lg bg-background;
+    @apply bg-background rounded-t-lg;
   }
   input[name="profile-tab-name"]:checked + label {
     box-shadow:
@@ -97,7 +95,7 @@
 
   /* tags */
   .tags {
-    @apply relative ms-4 flex items-center rounded-r border-y-[0.19rem] border-r-[0.19rem] border-border px-3 text-xs before:absolute before:inset-y-[2px] before:left-[-11px] before:h-6 before:w-6 before:rotate-45 before:rounded before:border-[3px] before:border-[transparent_transparent_rgb(var(--border))_rgb(var(--border))] before:content-[''] after:absolute after:inset-y-[5px] after:left-[-2px] after:text-[11px] after:font-bold after:text-accent-foreground after:content-['०'];
+    @apply border-border after:text-accent-foreground relative ms-4 flex items-center rounded-r border-y-[0.19rem] border-r-[0.19rem] px-3 text-xs before:absolute before:inset-y-[2px] before:left-[-11px] before:h-6 before:w-6 before:rotate-45 before:rounded before:border-[3px] before:border-[transparent_transparent_rgb(var(--border))_rgb(var(--border))] before:content-[''] after:absolute after:inset-y-[5px] after:left-[-2px] after:text-[11px] after:font-bold after:content-['०'];
   }
 
   /* tooltip */
@@ -118,10 +116,10 @@
   .tooltip::before,
   .tooltip-wysiwyg::before,
   .tooltip-point::before {
-    @apply absolute top-0 z-10 hidden translate-y-[calc((100%+4px)*-1)] rounded bg-base-background p-2 text-[12px] text-left font-normal text-base-foreground content-[attr(data-tooltip-text)];
+    @apply bg-base-background text-base-foreground absolute top-0 z-10 hidden translate-y-[calc((100%+4px)*-1)] rounded p-2 text-left text-[12px] font-normal content-[attr(data-tooltip-text)];
   }
   .tooltip-wysiwyg::before {
-    @apply h-[60px] w-[144px] data-[tooltip-justify=start]:self-start data-[tooltip-justify=end]:self-end data-[tooltip-justify=center]:self-center;
+    @apply h-[60px] w-[144px] data-[tooltip-justify=center]:self-center data-[tooltip-justify=end]:self-end data-[tooltip-justify=start]:self-start;
   }
 
   /* truncation */
@@ -243,7 +241,7 @@
     -webkit-backdrop-filter: blur(5px);
   }
   .glass-container {
-    @apply bg-white/20 dark:bg-white/5 xs:rounded-lg xs:hover:shadow-[0_0_4px_4px_rgb(var(--foreground)/0.4)];
+    @apply xs:rounded-lg xs:hover:shadow-[0_0_4px_4px_rgb(var(--foreground)/0.4)] bg-white/20 dark:bg-white/5;
     border: 2px rgb(var(--base-foreground) / 0.2) solid;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);

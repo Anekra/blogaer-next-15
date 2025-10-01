@@ -19,7 +19,8 @@ const config = [
     "next/core-web-vitals",
     "next/typescript",
     "standard",
-    "plugin:tailwindcss/recommended",
+    "eslint:recommended",
+    // "plugin:tailwindcss/recommended",
     "prettier"
   ),
   {
@@ -76,7 +77,6 @@ const config = [
   },
   {
     files: ["**/*.mjs", "**/*.ts", "**/*.tsx", "**/*.css"],
-
     rules: {
       "no-undef": "off"
     }

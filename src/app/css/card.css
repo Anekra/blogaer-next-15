@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer components {
   .card-image {
@@ -81,7 +79,7 @@
         border-box;
   }
   .card-socials::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 40px;
     height: 40px;
