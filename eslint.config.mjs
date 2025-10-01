@@ -19,7 +19,6 @@ const config = [
     "next/core-web-vitals",
     "next/typescript",
     "standard",
-    "eslint:recommended",
     // "plugin:tailwindcss/recommended",
     "prettier"
   ),

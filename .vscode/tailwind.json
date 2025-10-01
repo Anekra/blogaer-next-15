@@ -1,13 +1,73 @@
 {
-  "version": 1.1,
+  "version": 4.0,
   "atDirectives": [
     {
-      "name": "@tailwind",
-      "description": "Use the `@tailwind` directive to insert Tailwind's `base`, `components`, `utilities` and `screens` styles into your CSS.",
+      "name": "@import",
+      "description": "Use the `@import \"tailwindcss\";` directive to inject Tailwind's core styles into your CSS. In v4, this replaces the separate `@tailwind base`, `@tailwind components`, `@tailwind utilities`, and `@tailwind variants` directives.",
       "references": [
         {
           "name": "Tailwind Documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+          "url": "https://tailwindcss.com/docs/functions-and-directives#import"
+        },
+        {
+          "name": "v4 Upgrade Guide: Removed @tailwind directives",
+          "url": "https://tailwindcss.com/docs/upgrade-guide#removed-tailwind-directives"
+        }
+      ]
+    },
+    {
+      "name": "@theme",
+      "description": "Use the `@theme` directive to define your project's custom design tokens, like colors, fonts, and breakpoints. This is a key part of v4's CSS-first configuration and replaces most of the `theme` customization done in `tailwind.config.js` in v3.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/theme"
+        },
+        {
+          "name": "Tailwind Documentation (Functions & Directives)",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#theme"
+        }
+      ]
+    },
+    {
+      "name": "@utility",
+      "description": "Use the `@utility` directive to add custom utilities to your project that automatically work with variants (like `hover`, `focus`, `lg`, etc.). This is the v4 replacement for the `addUtilities` plugin API.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities"
+        },
+        {
+          "name": "Tailwind Documentation (Functions & Directives)",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#utility"
+        }
+      ]
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Use the `@custom-variant` directive to add a new custom variant to your project (e.g., `theme-midnight:`). This is the v4 replacement for the `addVariant` plugin API.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#custom-variant"
+        },
+        {
+          "name": "Tailwind Documentation (Adding custom variants)",
+          "url": "https://tailwindcss.com/docs/adding-custom-styles#adding-custom-variants"
+        }
+      ]
+    },
+    {
+      "name": "@variant",
+      "description": "Use the `@variant` directive to apply an existing Tailwind variant (or a custom one defined with `@custom-variant`) to styles defined within custom CSS. For example, to apply styles only in `dark:` mode.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#variant"
+        },
+        {
+          "name": "Tailwind Documentation (Using variants)",
+          "url": "https://tailwindcss.com/docs/adding-custom-styles#using-variants"
         }
       ]
     },
@@ -22,18 +82,76 @@
       ]
     },
     {
-      "name": "@responsive",
-      "description": "You can generate responsive variants of your own classes by wrapping their definitions in the `@responsive` directive:\n```css\n@responsive {\n  .alert {\n    background-color: #E53E3E;\n  }\n}\n```\n",
+      "name": "@layer",
+      "description": "Use the `@layer` directive to tell Tailwind which “bucket” a set of custom styles belongs to. Valid layers are `base`, `components`, and `utilities`. This allows for proper ordering and application of variants.",
       "references": [
         {
           "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+        }
+      ]
+    },
+    {
+      "name": "@source",
+      "description": "Use the `@source` directive to explicitly specify source file paths that Tailwind should scan for utility classes, in addition to its automatic content detection.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#source"
+        },
+        {
+          "name": "Tailwind Documentation (Explicitly registering sources)",
+          "url": "https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources"
+        }
+      ]
+    },
+    {
+      "name": "@reference",
+      "description": "Use the `@reference` directive to import your main stylesheet for reference (e.g., in a component's `<style>` block in Vue/Svelte) without duplicating the CSS output. This makes `@apply` and `@variant` available in that context.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#reference"
+        }
+      ]
+    },
+    {
+      "name": "@config",
+      "description": "Use the `@config` directive to specify which v3-style JavaScript config file Tailwind should use. This is primarily for backward compatibility if you need to continue using a `tailwind.config.js` file in v4.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#config"
+        },
+        {
+          "name": "v4 Upgrade Guide: Using a JavaScript config file",
+          "url": "https://tailwindcss.com/docs/upgrade-guide#using-a-javascript-config-file"
+        }
+      ]
+    },
+    {
+      "name": "@tailwind",
+      "description": "In v3 and older, used to insert Tailwind's core styles. **In v4, this is replaced by `@import \"tailwindcss\";`**.",
+      "references": [
+        {
+          "name": "Tailwind Documentation (v3)",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+        }
+      ]
+    },
+    {
+      "name": "@responsive",
+      "description": "In v3 and older, used to generate responsive variants of custom classes. In v4, use `@utility` or `@variant` with the screen media queries, or define screen sizes via `@theme` variables.",
+      "references": [
+        {
+          "name": "Tailwind Documentation (v3)",
           "url": "https://tailwindcss.com/docs/functions-and-directives#responsive"
         }
       ]
     },
     {
       "name": "@screen",
-      "description": "The `@screen` directive allows you to create media queries that reference your breakpoints by **name** instead of duplicating their values in your own CSS:\n```css\n@screen sm {\n  /* ... */\n}\n```\n…gets transformed into this:\n```css\n@media (min-width: 640px) {\n  /* ... */\n}\n```\n",
+      "description": "The `@screen` directive allows you to create media queries that reference your breakpoints by **name**. This is still available in v4.",
       "references": [
         {
           "name": "Tailwind Documentation",
@@ -43,10 +161,10 @@
     },
     {
       "name": "@variants",
-      "description": "Generate `hover`, `focus`, `active` and other **variants** of your own utilities by wrapping their definitions in the `@variants` directive:\n```css\n@variants hover, focus {\n   .btn-brand {\n background-color: #3182CE;\n}\n}\n```\n",
+      "description": "In v3 and older, used to generate state variants (`hover`, `focus`, etc.) of custom utilities. In v4, use the `@utility` directive, which automatically enables variants, or use `@custom-variant` for new variants.",
       "references": [
         {
-          "name": "Tailwind Documentation",
+          "name": "Tailwind Documentation (v3)",
           "url": "https://tailwindcss.com/docs/functions-and-directives#variants"
         }
       ]

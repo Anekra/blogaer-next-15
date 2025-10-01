@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@layer utilities {
+@layer base {
   /* scroll bar */
   ::-webkit-scrollbar {
     width: 10px;
@@ -37,18 +37,19 @@
   ::-webkit-scrollbar-button:single-button:vertical:increment:active {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='rgb(255,255,255)' d='M5.143 9.847a1 1 0 0 0 1.715 0l3.999-6.665a1 1 0 0 0-.858-1.515H2.001a1 1 0 0 0-.858 1.515z'/></svg>");
   }
+}
 
   /* switch */
-  .switch-container {
+@utility switch-container {
     @apply relative flex items-center rounded-full px-1;
   }
-  .switch-toggle {
+@utility .switch-toggle {
     @apply bg-primary-foreground rounded-full font-bold transition-transform select-none;
   }
-  .switch-container:hover {
+@utility .switch-container:hover {
     @apply neu-base-inset;
   }
-  .switch-toggle:hover {
+@utility .switch-toggle:hover {
     @apply neu-base;
   }
 
@@ -57,23 +58,23 @@
     writing-mode: vertical-lr;
     text-orientation: upright;
   }
-  .link-p {
+@utility .link-p {
     @apply text-primary-foreground hover:cursor-pointer hover:brightness-150;
   }
 
   /* input */
-  input[type="number"] {
+@utility input[type="number"] {
     @apply [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
   }
-  .otp-input {
+@utility .otp-input {
     @apply bg-background tracking-[32px] focus:outline-none;
   }
 
   /* tabs */
-  input[name="profile-tab-name"] + label {
+@utility input[name="profile-tab-name"] + label {
     @apply flex px-5 py-3 duration-300;
   }
-  input[name="profile-tab-name"]:checked + label {
+@utility input[name="profile-tab-name"]:checked + label {
     @apply bg-background rounded-t-lg;
   }
   input[name="profile-tab-name"]:checked + label {
@@ -94,42 +95,42 @@
   }
 
   /* tags */
-  .tags {
+@utility .tags {
     @apply border-border after:text-accent-foreground relative ms-4 flex items-center rounded-r border-y-[0.19rem] border-r-[0.19rem] px-3 text-xs before:absolute before:inset-y-[2px] before:left-[-11px] before:h-6 before:w-6 before:rotate-45 before:rounded before:border-[3px] before:border-[transparent_transparent_rgb(var(--border))_rgb(var(--border))] before:content-[''] after:absolute after:inset-y-[5px] after:left-[-2px] after:text-[11px] after:font-bold after:content-['०'];
   }
 
   /* tooltip */
-  .tooltip,
+@utility  .tooltip,
   .tooltip-wysiwyg,
-  .tooltip-point {
+ .tooltip-point {
     @apply relative flex flex-col items-center justify-center;
   }
-  .tooltip-wysiwyg {
+@utility .tooltip-wysiwyg {
     @apply cursor-not-allowed;
   }
-  .tooltip:hover::before,
+@utility  .tooltip:hover::before,
   .tooltip-wysiwyg:hover::before,
   .tooltip-point:hover::before,
-  .tooltip-point:hover::after {
+ .tooltip-point:hover::after {
     @apply flex items-center;
   }
-  .tooltip::before,
+@utility  .tooltip::before,
   .tooltip-wysiwyg::before,
-  .tooltip-point::before {
+ .tooltip-point::before {
     @apply bg-base-background text-base-foreground absolute top-0 z-10 hidden translate-y-[calc((100%+4px)*-1)] rounded p-2 text-left text-[12px] font-normal content-[attr(data-tooltip-text)];
   }
-  .tooltip-wysiwyg::before {
+@utility .tooltip-wysiwyg::before {
     @apply h-[60px] w-[144px] data-[tooltip-justify=center]:self-center data-[tooltip-justify=end]:self-end data-[tooltip-justify=start]:self-start;
   }
 
   /* truncation */
-  .truncate-1 {
+@utility .truncate-1 {
     @apply line-clamp-1 overflow-hidden text-ellipsis;
   }
-  .truncate-2 {
+@utility .truncate-2 {
     @apply line-clamp-2 overflow-hidden text-ellipsis;
   }
-  .truncate-3 {
+@utility .truncate-3 {
     @apply line-clamp-3 overflow-hidden text-ellipsis;
   }
 
@@ -240,7 +241,7 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
   }
-  .glass-container {
+@utility .glass-container {
     @apply xs:rounded-lg xs:hover:shadow-[0_0_4px_4px_rgb(var(--foreground)/0.4)] bg-white/20 dark:bg-white/5;
     border: 2px rgb(var(--base-foreground) / 0.2) solid;
     backdrop-filter: blur(5px);
@@ -398,4 +399,4 @@
       stroke-dashoffset: -59;
     }
   }
-}
+
