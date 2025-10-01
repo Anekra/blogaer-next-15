@@ -53,7 +53,7 @@ export default function NavBar() {
           window.scrollY === 0 && isRootPath
             ? "bg-transparent"
             : "bg-background shadow-[0_1.5px_1px_0_rgb(0_0_0/0.3)]"
-        } top-0 z-[8] flex h-[66px] w-screen items-center justify-between gap-6 px-6 py-2 transition-transform duration-500`}
+        } top-0 z-8 flex h-[66px] w-screen items-center justify-between gap-6 px-6 py-2 transition-transform duration-500`}
       >
         <div className="flex gap-4">
           <button className="flex items-center rounded text-3xl active:bg-secondary md:hidden">

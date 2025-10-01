@@ -18,7 +18,7 @@ export default function LogoIcon({
           isAtTheTop
             ? "hover:fill-[url(#gradient-p-convex)] active:fill-[rgb(163_95_57)] dark:active:fill-[rgb(238,184,153)]"
             : "hover:fill-[url(#gradient-base-convex)] active:fill-[rgb(var(--accent))]"
-        } fill-current hover:[filter:url(#filter-convex)] active:[filter:url(#filter-inset)]`,
+        } fill-current hover:filter-[url(#filter-convex)] active:filter-[url(#filter-inset)]`,
         className
       )}
     >

@@ -171,7 +171,7 @@ export default function PostEditor({
             isVisible={showLinkEditor}
           />
           <Editable
-            className="flex flex-col gap-6 outline-none"
+            className="flex flex-col gap-6 outline-hidden"
             renderElement={(props) => renderElement(props, editor)}
             renderLeaf={renderLeaf}
             onFocus={() => setSelection(selection)}

@@ -23,7 +23,7 @@ export default function SearchBar() {
           placeholder="Search"
           className={`${
             isSearchFocused ? "mr-10 flex bg-background" : "w-9 bg-transparent"
-          } h-fit w-full rounded-lg border-none py-[6px] outline-none transition-all duration-300 focus-visible:ring-0 md:mr-10 md:flex md:bg-background`}
+          } h-fit w-full rounded-lg border-none py-[6px] outline-hidden transition-all duration-300 focus-visible:ring-0 md:mr-10 md:flex md:bg-background`}
           onBlur={() => searchRef.current?.blur()}
         />
         <button

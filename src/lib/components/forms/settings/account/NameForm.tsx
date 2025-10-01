@@ -44,7 +44,7 @@ export default function NameForm() {
       />
       <button
         type="submit"
-        className="btn-outline-base hidden !px-8 group-hover:block"
+        className="btn-outline-base hidden px-8! group-hover:block"
       >
         {session?.name ? "Edit" : "Add"}
       </button>

@@ -21,7 +21,7 @@ export default function PostQuote({
       <span
         className={`${!text ? "ph relative" : ""} ${
           element.align
-        } w-full text-xl outline-none`}
+        } w-full text-xl outline-hidden`}
       >
         {children}
       </span>

@@ -20,7 +20,7 @@ export default function EditPostDropdown({
   return (
     <Dialog>
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-fit items-center rounded-full p-1 text-xl font-bold hover:bg-foreground hover:text-background focus:outline-none">
+        <DropdownMenuTrigger className="flex h-fit items-center rounded-full p-1 text-xl font-bold hover:bg-foreground hover:text-background focus:outline-hidden">
           <MoreVerticalIcon />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">

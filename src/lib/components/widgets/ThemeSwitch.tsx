@@ -25,7 +25,7 @@ export default function ThemeSwitch({
       <input
         id="autosave-switch"
         type="checkbox"
-        className="absolute z-[1] size-full appearance-none rounded-full"
+        className="absolute z-1 size-full appearance-none rounded-full"
         checked={isOn}
         onChange={(e) => {
           setTheme(e.currentTarget.checked ? "dark" : "light");

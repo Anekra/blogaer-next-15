@@ -19,11 +19,11 @@ export default function Register() {
         <RegisterForm />
         <div className="flex flex-col gap-4">
           <div className="mt-2 flex items-center">
-            <hr className="h-1 w-full border-none bg-gradient-to-l from-foreground" />
+            <hr className="h-1 w-full border-none bg-linear-to-l from-foreground" />
             <p className="w-fit shrink-0 px-2 text-center text-sm">
               Or login with
             </p>
-            <hr className="h-1 w-full border-none bg-gradient-to-r from-foreground" />
+            <hr className="h-1 w-full border-none bg-linear-to-r from-foreground" />
           </div>
           <div className="flex justify-center gap-6 p-4">
             <GoogleLoginBtn />

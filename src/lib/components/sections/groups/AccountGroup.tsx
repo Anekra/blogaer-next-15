@@ -14,7 +14,7 @@ export default function AccountGroup() {
 
   return (
     <main
-      className={`flex w-full max-w-screen-xl flex-col gap-8 px-6 py-4 lg:px-8`}
+      className={`flex w-full max-w-(--breakpoint-xl) flex-col gap-8 px-6 py-4 lg:px-8`}
     >
       <AccountSection data={res?.data?.userRequests} />
       <SocialsSection data={res?.data?.socials} />

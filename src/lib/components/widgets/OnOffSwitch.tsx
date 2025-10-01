@@ -22,12 +22,12 @@ export default function OnOffSwitch({ on = false }: { on?: boolean }) {
         <input
           id="autosave-switch"
           type="checkbox"
-          className="peer absolute z-[1] size-full appearance-none rounded-full transition-transform hover:cursor-pointer"
+          className="peer absolute z-1 size-full appearance-none rounded-full transition-transform hover:cursor-pointer"
           onChange={handleOnChange}
         />
         <span
           className={`switch-toggle peer-hover:neu-base p-1 text-xs text-base-background${
-            isOn ? " translate-x-full" : " translate-x-0 !bg-accent"
+            isOn ? " translate-x-full" : " translate-x-0 bg-accent!"
           }`}
         >
           {isOn ? "On" : "Off"}

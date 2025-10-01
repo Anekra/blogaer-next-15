@@ -40,7 +40,7 @@ export default function SavedAccountDropdown({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="z-[3] flex h-fit items-center rounded-full p-1 text-xl">
+      <DropdownMenuTrigger className="z-3 flex h-fit items-center rounded-full p-1 text-xl">
         <MoreVerticalIcon />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-background" align="end">

@@ -29,7 +29,7 @@ export default function AutosaveSwitch() {
             <input
               id="autosave-switch"
               type="checkbox"
-              className="absolute z-[1] size-full appearance-none rounded-full hover:cursor-pointer"
+              className="absolute z-1 size-full appearance-none rounded-full hover:cursor-pointer"
               checked={isOn}
               onChange={(e) => {
                 setIsOn(e.target.checked);
@@ -38,7 +38,7 @@ export default function AutosaveSwitch() {
             />
             <span
               className={`switch-toggle group-hover:neu-base p-1 text-base-background${
-                isOn ? " translate-x-full" : " translate-x-0 !bg-accent"
+                isOn ? " translate-x-full" : " translate-x-0 bg-accent!"
               }`}
             >
               {isOn ? "On" : "Off"}

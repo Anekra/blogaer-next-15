@@ -34,7 +34,7 @@ export default function SideBar() {
       className={`hidden h-full flex-col items-center gap-2 bg-background px-3 pb-16 md:sticky md:flex${isNavBarCollapsed ? " md:top-4" : " md:top-24"}`}
     >
       <button
-        className={`rounded-full p-2 text-2xl hover:bg-gradient-to-t hover:from-background hover:to-foreground/10 active:brightness-150${
+        className={`rounded-full p-2 text-2xl hover:bg-linear-to-t hover:from-background hover:to-foreground/10 active:brightness-150${
           isCollapsed ? "" : " self-start"
         }`}
         onClick={() => toggleSideBar()}
@@ -44,7 +44,7 @@ export default function SideBar() {
       <nav
         className={`flex flex-col gap-1 transition-[width] duration-300${isCollapsed ? " w-16" : " w-40"}`}
       >
-        <div className="flex flex-col [&>*]:justify-center">
+        <div className="flex flex-col *:justify-center">
           <Link
             href="/home"
             className={`flex rounded p-2${

@@ -1,14 +1,148 @@
-@config "../../../tailwind.config.js";
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin 'tailwindcss-animate';
 
-@layer components {
-  .btn-solid-root {
-    @apply rounded-xl bg-primary-foreground px-4 py-2 font-bold text-primary enabled:hover:bg-transparent enabled:hover:text-primary-foreground active:text-primary;
+@custom-variant dark (&:is(.dark *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-xs)) {
+    max-width: none;
   }
-  .btn-solid-root:enabled:hover {
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@theme {
+  --breakpoint-xs: 430px;
+  --breakpoint-ms: 700px;
+  --breakpoint-ml: 900px;
+  --breakpoint-ql: 1134px;
+  --breakpoint-xxl: 1316px;
+
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-base-background: rgb(var(--base-background));
+  --color-base-foreground: rgb(var(--base-foreground));
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-darker-secondary-foreground: rgb(var(--darker-secondary-foreground));
+  --color-custom-bg1: rgb(var(--custom-bg1));
+  --color-custom-bg2: rgb(var(--custom-bg2));
+
+  --color-destructive: rgb(var(--destructive));
+  --color-destructive-foreground: rgb(var(--destructive-foreground));
+
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 2s ease-in;
+  --animate-blinking: fade-in 2s ease-in-out infinite;
+  --animate-fadeout: fadeout 3s ease-out;
+  --animate-slide-ltr: slide-ltr 2s linear infinite;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes slide-ltr {
+    35% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+      transform: translateX(150px);
+    }
+    60% {
+      opacity: 0;
+      transform: translateX(-150px);
+    }
+    61% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn-solid-root {
+  @apply rounded-xl bg-primary-foreground px-4 py-2 font-bold text-primary enabled:hover:bg-transparent enabled:hover:text-primary-foreground active:text-primary;
+  &:enabled:hover {
     color: rgb(255, 200, 153);
     background: linear-gradient(
       145deg,
@@ -30,7 +164,7 @@
         2px 2px 2px rgb(var(--neu-p-bot));
     }
   }
-  .btn-solid-root:enabled:active {
+  &:enabled:active {
     background: rgb(var(--neu-s-top) / 0.2);
     box-shadow:
       inset -2px -2px 4px rgb(var(--neu-s-top)),
@@ -42,39 +176,12 @@
         inset 2px 2px 2px rgb(var(--neu-p-bot));
     }
   }
+}
 
-  .btn-solid-base {
-    @apply rounded-lg bg-foreground/20;
-  }
-  .btn-solid-base-rounder {
-    @apply rounded-xl bg-foreground/20;
-  }
-  .btn-solid-p {
-    @apply rounded-lg bg-primary-foreground text-primary;
-  }
-  .btn-solid-p-rounder {
-    @apply rounded-xl bg-primary-foreground text-primary;
-  }
-  .btn-solid-s {
-    @apply rounded-lg bg-secondary-foreground text-secondary;
-  }
-  .btn-solid-destructive {
-    @apply rounded-lg bg-destructive-foreground/70 text-destructive;
-  }
-  .btn-solid-base,
-  .btn-solid-base-rounder,
-  .btn-solid-p,
-  .btn-solid-p-rounder,
-  .btn-solid-s,
-  .btn-solid-destructive {
-    @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
-  }
-  .btn-solid-base:enabled:hover,
-  .btn-solid-base-rounder:enabled:hover,
-  .btn-solid-p:enabled:hover,
-  .btn-solid-p-rounder:enabled:hover,
-  .btn-solid-s:enabled:hover,
-  .btn-solid-destructive:enabled:hover {
+@utility btn-solid-base {
+  @apply rounded-lg bg-foreground/20;
+  @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
+  &:enabled:hover {
     background: linear-gradient(
       145deg,
       rgb(var(--neu-base-top)),
@@ -84,27 +191,127 @@
       -2px -2px 4px rgb(var(--neu-base-top)),
       2px 2px 2px rgb(var(--neu-base-bot));
   }
-  .btn-solid-base:enabled:active,
-  .btn-solid-base-rounder:enabled:active,
-  .btn-solid-p:enabled:active,
-  .btn-solid-p-rounder:enabled:active,
-  .btn-solid-s:enabled:active,
-  .btn-solid-destructive:enabled:active {
+  &:enabled:active {
     background: rgb(var(--neu-base-top) / 0.2);
     box-shadow:
       inset -2px -2px 4px rgb(var(--neu-base-top)),
       inset 2px 2px 4px rgb(var(--neu-base-bot));
   }
+}
 
-  .btn-solid-google {
-    @apply rounded-lg bg-primary-foreground px-4 py-2 font-bold text-primary enabled:hover:text-base-foreground/70 active:text-white;
+@utility btn-solid-base-rounder {
+  @apply rounded-xl bg-foreground/20;
+  @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot) / 0.5)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 2px rgb(var(--neu-base-bot));
   }
+  &:enabled:active {
+    background: rgb(var(--neu-base-top) / 0.2);
+    box-shadow:
+      inset -2px -2px 4px rgb(var(--neu-base-top)),
+      inset 2px 2px 4px rgb(var(--neu-base-bot));
+  }
+}
 
-  .btn-outline-root {
-    @apply rounded-lg px-4 py-2 font-bold text-secondary-foreground enabled:hover:dark:text-secondary-foreground;
-    box-shadow: inset 0 0 0 3px rgb(var(--secondary-foreground));
+@utility btn-solid-p {
+  @apply rounded-lg bg-primary-foreground text-primary;
+  @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot) / 0.5)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 2px rgb(var(--neu-base-bot));
   }
-  .btn-outline-root:enabled:hover {
+  &:enabled:active {
+    background: rgb(var(--neu-base-top) / 0.2);
+    box-shadow:
+      inset -2px -2px 4px rgb(var(--neu-base-top)),
+      inset 2px 2px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-solid-p-rounder {
+  @apply rounded-xl bg-primary-foreground text-primary;
+  @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot) / 0.5)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 2px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: rgb(var(--neu-base-top) / 0.2);
+    box-shadow:
+      inset -2px -2px 4px rgb(var(--neu-base-top)),
+      inset 2px 2px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-solid-s {
+  @apply rounded-lg bg-secondary-foreground text-secondary;
+  @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot) / 0.5)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 2px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: rgb(var(--neu-base-top) / 0.2);
+    box-shadow:
+      inset -2px -2px 4px rgb(var(--neu-base-top)),
+      inset 2px 2px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-solid-destructive {
+  @apply rounded-lg bg-destructive-foreground/70 text-destructive;
+  @apply px-4 py-2 font-bold enabled:hover:text-base-foreground;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot) / 0.5)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 2px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: rgb(var(--neu-base-top) / 0.2);
+    box-shadow:
+      inset -2px -2px 4px rgb(var(--neu-base-top)),
+      inset 2px 2px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-solid-google {
+  @apply rounded-lg bg-primary-foreground px-4 py-2 font-bold text-primary enabled:hover:text-base-foreground/70 active:text-white;
+}
+
+@utility btn-outline-root {
+  @apply rounded-lg px-4 py-2 font-bold text-secondary-foreground dark:enabled:hover:text-secondary-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--secondary-foreground));
+  &:enabled:hover {
     color: rgb(255, 200, 153);
     background: linear-gradient(
       145deg,
@@ -115,101 +322,19 @@
       -2px -2px 4px rgb(var(--neu-s-top)),
       2px 2px 4px rgb(var(--neu-s-bot));
   }
-  .btn-outline-root:enabled:active {
+  &:enabled:active {
     background: rgb(var(--neu-s-top) / 0.2);
     box-shadow:
       inset -2px -2px 4px rgb(var(--neu-s-top)),
       inset 2px 2px 4px rgb(var(--neu-s-bot));
   }
+}
 
-  .btn-outline-p,
-  .btn-outline-s {
-    @apply rounded-lg px-4 py-2 font-extrabold enabled:hover:text-base-foreground/70 active:text-white;
-  }
-  .btn-outline-base {
-    @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
-    box-shadow: inset 0 0 0 3px rgb(var(--foreground));
-  }
-  .btn-outline-base-rounder {
-    @apply rounded-xl px-4 py-2 font-extrabold text-foreground;
-    box-shadow: inset 0 0 0 3px rgb(var(--foreground));
-  }
-  .btn-outline-p {
-    @apply text-primary-foreground;
-    box-shadow: inset 0 0 0 3px rgb(var(--primary-foreground));
-  }
-  .btn-outline-s {
-    @apply text-secondary-foreground;
-    box-shadow: inset 0 0 0 3px rgb(var(--secondary-foreground));
-  }
-  .btn-outline-destructive {
-    @apply rounded-lg;
-  }
-  .btn-outline-destructive-rounder {
-    @apply rounded-xl;
-  }
-  .btn-outline-destructive,
-  .btn-outline-destructive-rounder {
-    @apply px-4 py-2 font-extrabold text-destructive-foreground;
-    box-shadow: inset 0 0 0 3px rgb(var(--destructive-foreground));
-  }
-  .btn-outline-socials {
-    @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
-    box-shadow: inset 0 0 0 3px rgb(230, 230, 230);
-  }
-  .btn-outline-instagram {
-    @apply rounded-lg px-[14px] py-[5px] font-extrabold text-foreground enabled:hover:border-none enabled:hover:px-4 enabled:hover:py-2 active:border-none active:px-4 active:py-2;
-    border: 3px solid transparent;
-    background:
-      linear-gradient(to right, rgb(var(--custom-bg1)), rgb(var(--custom-bg1)))
-        padding-box,
-      linear-gradient(
-          160deg,
-          rgb(94, 41, 129),
-          rgb(202, 23, 23),
-          rgb(185, 129, 50)
-        )
-        border-box;
-  }
-  .btn-outline-microsoft {
-    @apply rounded-lg px-[14px] py-[5px] font-extrabold text-foreground enabled:hover:border-none enabled:hover:px-4 enabled:hover:py-2 active:border-none active:px-4 active:py-2;
-    border: 3px solid transparent;
-    background:
-      linear-gradient(to right, rgb(var(--custom-bg1)), rgb(var(--custom-bg1)))
-        padding-box,
-      linear-gradient(169deg, #f35325 15%, transparent 40%) border-box,
-      linear-gradient(190deg, #81bc06 15%, transparent 40%) border-box,
-      linear-gradient(348deg, #ffba08 25%, transparent 40%) border-box,
-      linear-gradient(12deg, #05a6f0 25%, transparent 40%) border-box;
-  }
-  .btn-outline-facebook {
-    @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
-    box-shadow: inset 0 0 0 3px rgb(24, 119, 242);
-  }
-  .btn-outline-gitlab {
-    @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
-    box-shadow: inset 0 0 0 3px rgb(226, 67, 41);
-  }
-  .btn-outline-google {
-    @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
-    box-shadow:
-      inset 0 3px 0 rgba(255, 61, 0, 0.8),
-      inset -3px 0 0 rgba(25, 118, 210, 0.8),
-      inset 0 -3px 0 rgba(76, 175, 80, 0.8),
-      inset 3px 0 0 rgba(255, 193, 7, 0.8);
-  }
-  .btn-outline-base:enabled:hover,
-  .btn-outline-base-rounder:enabled:hover,
-  .btn-outline-p:enabled:hover,
-  .btn-outline-s:enabled:hover,
-  .btn-outline-destructive:enabled:hover,
-  .btn-outline-destructive-rounder:enabled:hover,
-  .btn-outline-socials:enabled:hover,
-  .btn-outline-instagram:enabled:hover,
-  .btn-outline-microsoft:enabled:hover,
-  .btn-outline-facebook:enabled:hover,
-  .btn-outline-gitlab:enabled:hover,
-  .btn-outline-google:enabled:hover {
+@utility btn-outline-p {
+  @apply rounded-lg px-4 py-2 font-extrabold enabled:hover:text-base-foreground/70 active:text-white;
+  @apply text-primary-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--primary-foreground));
+  &:enabled:hover {
     background: linear-gradient(
       145deg,
       rgb(var(--neu-base-top)),
@@ -219,18 +344,7 @@
       -2px -2px 4px rgb(var(--neu-base-top)),
       2px 2px 4px rgb(var(--neu-base-bot));
   }
-  .btn-outline-base:enabled:active,
-  .btn-outline-base-rounder:enabled:active,
-  .btn-outline-p:enabled:active,
-  .btn-outline-s:enabled:active,
-  .btn-outline-destructive:enabled:active,
-  .btn-outline-destructive-rounder:enabled:active,
-  .btn-outline-socials:enabled:active,
-  .btn-outline-instagram:enabled:active,
-  .btn-outline-microsoft:enabled:active,
-  .btn-outline-facebook:enabled:active,
-  .btn-outline-gitlab:enabled:active,
-  .btn-outline-google:enabled:active {
+  &:enabled:active {
     background: linear-gradient(
       145deg,
       rgb(var(--neu-base-bot-lightest) / 0.3),
@@ -240,12 +354,311 @@
       inset -4px -4px 4px rgb(var(--neu-base-top)),
       inset 4px 4px 4px rgb(var(--neu-base-bot));
   }
+}
 
-  .btn-border-p {
-    @apply rounded-3xl bg-primary px-4 py-2 font-extrabold text-primary-foreground enabled:hover:text-base-foreground/70;
-    box-shadow: inset 0 0 0 2px rgb(var(--primary-foreground));
+@utility btn-outline-s {
+  @apply rounded-lg px-4 py-2 font-extrabold enabled:hover:text-base-foreground/70 active:text-white;
+  @apply text-secondary-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--secondary-foreground));
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
   }
-  .btn-border-p:enabled:hover {
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-base {
+  @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--foreground));
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-base-rounder {
+  @apply rounded-xl px-4 py-2 font-extrabold text-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--foreground));
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-destructive {
+  @apply rounded-lg;
+  @apply px-4 py-2 font-extrabold text-destructive-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--destructive-foreground));
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-destructive-rounder {
+  @apply rounded-xl;
+  @apply px-4 py-2 font-extrabold text-destructive-foreground;
+  box-shadow: inset 0 0 0 3px rgb(var(--destructive-foreground));
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-socials {
+  @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
+  box-shadow: inset 0 0 0 3px rgb(230, 230, 230);
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-instagram {
+  @apply rounded-lg px-[14px] py-[5px] font-extrabold text-foreground enabled:hover:border-none enabled:hover:px-4 enabled:hover:py-2 active:border-none active:px-4 active:py-2;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(to right, rgb(var(--custom-bg1)), rgb(var(--custom-bg1)))
+      padding-box,
+    linear-gradient(
+        160deg,
+        rgb(94, 41, 129),
+        rgb(202, 23, 23),
+        rgb(185, 129, 50)
+      )
+      border-box;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-microsoft {
+  @apply rounded-lg px-[14px] py-[5px] font-extrabold text-foreground enabled:hover:border-none enabled:hover:px-4 enabled:hover:py-2 active:border-none active:px-4 active:py-2;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(to right, rgb(var(--custom-bg1)), rgb(var(--custom-bg1)))
+      padding-box,
+    linear-gradient(169deg, #f35325 15%, transparent 40%) border-box,
+    linear-gradient(190deg, #81bc06 15%, transparent 40%) border-box,
+    linear-gradient(348deg, #ffba08 25%, transparent 40%) border-box,
+    linear-gradient(12deg, #05a6f0 25%, transparent 40%) border-box;
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-facebook {
+  @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
+  box-shadow: inset 0 0 0 3px rgb(24, 119, 242);
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-gitlab {
+  @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
+  box-shadow: inset 0 0 0 3px rgb(226, 67, 41);
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-outline-google {
+  @apply rounded-lg px-4 py-2 font-extrabold text-foreground;
+  box-shadow:
+    inset 0 3px 0 rgba(255, 61, 0, 0.8),
+    inset -3px 0 0 rgba(25, 118, 210, 0.8),
+    inset 0 -3px 0 rgba(76, 175, 80, 0.8),
+    inset 3px 0 0 rgba(255, 193, 7, 0.8);
+  &:enabled:hover {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-top)),
+      rgb(var(--neu-base-bot-lighter) / 0.3)
+    );
+    box-shadow:
+      -2px -2px 4px rgb(var(--neu-base-top)),
+      2px 2px 4px rgb(var(--neu-base-bot));
+  }
+  &:enabled:active {
+    background: linear-gradient(
+      145deg,
+      rgb(var(--neu-base-bot-lightest) / 0.3),
+      rgb(var(--neu-base-top-darker))
+    );
+    box-shadow:
+      inset -4px -4px 4px rgb(var(--neu-base-top)),
+      inset 4px 4px 4px rgb(var(--neu-base-bot));
+  }
+}
+
+@utility btn-border-p {
+  @apply rounded-3xl bg-primary px-4 py-2 font-extrabold text-primary-foreground enabled:hover:text-base-foreground/70;
+  box-shadow: inset 0 0 0 2px rgb(var(--primary-foreground));
+  &:enabled:hover {
     background: linear-gradient(
       145deg,
       rgb(var(--neu-p-top)),
@@ -255,25 +668,27 @@
       -2px -2px 4px rgb(var(--neu-p-top)),
       2px 2px 4px rgb(var(--neu-p-bot));
   }
-  .btn-border-p:enabled:active {
+  &:enabled:active {
     background: rgb(var(--neu-p-bot-lighter));
     color: rgb(255, 255, 255);
     box-shadow:
       inset -2px -2px 4px rgb(var(--neu-p-top)),
       inset 2px 2px 4px rgb(var(--neu-p-bot));
   }
+}
 
-  .btn-text-destructive {
-    @apply rounded-lg px-4 py-2 font-extrabold text-destructive-foreground enabled:hover:bg-destructive/50;
-  }
-  .btn-text-base {
-    @apply rounded-lg px-4 py-2 font-extrabold text-foreground enabled:hover:bg-background/50;
-  }
+@utility btn-text-destructive {
+  @apply rounded-lg px-4 py-2 font-extrabold text-destructive-foreground enabled:hover:bg-destructive/50;
+}
 
-  .btn-s-translucent-b {
-    @apply h-9 whitespace-nowrap rounded-3xl bg-secondary-foreground/10 px-4 font-bold text-secondary-foreground/50 enabled:hover:bg-secondary enabled:hover:text-secondary-foreground dark:text-secondary-foreground/30 dark:enabled:hover:bg-secondary dark:enabled:hover:text-secondary-foreground;
-  }
-  .btn-circle-base {
-    @apply gradient-base active:gradient-base-inset;
-  }
+@utility btn-text-base {
+  @apply rounded-lg px-4 py-2 font-extrabold text-foreground enabled:hover:bg-background/50;
+}
+
+@utility btn-s-translucent-b {
+  @apply h-9 whitespace-nowrap rounded-3xl bg-secondary-foreground/10 px-4 font-bold text-secondary-foreground/50 enabled:hover:bg-secondary enabled:hover:text-secondary-foreground dark:text-secondary-foreground/30 dark:enabled:hover:bg-secondary dark:enabled:hover:text-secondary-foreground;
+}
+
+@utility btn-circle-base {
+  @apply gradient-base active:gradient-base-inset;
 }

@@ -120,7 +120,7 @@ export default function PostLinkEditor({
             value={link || ""}
             name="url"
             type="text"
-            className="rounded bg-base-background p-2 outline-none placeholder:text-foreground/20"
+            className="rounded bg-base-background p-2 outline-hidden placeholder:text-foreground/20"
             placeholder="Enter link url"
             onChange={onInputLinkChanged}
           />

@@ -22,7 +22,7 @@ export default function SettingsSB() {
       >
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-xl font-bold text-accent-foreground">Settings</h1>
-          <div className="flex h-fit w-full flex-col text-sm lg:text-base [&>*]:rounded [&>*]:px-2 hover:[&>*]:bg-foreground/5">
+          <div className="flex h-fit w-full flex-col text-sm lg:text-base *:rounded *:px-2 *:hover:bg-foreground/5">
             <Link
               href="/settings/account"
               className={`flex w-full flex-col items-center py-2 lg:items-start${
@@ -31,7 +31,7 @@ export default function SettingsSB() {
                   : " text-muted-foreground hover:text-base-foreground"
               }`}
             >
-              <span className="static text-[26px] leading-8 lg:hidden [&>*]:fill-none [&>*]:stroke-current">
+              <span className="static text-[26px] leading-8 lg:hidden *:fill-none *:stroke-current">
                 <UserIcon />
               </span>
               Account

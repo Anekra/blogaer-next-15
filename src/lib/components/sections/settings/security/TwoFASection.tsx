@@ -33,7 +33,7 @@ export default function TwoFASection({ data }: { data?: TwoFADto }) {
   return (
     <section className="col-span-12 flex min-w-[420px] flex-col gap-2 rounded-lg ql:col-span-6">
       <h2 className="text-lg font-bold">Two Factor Authentications</h2>
-      <div className="glass-container flex flex-col items-center gap-6 p-6 [&>*]:w-full [&>*]:max-w-[538px]">
+      <div className="glass-container flex flex-col items-center gap-6 p-6 *:w-full *:max-w-[538px]">
         <div className="neu-base flex flex-col rounded">
           <h3 className="rounded-t-sm bg-base-foreground/10 px-4 py-2 text-center font-semibold">
             Overview

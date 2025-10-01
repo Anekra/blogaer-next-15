@@ -14,7 +14,7 @@ export default async function ExploreLayout({
   return (
     <NavBarProvider>
       <NavBar />
-      <div className="flex min-h-screen w-screen max-w-screen-2xl">
+      <div className="flex min-h-screen w-screen max-w-(--breakpoint-2xl)">
         <SideBarProvider>
           <SideBar />
         </SideBarProvider>

@@ -15,7 +15,7 @@ export default function SecurityGroup() {
   );
 
   return (
-    <main className="grid w-full max-w-screen-2xl grid-cols-12 gap-8 px-6 py-4 lg:px-8">
+    <main className="grid w-full max-w-(--breakpoint-2xl) grid-cols-12 gap-8 px-6 py-4 lg:px-8">
       <TwoFASection data={res?.data?.userTwoFA} />
       <ChangePassSection
         isPassword={res?.data?.userPassword}

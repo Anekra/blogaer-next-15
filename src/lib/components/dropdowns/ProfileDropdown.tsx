@@ -45,7 +45,7 @@ export default function ProfileDropdown() {
   return (
     <Dialog>
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center outline-none [&[data-state=open]>:last-child]:rotate-180">
+        <DropdownMenuTrigger className="flex items-center outline-hidden [&[data-state=open]>:last-child]:rotate-180">
           {session?.img ? (
             <div className="relative size-10 overflow-hidden rounded-full border-[3.5px] border-primary-foreground">
               <Image
@@ -68,7 +68,7 @@ export default function ProfileDropdown() {
             <b>{session?.name || session?.username}</b>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup className="[&>*]:h-9 hover:[&>*]:bg-foreground/70 hover:[&>*]:text-base-background">
+          <DropdownMenuGroup className="*:h-9 *:hover:bg-foreground/70 *:hover:text-base-background">
             <DropdownMenuItem>
               <Link href="/home" className="w-full">
                 Home
@@ -80,7 +80,7 @@ export default function ProfileDropdown() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="flex w-full items-center justify-between [&>*:nth-child(2)]:hover:bg-background"
+              className="flex w-full items-center justify-between hover:[&>*:nth-child(2)]:bg-background"
               onClick={(e) => {
                 e.stopPropagation();
                 setTheme(resolvedTheme === "light" ? "dark" : "light");
@@ -89,7 +89,7 @@ export default function ProfileDropdown() {
               <span>Theme</span>
               <ThemeSwitch
                 width="w-12"
-                padding="p-[1px]"
+                padding="p-px"
                 transform="translate-x-[120%]"
                 setTheme={setTheme}
                 resolvedTheme={resolvedTheme}
@@ -98,7 +98,7 @@ export default function ProfileDropdown() {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="w-full p-0 outline-none hover:bg-none">
+            <DropdownMenuItem className="w-full p-0 outline-hidden hover:bg-none">
               <DialogTrigger className="flex h-9 w-full items-center justify-between rounded px-2 transition-none hover:bg-foreground/70 hover:text-base-background">
                 Log out
                 <LogOutIcon className="text-xl" />

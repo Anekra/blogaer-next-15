@@ -57,7 +57,7 @@ export default function SavedAccountCard({
 
   return (
     <div className="neu-base-md relative flex items-center justify-center gap-2 rounded-xl bg-background/80 px-3 py-2">
-      <button className="absolute z-[2] size-full" onClick={handleOnClick} />
+      <button className="absolute z-2 size-full" onClick={handleOnClick} />
       {img ? (
         <div className="relative size-11 overflow-hidden rounded-full border-[3.5px] border-primary-foreground">
           <Image

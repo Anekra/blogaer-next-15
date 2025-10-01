@@ -79,11 +79,11 @@ export default function PostWysiwyg({
         </button>
       </div>
       <hr />
-      <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*]:relative [&>*]:size-10 [&>*]:text-3xl">
+      <div className="grid grid-cols-3 items-center justify-center gap-1 *:relative *:size-10 *:text-3xl">
         <button
           data-tooltip-text={tooltipText}
           data-tooltip-justify="start"
-          className={`group relative flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
+          className={`group relative flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50${
             elementType === WysiwygType.Code ? " bg-foreground/25" : ""
           }${isNoneSelected ? "" : " disabled:tooltip-wysiwyg"}`}
           onMouseDown={(e) => {
@@ -93,14 +93,14 @@ export default function PostWysiwyg({
           disabled={isNoneSelected || isFirstEl}
         >
           <span className="text-xl font-semibold">&lt;/&gt;</span>
-          <span className="absolute right-px top-[22px] rounded-3xl bg-background px-px py-[3px] text-xl font-semibold leading-[8px] group-hover:group-enabled:bg-accent-foreground">
+          <span className="absolute right-px top-[22px] rounded-3xl bg-background px-px py-[3px] text-xl font-semibold leading-[8px] group-enabled:group-hover:bg-accent-foreground">
             +
           </span>
         </button>
         <button
           data-tooltip-text={tooltipText}
           data-tooltip-justify="center"
-          className={`flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
+          className={`flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50${
             elementType === WysiwygType.Image ? " bg-foreground/25" : ""
           }${isNoneSelected ? "" : " disabled:tooltip-wysiwyg"}`}
           onMouseDown={(e) => {
@@ -114,7 +114,7 @@ export default function PostWysiwyg({
         <button
           data-tooltip-text={tooltipText}
           data-tooltip-justify="end"
-          className={`group flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
+          className={`group flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50${
             elementType === WysiwygType.Divider ? " bg-foreground/25" : ""
           }${isNoneSelected ? "" : " disabled:tooltip-wysiwyg"}`}
           onMouseDown={(e) => {
@@ -124,13 +124,13 @@ export default function PostWysiwyg({
           disabled={isNoneSelected || isFirstEl}
         >
           <span className="font-bold">⎯</span>
-          <span className="absolute right-px top-[22px] rounded-3xl bg-background px-px py-[3px] text-xl font-semibold leading-[8px] group-hover:group-enabled:bg-accent-foreground">
+          <span className="absolute right-px top-[22px] rounded-3xl bg-background px-px py-[3px] text-xl font-semibold leading-[8px] group-enabled:group-hover:bg-accent-foreground">
             +
           </span>
         </button>
       </div>
       <hr />
-      <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*:first-child]:font-serif [&>*:nth-child(2)]:font-serif [&>*]:relative [&>*]:size-10 [&>*]:text-3xl">
+      <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*:first-child]:font-serif [&>*:nth-child(2)]:font-serif *:relative *:size-10 *:text-3xl">
         <DropdownMenu onOpenChange={(open) => setDropdownOpen(open)}>
           <div
             onMouseEnter={handleTooltipVisibility}
@@ -139,7 +139,7 @@ export default function PostWysiwyg({
             <DropdownMenuTrigger
               className={`${
                 elementType === WysiwygType.Heading ? "bg-foreground/25" : ""
-              } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+              } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
               disabled={isNoneSelected || isFirstEl}
             >
               <strong className="text-xl">
@@ -190,7 +190,7 @@ export default function PostWysiwyg({
               elementType === WysiwygType.Paragraph ? "bg-foreground/25" : ""
             } ${
               isTooltipVisible ? "relative" : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleType(editor, WysiwygType.Paragraph);
@@ -207,7 +207,7 @@ export default function PostWysiwyg({
           <button
             className={`${
               elementType === WysiwygType.Quote ? "bg-foreground/25" : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleType(editor, WysiwygType.Quote);
@@ -224,14 +224,14 @@ export default function PostWysiwyg({
           <button
             className={`${
               elementType === WysiwygType.ListBullets ? "bg-foreground/25" : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleType(editor, WysiwygType.ListBullets);
             }}
             disabled={isNoneSelected || isFirstEl}
           >
-            <ul className="flex flex-col text-[8px] leading-[0px] [&>*]:h-2">
+            <ul className="flex flex-col text-[8px] leading-[0px] *:h-2">
               <li>● ━━━</li>
               <li>● ━━━</li>
               <li>● ━━━</li>
@@ -245,14 +245,14 @@ export default function PostWysiwyg({
           <button
             className={`${
               elementType === WysiwygType.ListNumbers ? "bg-foreground/25" : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleType(editor, WysiwygType.ListNumbers);
             }}
             disabled={isNoneSelected || isFirstEl}
           >
-            <ul className="flex flex-col text-[8px] leading-[0px] [&>*]:h-2">
+            <ul className="flex flex-col text-[8px] leading-[0px] *:h-2">
               <li>1 ━━━</li>
               <li>2 ━━━</li>
               <li>3 ━━━</li>
@@ -261,13 +261,13 @@ export default function PostWysiwyg({
         </div>
       </div>
       <hr />
-      <div className="grid grid-cols-3 items-center justify-center gap-1 [&>*]:relative [&>*]:size-10 [&>*]:font-serif [&>*]:text-3xl">
+      <div className="grid grid-cols-3 items-center justify-center gap-1 *:relative *:size-10 *:font-serif *:text-3xl">
         <div
           onMouseEnter={handleTooltipVisibility}
           onMouseLeave={handleTooltipVisibility}
         >
           <button
-            className={`flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50${
+            className={`flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50${
               isStyleActive(editor, WysiwygStyle.Bold)
                 ? " bg-foreground/25"
                 : ""
@@ -290,7 +290,7 @@ export default function PostWysiwyg({
               isStyleActive(editor, WysiwygStyle.Italic)
                 ? "bg-foreground/25"
                 : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleStyle(editor, WysiwygStyle.Italic);
@@ -309,7 +309,7 @@ export default function PostWysiwyg({
               isStyleActive(editor, WysiwygStyle.Underline)
                 ? "bg-foreground/25"
                 : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleStyle(editor, WysiwygStyle.Underline);
@@ -328,7 +328,7 @@ export default function PostWysiwyg({
               isStyleActive(editor, WysiwygStyle.Strike)
                 ? "bg-foreground/25"
                 : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               toggleStyle(editor, WysiwygStyle.Strike);
@@ -341,14 +341,14 @@ export default function PostWysiwyg({
         <button
           className={`${
             elementAlignment === WysiwygAlign.Left ? "bg-foreground/25" : ""
-          } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+          } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
           onMouseDown={(e) => {
             e.preventDefault();
             toggleAlign(editor, WysiwygAlign.Left);
           }}
           disabled={isNoneSelected || isVoidEl}
         >
-          <ul className="flex flex-col text-left text-[10px] font-black leading-[8px] [&>*]:h-[6px]">
+          <ul className="flex flex-col text-left text-[10px] font-black leading-[8px] *:h-[6px]">
             <li>━━━━</li>
             <li>━━</li>
             <li>━━━━</li>
@@ -358,14 +358,14 @@ export default function PostWysiwyg({
         <button
           className={`${
             elementAlignment === WysiwygAlign.Center ? "bg-foreground/25" : ""
-          } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+          } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
           onMouseDown={(e) => {
             e.preventDefault();
             toggleAlign(editor, WysiwygAlign.Center);
           }}
           disabled={isNoneSelected || isVoidEl}
         >
-          <ul className="flex flex-col text-center text-[10px] font-black leading-[8px] [&>*]:h-[6px]">
+          <ul className="flex flex-col text-center text-[10px] font-black leading-[8px] *:h-[6px]">
             <li>━━━━</li>
             <li> ━━ </li>
             <li>━━━━</li>
@@ -375,14 +375,14 @@ export default function PostWysiwyg({
         <button
           className={`${
             elementAlignment === WysiwygAlign.Right ? "bg-foreground/25" : ""
-          } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+          } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
           onMouseDown={(e) => {
             e.preventDefault();
             toggleAlign(editor, WysiwygAlign.Right);
           }}
           disabled={isNoneSelected || isVoidEl}
         >
-          <ul className="flex flex-col text-right text-[10px] font-black leading-[8px] [&>*]:h-[6px]">
+          <ul className="flex flex-col text-right text-[10px] font-black leading-[8px] *:h-[6px]">
             <li>━━━━</li>
             <li> ━━</li>
             <li>━━━━</li>
@@ -392,14 +392,14 @@ export default function PostWysiwyg({
         <button
           className={`${
             elementAlignment === WysiwygAlign.Justify ? "bg-foreground/25" : ""
-          } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+          } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
           onMouseDown={(e) => {
             e.preventDefault();
             toggleAlign(editor, WysiwygAlign.Justify);
           }}
           disabled={isNoneSelected || isVoidEl}
         >
-          <ul className="flex flex-col text-center text-[10px] font-black leading-[8px] [&>*]:h-[6px]">
+          <ul className="flex flex-col text-center text-[10px] font-black leading-[8px] *:h-[6px]">
             <li>━━━━</li>
             <li>━━━━</li>
             <li>━━━━</li>
@@ -413,7 +413,7 @@ export default function PostWysiwyg({
           <button
             className={`${
               elementType === WysiwygStyle.Link ? "bg-foreground/25" : ""
-            } flex size-full items-center justify-center rounded outline-none enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
+            } flex size-full items-center justify-center rounded outline-hidden enabled:hover:bg-accent-foreground disabled:text-foreground/50`}
             onMouseDown={(e) => {
               e.preventDefault();
               if (isLinkSelected(editor)) toggleLink(editor);

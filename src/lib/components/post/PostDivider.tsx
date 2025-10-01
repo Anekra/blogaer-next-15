@@ -21,7 +21,7 @@ export default function PostDivider({
       } flex h-20 items-center`}
       contentEditable={false}
     >
-      <hr className="h-2 w-full !border-transparent bg-gradient-to-r from-background via-foreground to-background" />
+      <hr className="h-2 w-full border-transparent! bg-linear-to-r from-background via-foreground to-background" />
       <span className="hidden">{children}</span>
     </div>
   );

@@ -30,7 +30,7 @@ export default function DeletePostDialogContent({
         undone)
       </DialogDescription>
       <div className="flex justify-center gap-8">
-        <DialogClose className="btn-outline-base outline-none">
+        <DialogClose className="btn-outline-base outline-hidden">
           Cancel
         </DialogClose>
         <DialogClose

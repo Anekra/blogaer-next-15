@@ -38,7 +38,7 @@ export default function PostView() {
   const username = post.username;
 
   return (
-    <div className="flex w-full max-w-screen-2xl justify-between gap-16 px-6 pb-6 pt-8">
+    <div className="flex w-full max-w-(--breakpoint-2xl) justify-between gap-16 px-6 pb-6 pt-8">
       <aside className="max-w-[200px] text-sm">
         <div
           className="neu-base group/card relative mt-2 flex size-[180px] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl transition-[height] hover:h-[340px]"
@@ -57,7 +57,7 @@ export default function PostView() {
               className="size-full rounded-3xl object-cover group-hover/image:brightness-125 group-active/image:brightness-100"
             />
           </a>
-          <div className="absolute z-[1] flex w-full flex-col items-center gap-2 group-hover/card:mt-4">
+          <div className="absolute z-1 flex w-full flex-col items-center gap-2 group-hover/card:mt-4">
             <a
               href={`/${username.toLowerCase()}`}
               className="group/text text-background group-hover/card:text-foreground dark:text-foreground"
@@ -66,7 +66,7 @@ export default function PostView() {
                 {username}
               </p>
             </a>
-            <div className="[&>*]:card-socials hidden flex-wrap justify-center gap-2 p-2 text-2xl group-hover/card:flex [&>*:active]:text-base-background [&>*]:rounded-full [&>*]:p-2">
+            <div className="[&>*]:card-socials hidden flex-wrap justify-center gap-2 p-2 text-2xl group-hover/card:flex [&>*:active]:text-base-background *:rounded-full *:p-2">
               <button>
                 <GithubIcon />
               </button>
@@ -78,7 +78,7 @@ export default function PostView() {
               </button>
             </div>
           </div>
-          <div className="[&>*]:card-stats absolute bottom-0 hidden w-full justify-center group-hover/card:flex [&>*]:flex [&>*]:[&>*]:size-6 [&>*]:flex-1 [&>*]:items-center [&>*]:justify-evenly [&>*]:p-2">
+          <div className="[&>*]:card-stats absolute bottom-0 hidden w-full justify-center group-hover/card:flex *:flex *:*:size-6 *:flex-1 *:items-center *:justify-evenly *:p-2">
             <span>
               <ThoughtsIcon />
               12
@@ -94,7 +94,7 @@ export default function PostView() {
       </aside>
       <main className="w-full pe-4">
         <div className="mb-6 flex items-center justify-between gap-4 text-neutral-600 dark:text-neutral-400">
-          <div className="flex gap-4 [&>*]:flex [&>*]:items-center [&>*]:gap-1">
+          <div className="flex gap-4 *:flex *:items-center *:gap-1">
             <span>Reads 0</span>
             <span>Comments 0</span>
           </div>

@@ -33,19 +33,19 @@ export default function UserProfilePage() {
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex h-7 gap-1">
-            <span className="[&>*]:size-full">
+            <span className="*:size-full">
               <FollowersIcon />
             </span>
             <p>000 Followers</p>
           </div>
           <div className="flex h-7 gap-1">
-            <span className="[&>*]:size-full">
+            <span className="*:size-full">
               <PostsIcon />
             </span>
             <p>000 Blogs posted</p>
           </div>
           <div className="flex h-7 gap-1">
-            <span className="[&>*]:size-[95%]">
+            <span className="*:size-[95%]">
               <TotalReadsIcon />
             </span>
             <p>000 Total reads</p>
@@ -61,7 +61,7 @@ export default function UserProfilePage() {
         </div>
       </aside>
       <main className="group flex grow flex-col">
-        <nav className="neu-base-lg z-[1] flex w-fit rounded-lg">
+        <nav className="neu-base-lg z-1 flex w-fit rounded-lg">
           <input
             type="radio"
             id="blog-tab"
@@ -79,10 +79,10 @@ export default function UserProfilePage() {
           <label htmlFor="about-tab">About</label>
         </nav>
         <div className="neu-base-md flex grow rounded-lg">
-          <section className="z-[2] hidden grow rounded-lg bg-background p-6 group-has-[input#blog-tab:checked]:flex">
+          <section className="z-2 hidden grow rounded-lg bg-background p-6 group-has-[input#blog-tab:checked]:flex">
             <p className="">blog</p>
           </section>
-          <section className="z-[2] hidden grow rounded-lg bg-background p-6 group-has-[input#about-tab:checked]:flex">
+          <section className="z-2 hidden grow rounded-lg bg-background p-6 group-has-[input#about-tab:checked]:flex">
             <p className="">about</p>
           </section>
         </div>

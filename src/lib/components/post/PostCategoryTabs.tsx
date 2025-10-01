@@ -13,7 +13,7 @@ export default function PostCategoryTabs() {
   return (
     <div className="relative h-16">
       <div
-        className={`absolute inset-y-1 left-0 z-[1] w-auto bg-gradient-to-r from-background via-background/60 to-transparent pe-20${
+        className={`absolute inset-y-1 left-0 z-1 w-auto bg-linear-to-r from-background via-background/60 to-transparent pe-20${
           scrollValue === 0 ? " hidden" : " flex"
         }`}
       >
@@ -41,7 +41,7 @@ export default function PostCategoryTabs() {
         })}
       </div>
       <div
-        className={`absolute inset-y-1 right-0 z-[1] w-auto items-center bg-gradient-to-l from-background via-background/60 to-transparent ps-20${
+        className={`absolute inset-y-1 right-0 z-1 w-auto items-center bg-linear-to-l from-background via-background/60 to-transparent ps-20${
           maxScroll === scrollValue ? " hidden" : " flex"
         }`}
       >

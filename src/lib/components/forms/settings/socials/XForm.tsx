@@ -46,13 +46,13 @@ export default function XForm({ link }: { link?: string }) {
         type="text"
         name="xLink"
         id="x-link"
-        className="peer border-transparent !bg-transparent transition-[width] focus:placeholder-shown:!ring-destructive-foreground group-hover:!bg-background/90 group-hover:ring-2 group-hover:ring-white group-hover:ring-offset-black"
+        className="peer border-transparent bg-transparent! transition-[width] focus:placeholder-shown:ring-destructive-foreground! group-hover:bg-background/90! group-hover:ring-2 group-hover:ring-white group-hover:ring-offset-black"
         defaultValue={link || ""}
         placeholder="Your X profile link"
       />
       <button
         type="submit"
-        className="btn-outline-socials hidden !px-8 !text-white group-hover:block group-hover:peer-placeholder-shown:hidden peer-focus-within:block peer-focus-within:peer-placeholder-shown:hidden"
+        className="btn-outline-socials hidden px-8! text-white! group-hover:block peer-placeholder-shown:group-hover:hidden peer-focus-within:block peer-placeholder-shown:peer-focus-within:hidden"
       >
         {link ? "Edit" : "Add"}
       </button>

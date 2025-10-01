@@ -26,7 +26,7 @@ export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
               src="https://github.blog/wp-content/uploads/2024/06/AI-DarkMode-4.png?w=600"
               alt="Github banner"
               sizes="(max-width: 550)"
-              className="object-cover blur-sm"
+              className="object-cover blur-xs"
               priority
               fill
             />
@@ -43,7 +43,7 @@ export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
           <div className="absolute flex size-full max-h-[160px] overflow-hidden rounded-md">
-            <span className="flex size-full items-center justify-center bg-gradient-to-r from-[#5e2981] via-[#ca1717] to-[#b98132] text-7xl text-white blur-sm">
+            <span className="flex size-full items-center justify-center bg-linear-to-r from-[#5e2981] via-[#ca1717] to-[#b98132] text-7xl text-white blur-xs">
               <InstagramIcon />
             </span>
           </div>
@@ -63,7 +63,7 @@ export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
               src="https://cdn.cms-twdigitalassets.com/content/dam/blog-twitter/x/blog_x_card.png.img.fullhd.medium.png"
               alt="X banner"
               sizes="(max-width: 550)"
-              className="scale-[1.4] object-contain blur-sm"
+              className="scale-[1.4] object-contain blur-xs"
               fill
             />
           </div>
@@ -79,13 +79,13 @@ export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
           <div className="absolute size-full max-h-[160px] self-center overflow-hidden rounded-md">
-            <span className="flex size-full items-center justify-center bg-base-foreground/10 text-8xl text-white blur-sm [&>*]:fill-red-600 [&>*]:stroke-none">
+            <span className="flex size-full items-center justify-center bg-base-foreground/10 text-8xl text-white blur-xs *:fill-red-600 *:stroke-none">
               <YoutubeIcon />
             </span>
           </div>
           <div className="neu-base group relative flex h-full flex-col gap-2 rounded-md bg-base-background/60 p-4 hover:bg-foreground/10">
             <div className="flex items-center gap-2 font-bold text-accent-foreground group-hover:text-neutral-200">
-              <span className="text-2xl [&>*]:fill-none [&>*]:stroke-current">
+              <span className="text-2xl *:fill-none *:stroke-current">
                 <YoutubeIcon />
               </span>
               <label htmlFor="youtube-link">Youtube</label>
@@ -95,7 +95,7 @@ export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
         </div>
         <div className="relative flex shrink grow basis-0 flex-col justify-center">
           <div className="absolute size-full max-h-[160px] self-center overflow-hidden rounded-md">
-            <span className="flex size-full items-center justify-center bg-base-foreground/10 text-8xl blur-sm [&>*]:fill-blue-600 [&>*]:stroke-none">
+            <span className="flex size-full items-center justify-center bg-base-foreground/10 text-8xl blur-xs *:fill-blue-600 *:stroke-none">
               <FacebookIcon />
             </span>
           </div>
@@ -115,7 +115,7 @@ export default function SocialsSection({ data }: { data?: GetSocialsDto }) {
               src="https://images.ctfassets.net/xz1dnu24egyd/1IRkfXmxo8VP2RAE5jiS1Q/ea2086675d87911b0ce2d34c354b3711/gitlab-logo-500.png"
               alt="Gitlab banner"
               sizes="(max-width: 550)"
-              className="scale-125 object-contain blur-sm"
+              className="scale-125 object-contain blur-xs"
               fill
             />
           </div>

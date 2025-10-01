@@ -61,7 +61,7 @@ export default function PostPreviewDrawer() {
       <DrawerTrigger asChild>
         <button className="btn-solid-p">Preview</button>
       </DrawerTrigger>
-      <DrawerContent className="focus:outline-none">
+      <DrawerContent className="focus:outline-hidden">
         <div className="flex h-3/4 max-h-[85vh] flex-col justify-center gap-6 overflow-y-auto px-12 pb-16 pt-8 md:flex-row">
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex items-center gap-2 text-2xl font-bold">
