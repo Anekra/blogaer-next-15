@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@import "./css/styles.css";
+@import "./css/button.css";
+@import "./css/card.css";
+@import "./css/logo.css";
 
 @plugin 'tailwindcss-animate';
 

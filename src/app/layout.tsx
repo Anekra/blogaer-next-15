@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "./css/styles.css";
-import "./css/logo.css";
-import "./css/button.css";
-import "./css/card.css";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 import { ViewTransitions } from "next-view-transitions";
