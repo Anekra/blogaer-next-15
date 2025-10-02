@@ -69,7 +69,7 @@ export default function SavedAccountCard({
           />
         </div>
       ) : (
-        <span className="relative flex size-[44px] items-end justify-center overflow-hidden rounded-3xl text-primary-foreground shadow-[inset_0_0_0_3.5px_rgb(var(--primary-foreground))]">
+        <span className="relative flex size-[44px] items-end justify-center overflow-hidden rounded-3xl text-primary-foreground shadow-[inset_0_0_0_3.5px_oklch(var(--primary-foreground))]">
           <UserIcon className="absolute -bottom-px h-10 w-auto fill-current" />
         </span>
       )}

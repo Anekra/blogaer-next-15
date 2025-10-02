@@ -17,7 +17,7 @@ export default function LogoIcon({
         `${
           isAtTheTop
             ? "hover:fill-[url(#gradient-p-convex)] active:fill-[rgb(163_95_57)] dark:active:fill-[rgb(238,184,153)]"
-            : "hover:fill-[url(#gradient-base-convex)] active:fill-[rgb(var(--accent))]"
+            : "hover:fill-[url(#gradient-base-convex)] active:fill-[oklch(var(--accent))]"
         } fill-current hover:[filter:url(#filter-convex)] active:[filter:url(#filter-inset)]`,
         className
       )}
@@ -61,7 +61,7 @@ export default function LogoIcon({
             className="logo-base-flood-bot"
           />
         </filter>
-        <filter id="filter-inset" fill="rgb(var(--background)/0.5)">
+        <filter id="filter-inset" fill="oklch(var(--background)/0.5)">
           <feBlend
             mode="normal"
             in="SourceGraphic"

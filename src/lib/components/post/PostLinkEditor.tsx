@@ -154,7 +154,7 @@ export default function PostLinkEditor({
           <div
             className={`${
               showLinkTooltip ? "flex" : "hidden"
-            } absolute bottom-[110%] mr-3 rounded-t bg-base-background px-3 py-2 font-semibold text-red-950 after:absolute after:left-0 after:top-full after:mr-3 after:border-8 after:border-solid after:border-[rgb(var(--base-background))_transparent_transparent_transparent] dark:text-red-500`}
+            } absolute bottom-[110%] mr-3 rounded-t bg-base-background px-3 py-2 font-semibold text-red-950 after:absolute after:left-0 after:top-full after:mr-3 after:border-8 after:border-solid after:border-[oklch(var(--base-background))_transparent_transparent_transparent] dark:text-red-500`}
           >
             <p className="whitespace-nowrap">not a valid link!</p>
           </div>
@@ -162,7 +162,7 @@ export default function PostLinkEditor({
       </div>
       <span
         ref={linkSpanRef}
-        className="absolute z-0 border-8 border-solid border-[rgb(var(--accent))_transparent_transparent_transparent] opacity-0 brightness-200"
+        className="absolute z-0 border-8 border-solid border-[oklch(var(--accent))_transparent_transparent_transparent] opacity-0 brightness-200"
       />
     </div>
   );

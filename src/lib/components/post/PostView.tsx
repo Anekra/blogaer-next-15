@@ -61,7 +61,7 @@ export default function PostView() {
                 />
               </div>
             ) : (
-              <span className="relative flex size-[160px] items-end justify-center overflow-hidden rounded-full text-primary-foreground shadow-[inset_0_0_0_8px_rgb(var(--primary-foreground))]">
+              <span className="relative flex size-[160px] items-end justify-center overflow-hidden rounded-full text-primary-foreground shadow-[inset_0_0_0_8px_oklch(var(--primary-foreground))]">
                 <UserIcon className="absolute -bottom-3 size-full fill-current" />
               </span>
             )}

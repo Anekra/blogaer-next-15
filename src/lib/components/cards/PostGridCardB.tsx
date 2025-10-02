@@ -66,7 +66,7 @@ export default function PostGridCardB({ post }: { post: PostDto }) {
                 />
               </div>
             ) : (
-              <span className="relative flex size-[34px] items-center justify-center overflow-hidden rounded-3xl text-primary shadow-[inset_0_0_0_3.5px_rgb(var(--primary))] dark:text-primary-foreground dark:shadow-[inset_0_0_0_3.5px_rgb(var(--primary-foreground))]">
+              <span className="relative flex size-[34px] items-center justify-center overflow-hidden rounded-3xl text-primary shadow-[inset_0_0_0_3.5px_oklch(var(--primary))] dark:text-primary-foreground dark:shadow-[inset_0_0_0_3.5px_oklch(var(--primary-foreground))]">
                 <UserIcon className="absolute -bottom-px h-[30px] w-auto fill-current" />
               </span>
             )}

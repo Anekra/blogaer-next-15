@@ -49,7 +49,7 @@ export default function Tooltip({
       </div>
       <span
         ref={tooltipSpanRef}
-        className="absolute z-0 border-8 border-solid border-[rgb(var(--base-background))_transparent_transparent_transparent] opacity-0 brightness-200"
+        className="absolute z-0 border-8 border-solid border-[oklch(var(--base-background))_transparent_transparent_transparent] opacity-0 brightness-200"
       />
     </div>
   );
