@@ -2,12 +2,11 @@ import { toast } from "sonner";
 
 import patchClientFetch from "@/lib/actions/client/patchClientFetch";
 import { useContent } from "@/lib/contexts/ContentContext";
-import { serializeContent } from "@/lib/utils/helper";
 
 export default function SaveAndPublishBtn({ slug }: { slug: string }) {
   const { content, tags } = useContent();
   const title = `${content[0].children[0].text}`;
-  const text = serializeContent(content);
+  const text = "serializeContent(content)";
   const slugs = slug.split("-");
   const id = slugs[slugs.length - 1];
   const handleOnClick = async () => {

@@ -11,11 +11,11 @@ import AutoSaveSwitch from "@/lib/components/widgets/AutoSaveSwitch";
 import SearchBar from "@/lib/components/widgets/SearchBar";
 import ThemeSwitch from "@/lib/components/widgets/ThemeSwitch";
 import { useSession } from "@/lib/contexts/SessionContext";
-import { getSlugFromPath } from "@/lib/utils/helper";
+import { getSlugOrIdFromPath } from "@/lib/utils/helper";
 
 export default function NavItems({ isAtTheTop }: { isAtTheTop: boolean }) {
   const currentPath = usePathname();
-  const slug = getSlugFromPath(currentPath);
+  const slug = getSlugOrIdFromPath(currentPath);
   const { session } = useSession();
   const { setTheme, resolvedTheme } = useTheme();
 
