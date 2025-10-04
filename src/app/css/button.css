@@ -1,10 +1,7 @@
-@import "tailwindcss";
-@import "./var.css";
-
 @utility btn-solid-root {
   @apply bg-primary-foreground text-primary enabled:hover:text-primary-foreground active:text-primary rounded-xl px-4 py-2 font-bold enabled:hover:bg-transparent;
   &:enabled:hover {
-    color: oklch(255, 200, 153);
+    color: oklch(0.8708 0.087663 61.7983);
     background: linear-gradient(
       145deg,
       oklch(var(--neu-s-top)),
@@ -14,7 +11,7 @@
       -2px -2px 4px oklch(var(--neu-s-top)),
       2px 2px 2px oklch(var(--neu-s-bot));
     @media (min-width: 1024px) {
-      color: oklch(255, 198, 214);
+      color: oklch(0.8816 0.0678 0);
       background: linear-gradient(
         145deg,
         oklch(var(--neu-p-top)),
@@ -46,7 +43,7 @@
     background: linear-gradient(
       145deg,
       oklch(var(--neu-base-top)),
-      oklch(var(--neu-base-bot) / 0.5)
+      oklch(var(--neu-base-bot / 0.5))
     );
     box-shadow:
       -2px -2px 4px oklch(var(--neu-base-top)),
@@ -173,7 +170,7 @@
   @apply text-secondary-foreground dark:enabled:hover:text-secondary-foreground rounded-lg px-4 py-2 font-bold;
   box-shadow: inset 0 0 0 3px oklch(var(--secondary-foreground));
   &:enabled:hover {
-    color: oklch(255, 200, 153);
+    color: oklch(0.8708 0.087663 61.7983);
     background: linear-gradient(
       145deg,
       oklch(var(--neu-s-top)),
@@ -383,8 +380,7 @@
     linear-gradient(
         160deg,
         oklch(0.399 0.145 308.94),
-        oklch(0.5347 0.2083 28.14)
-        oklch(0.6455 0.1161 72.02)
+        oklch(0.5347 0.2083 28.14) oklch(0.6455 0.1161 72.02)
       )
       border-box;
   &:enabled:hover {
@@ -539,7 +535,7 @@
   }
   &:enabled:active {
     background: oklch(var(--neu-p-bot-lighter));
-    color: oklch(255, 255, 255);
+    color: oklch(1 0 0);
     box-shadow:
       inset -2px -2px 4px oklch(var(--neu-p-top)),
       inset 2px 2px 4px oklch(var(--neu-p-bot));
