@@ -20,7 +20,6 @@ export default async function login(values: z.infer<typeof LoginFormSchema>) {
         "Content-Type": "application/json",
         "User-Agent": `${userAgent}`,
         Origin: "http://localhost:3000",
-        Cookie: `${refreshCookieName}=${refreshToken}`
       },
       body: JSON.stringify(values)
     });

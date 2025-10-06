@@ -41,7 +41,7 @@ export default function GithubLoginBtn() {
   return (
     <button
       onMouseUp={handleGithubLogin}
-      className="text-4xl text-primary-foreground hover:brightness-125"
+      className="text-primary-foreground text-4xl hover:brightness-125"
       disabled={isLoading}
     >
       <GithubIcon />

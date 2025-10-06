@@ -77,7 +77,7 @@ export default function LoginForm() {
     <FormProvider {...form}>
       <form
         method="POST"
-        className="flex flex-col"
+        className="flex flex-col gap-4"
         onSubmit={form.handleSubmit(async (values) => handleLogin(values))}
         noValidate
       >
@@ -85,10 +85,8 @@ export default function LoginForm() {
           control={form.control}
           name="emailOrUsername"
           render={({ field, fieldState }) => (
-            <FormItem
-              className={`${fieldState.error ? "mb-2" : "mb-4"} flex flex-col`}
-            >
-              <div className="flex items-center">
+            <FormItem className="flex flex-col">
+              <div className="flex items-center justify-between">
                 <FormLabel>Email or username</FormLabel>
                 <FormIndicator
                   fieldError={fieldState.error}
@@ -102,13 +100,13 @@ export default function LoginForm() {
                   type="text"
                   className={`${
                     fieldState.error
-                      ? "mb-1 border border-red-500 focus:border-none focus-visible:ring-red-500"
-                      : "mt-2 focus-visible:ring-ring"
+                      ? "mt-1 mb-1 border border-red-500 focus:mt-2 focus:border-none enabled:focus-visible:ring-red-500"
+                      : "focus-visible:ring-ring mt-2"
                   }`}
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="w-fit rounded bg-background/60 p-1">
+              <FormMessage className="bg-background/60 w-fit rounded p-1">
                 {fieldState.error?.message}
               </FormMessage>
             </FormItem>
@@ -119,7 +117,7 @@ export default function LoginForm() {
           name="password"
           render={({ field, fieldState }) => (
             <FormItem className="flex flex-col">
-              <div className="flex items-center">
+              <div className="flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
                 <FormIndicator
                   fieldError={fieldState.error}
@@ -133,13 +131,13 @@ export default function LoginForm() {
                   type="password"
                   className={`${
                     fieldState.error
-                      ? "mb-1 border border-red-500 focus:border-none focus-visible:ring-red-500"
-                      : "mt-2 focus-visible:ring-ring"
+                      ? "mt-1 mb-1 border border-red-500 focus:mt-2 focus:border-none enabled:focus-visible:ring-red-500"
+                      : "focus-visible:ring-ring mt-2"
                   }`}
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="w-fit rounded bg-background/60 p-1">
+              <FormMessage className="bg-background/60 w-fit rounded p-1">
                 {fieldState.error?.message}
               </FormMessage>
             </FormItem>

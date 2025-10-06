@@ -1,11 +1,11 @@
 "use client";
-import { ArrowBigLeftDashIcon } from "lucide-react";
+import { HouseIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 import { cn } from "@/lib/utils/shadcn";
 
-export default function BackBtn({
+export default function HomeBtn({
   className
 }: {
   className?: string | undefined;
@@ -19,7 +19,7 @@ export default function BackBtn({
       )}
       onClick={() => router.back()}
     >
-      <ArrowBigLeftDashIcon className="h-12 w-auto fill-current stroke-2 p-2" />
+      <HouseIcon className="h-14 w-auto stroke-2 p-2" />
     </button>
   );
 }

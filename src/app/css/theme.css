@@ -259,6 +259,9 @@
   input:-webkit-autofill:focus {
     transition: background-color 5000s ease-in-out 0s;
   }
+  button {
+    @apply enabled:cursor-pointer;
+  }
   button[type="submit"]:disabled {
     cursor: not-allowed;
   }
