@@ -27,7 +27,9 @@ export type GetDraftByIdDto = {
 export type GetPostsByPageDto = {
   status: string;
   data?: PagedPostDto;
+  message?: string;
   error?: string;
+  code: string;
 };
 
 export type GetPostsByUserIdDto = {

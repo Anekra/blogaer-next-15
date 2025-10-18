@@ -16,10 +16,10 @@ import { toast } from "sonner";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import postClientFetch from "@/lib/actions/client/postClientFetch";
 import loginWithPasskey from "@/lib/actions/server/auth/loginWithPasskey";
-import { SearchParams, SlateEditor } from "@/lib/types/common";
+import { EncoreErrorCode, SearchParams, SlateEditor } from "@/lib/types";
 import { CustomElement } from "@/lib/types/slate";
 import { UrlSchema } from "@/lib/types/zodSchemas";
-import { LIST_TYPES, VOIDS } from "@/lib/utils/constants";
+import { EncoreHttpStatusMap, LIST_TYPES, VOIDS } from "@/lib/utils/constants";
 import {
   ErrorType,
   HeadingSize,
@@ -135,6 +135,17 @@ export function getHeadingSizeKey(value: HeadingSize): string {
   return Object.keys(HeadingSize)[Object.values(HeadingSize).indexOf(value)];
 }
 
+export function getErrorStatus(code: string): string {
+  const normalizedCode = code.toLowerCase() as EncoreErrorCode;
+  const status = EncoreHttpStatusMap[normalizedCode];
+  if (status) return status;
+  console.warn(
+    `Encore error code "${code}" not recognized. Defaulting to 500.`
+  );
+
+  return "500 Internal Server Error (Unknown Encore Code)";
+}
+
 export function getTotalWords(content: CustomElement[]) {
   return content
     .map((n) => {
@@ -142,6 +153,10 @@ export function getTotalWords(content: CustomElement[]) {
     })
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
     .toLocaleString();
+}
+
+export function isEncoreErrorCode(code: string): code is EncoreErrorCode {
+  return Object.prototype.hasOwnProperty.call(EncoreHttpStatusMap, code.toLowerCase());
 }
 
 export function setCodeElement(editor: SlateEditor, value: string) {
