@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 
-import { RefreshTokenJson, Session } from "@/lib/types/common";
+import { RefreshTokenJson, Session } from "@/lib/types";
 
 export async function GET(request: NextRequest) {
   const accessCookieName = `${process.env.ACCESS_TOKEN}`;

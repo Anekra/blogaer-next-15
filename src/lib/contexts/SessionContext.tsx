@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import useSWR from "swr";
 
 import logout from "@/lib/actions/server/auth/logout";
-import { Session } from "@/lib/types/common";
+import { Session } from "@/lib/types";
 import { newUrl } from "@/lib/utils/helper";
 
 const SessionContext = createContext({

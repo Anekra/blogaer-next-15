@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { BaseSelection } from "slate";
 
-import { SlateEditor } from "@/lib/types/common";
+import { SlateEditor } from "@/lib/types";
 
 export default function useSelection(
   editor: SlateEditor

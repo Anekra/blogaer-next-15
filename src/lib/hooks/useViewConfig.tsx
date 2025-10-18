@@ -8,7 +8,7 @@ import PostImage from "@/lib/components/post/PostImage";
 import PostLink from "@/lib/components/post/PostLink";
 import PostQuote from "@/lib/components/post/PostQuote";
 import PostTittle from "@/lib/components/post/PostTittle";
-import { SlateEditor } from "@/lib/types/common";
+import { SlateEditor } from "@/lib/types";
 import { VOIDS } from "@/lib/utils/constants";
 import { WysiwygStyle, WysiwygType } from "@/lib/utils/enums";
 

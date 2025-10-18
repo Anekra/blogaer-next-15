@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 import { cookies, headers } from "next/headers";
 
-import { Session } from "@/lib/types/common";
+import { Session } from "@/lib/types";
 
 export default async function userPatch(
   currentSession: Session,
@@ -28,10 +28,10 @@ export default async function userPatch(
       },
       body: JSON.stringify(objValue)
     });
-    
+
     if (!res.ok) {
       const resJson = await res.json();
-      console.log(resJson)
+      console.log(resJson);
 
       return {
         statusCode: res.status,

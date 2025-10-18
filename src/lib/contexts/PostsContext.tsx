@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
-import { CurrentPost } from "@/lib/types/common";
+import { CurrentPost } from "@/lib/types";
 
 const PostsContext = createContext({
   currentPosts: [] as CurrentPost[],

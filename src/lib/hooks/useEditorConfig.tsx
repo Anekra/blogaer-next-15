@@ -8,7 +8,7 @@ import PostImagePicker from "@/lib/components/post/PostImagePicker";
 import PostLink from "@/lib/components/post/PostLink";
 import PostQuote from "@/lib/components/post/PostQuote";
 import PostTittle from "@/lib/components/post/PostTittle";
-import { SlateEditor } from "@/lib/types/common";
+import { SlateEditor } from "@/lib/types";
 import { VOIDS } from "@/lib/utils/constants";
 import { WysiwygStyle, WysiwygType } from "@/lib/utils/enums";
 import { getElement } from "@/lib/utils/helper";
@@ -40,7 +40,7 @@ function renderElement(props: RenderElementProps, editor: SlateEditor) {
       return (
         <li
           {...attributes}
-          className={`${isFocus && !text ? " ph relative" : ""}`}
+          className={`${isFocus && !text ? "ph relative" : ""}`}
         >
           {children}
         </li>
@@ -53,7 +53,10 @@ function renderElement(props: RenderElementProps, editor: SlateEditor) {
       );
     case WysiwygType.ListNumbers:
       return (
-        <ol {...attributes} className="flex list-decimal flex-col gap-2 px-[18px]">
+        <ol
+          {...attributes}
+          className="flex list-decimal flex-col gap-2 px-[18px]"
+        >
           {children}
         </ol>
       );

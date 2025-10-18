@@ -1,4 +1,4 @@
-import { AnyObj } from "@/lib/types/common";
+import { AnyObj } from "@/lib/types";
 
 export default async function postClientFetch(
   route: string,

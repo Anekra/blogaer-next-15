@@ -71,3 +71,22 @@ export type CurrentPost =
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 
 export type AnyObj = { [key: string]: any };
+
+export type EncoreErrorCode =
+  | "ok"
+  | "cancelled"
+  | "unknown"
+  | "invalid_argument"
+  | "deadline_exceeded"
+  | "not_found"
+  | "already_exists"
+  | "permission_denied"
+  | "resource_exhausted"
+  | "failed_precondition"
+  | "aborted"
+  | "out_of_range"
+  | "unimplemented"
+  | "internal"
+  | "unavailable"
+  | "data_loss"
+  | "unauthenticated";

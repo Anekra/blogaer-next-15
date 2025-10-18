@@ -1,6 +1,6 @@
 import { Link } from "next-view-transitions";
 
-import { Session } from "@/lib/types/common";
+import { Session } from "@/lib/types";
 
 export default function ViewPostBtn({
   session,

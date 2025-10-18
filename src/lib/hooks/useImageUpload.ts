@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Transforms } from "slate";
 
-import { SlateEditor } from "@/lib/types/common";
+import { SlateEditor } from "@/lib/types";
 import { WysiwygType } from "@/lib/utils/enums";
 import { convertFileToBase64 } from "@/lib/utils/helper";
 

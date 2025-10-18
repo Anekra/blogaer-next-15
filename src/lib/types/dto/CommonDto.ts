@@ -1,4 +1,4 @@
-import { AnyObj, Auth } from "../common";
+import { AnyObj, Auth } from "..";
 import { DraftWithNoUserDto } from "./DraftDto";
 import { PostDto, PostWithNoUserDto } from "./PostDto";
 
