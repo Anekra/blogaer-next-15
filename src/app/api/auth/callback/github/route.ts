@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
         value:
           "read:user user:email"
       },
-      { param: "client_id", value: `${process.env.AUTH_GITHUB_CLIENT_ID}` },
+      { param: "client_id", value: `${process.env.GITHUB_OAUTH2_ID}` },
       { param: "prompt", value: "select_account" },
       {
         param: "redirect_uri",

@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
         value:
           "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
       },
-      { param: "client_id", value: `${process.env.AUTH_GOOGLE_CLIENT_ID}` },
+      { param: "client_id", value: `${process.env.GOOGLE_OAUTH2_ID}` },
       {
         param: "redirect_uri",
         value: "http://localhost:3000/api/auth/callback/google"
