@@ -19,6 +19,8 @@ import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ErrorType } from "@/lib/utils/enums";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useState } from "react";
 
 type FormValues = {
   username: string;
@@ -28,6 +30,7 @@ type FormValues = {
 
 export default function RegisterForm() {
   const { setLoading } = useLoading();
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
@@ -40,20 +43,30 @@ export default function RegisterForm() {
   });
   const handleRegister = async (values: FormValues) => {
     setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+      toast.error("Request timeout!", {
+        position: "bottom-right",
+        duration: 1500
+      });
+    }, 10000);
     const response = await register(values);
     if (!response || typeof response !== "boolean") {
+      setLoading(false);
+      clearTimeout(timeout);
       const errorMessage =
         typeof response !== "boolean"
-          ? response?.error
+          ? response?.message
           : ErrorType.FETCH_FAILED_ERROR;
-      toast.error(errorMessage, {
+      toast.error(`${errorMessage}`, {
         position: "bottom-right",
         duration: 1500
       });
     } else {
-      router.replace("/register/verify-email");
+      setLoading(false);
+      clearTimeout(timeout);
+      router.replace("/auth/verify-email");
     }
-    setLoading(false);
   };
 
   return (
@@ -130,7 +143,7 @@ export default function RegisterForm() {
           name="password"
           render={({ field, fieldState }) => (
             <FormItem className="flex flex-col">
-              <div className="flex items-center justify-between">
+              <div className="mb-2 flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
                 <FormIndicator
                   fieldError={fieldState.error}
@@ -139,16 +152,24 @@ export default function RegisterForm() {
                 />
               </div>
               <FormControl>
-                <Input
-                  placeholder="Enter new password"
-                  type="password"
-                  className={`${
-                    fieldState.error
-                      ? "mt-1 mb-1 border border-red-500 focus:mt-2 focus:border-none enabled:focus-visible:ring-red-500"
-                      : "focus-visible:ring-ring mt-2"
-                  }`}
-                  {...field}
-                />
+                <div className="relative flex items-center">
+                  <Input
+                    placeholder="Enter new password"
+                    type={showPassword ? "text" : "password"}
+                    className={`${
+                      fieldState.error
+                        ? "border border-red-500 focus:border-none enabled:focus-visible:ring-red-500"
+                        : "focus-visible:ring-ring"
+                    }`}
+                    {...field}
+                  />
+                  <button
+                    className="text-muted-foreground hover:text-foreground absolute right-2 outline-none"
+                    onMouseUp={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage className="bg-background/60 w-fit rounded px-1">
                 {fieldState.error?.message}

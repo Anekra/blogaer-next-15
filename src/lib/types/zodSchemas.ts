@@ -19,14 +19,13 @@ export const RegisterFormSchema = z.object({
     .min(1, VALIDATION.PASSWORD_EMPTY)
     .min(8, VALIDATION.PASSWORD_MINIMUM)
     .regex(/^[^\s]+$/, VALIDATION.PASSWORD_WHITESPACE)
-    .refine((value) => {
-      const hasUppercase = /[A-Z]/.test(value);
-      const hasLowercase = /[a-z]/.test(value);
-      const hasNumber = /\d/.test(value);
-      const hasSpecialChar = /[!@#$%^&*()_+]/g.test(value);
-
-      return hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
-    }, VALIDATION.PASSWORD_STRENGTH)
+    .refine((value) => /[A-Z]/.test(value), VALIDATION.PASSWORD_UPPERCASE)
+    .refine((value) => /[a-z]/.test(value), VALIDATION.PASSWORD_LOWERCASE)
+    .refine((value) => /\d/.test(value), VALIDATION.PASSWORD_NUMBER)
+    .refine(
+      (value) => /[!@#$%^&*()_+-=\[\]\/\\;:'"{}|,.<>?`~]/.test(value),
+      VALIDATION.PASSWORD_SPECIAL
+    )
 });
 
 export const LoginFormSchema = z.object({
@@ -41,14 +40,13 @@ export const PasswordFormSchema = z
       .min(1, VALIDATION.PASSWORD_EMPTY)
       .min(8, VALIDATION.PASSWORD_MINIMUM)
       .regex(/^[^\s]+$/, VALIDATION.PASSWORD_WHITESPACE)
-      .refine((value) => {
-        const hasUppercase = /[A-Z]/.test(value);
-        const hasLowercase = /[a-z]/.test(value);
-        const hasNumber = /\d/.test(value);
-        const hasSpecialChar = /[!@#$%^&*()_+]/g.test(value);
-
-        return hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
-      }, VALIDATION.PASSWORD_STRENGTH),
+      .refine((value) => /[A-Z]/.test(value), VALIDATION.PASSWORD_UPPERCASE)
+      .refine((value) => /[a-z]/.test(value), VALIDATION.PASSWORD_LOWERCASE)
+      .refine((value) => /\d/.test(value), VALIDATION.PASSWORD_NUMBER)
+      .refine(
+        (value) => /[!@#$%^&*()_+-=\[\]\/\\;:'"{}|,.<>?`~]/.test(value),
+        VALIDATION.PASSWORD_SPECIAL
+      ),
     confirmPassword: z.string().min(1, VALIDATION.PASSWORD_EMPTY)
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -81,9 +79,12 @@ export const UpdateUsernameFormSchema = z
       .regex(/^[^\s]+$/, VALIDATION.USERNAME_WHITESPACE),
     oldUsername: z.string()
   })
-  .refine((data) => data.username.toLowerCase() !== data.oldUsername.toLowerCase(), {
-    message: "Username must not be the same as the current username!",
-    path: ["username"]
-  });
+  .refine(
+    (data) => data.username.toLowerCase() !== data.oldUsername.toLowerCase(),
+    {
+      message: "Username must not be the same as the current username!",
+      path: ["username"]
+    }
+  );
 
 export const UrlSchema = z.string().trim().url();

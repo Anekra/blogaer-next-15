@@ -14,7 +14,8 @@ export const protectedRoutes = [
   "/blog/post/create",
   "/blog/post/preview",
   "/blog/post/edit",
-  "/request-form"
+  "/request-form",
+  "/auth/verify-email"
 ];
 
 export const authRoutes = ["/login", "/register"];
@@ -37,8 +38,10 @@ export const VALIDATION = {
   PASSWORD_EMPTY: "Password cannot be empty!",
   PASSWORD_MINIMUM: "Password must be at least 8 characters!",
   PASSWORD_WHITESPACE: "Password cannot contain whitespace!",
-  PASSWORD_STRENGTH:
-    "Password must contain at least one uppercase, lowercase, number, and special character!",
+  PASSWORD_UPPERCASE: "Password must contain at least one uppercase letter!",
+  PASSWORD_LOWERCASE: "Password must contain at least one lowercase letter!",
+  PASSWORD_NUMBER: "Password must contain at least one number!",
+  PASSWORD_SPECIAL: "Password must contain at least one special character!",
   EMAIL_OR_USERNAME_EMPTY: "Email or username cannot be empty!",
   OTP_EMPTY: "Otp code cannot be empty!",
   OTP_MINIMUM: "Otp code must be 6 digits number!"
