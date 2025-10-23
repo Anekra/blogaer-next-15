@@ -11,7 +11,6 @@ import getClientFetch from "@/lib/actions/client/getClientFetch";
 import postClientFetch from "@/lib/actions/client/postClientFetch";
 import userPatch from "@/lib/actions/server/userPatch";
 import FormIndicator from "@/lib/components/forms/FormIndicator";
-import LoadingSpinnerIcon from "@/lib/components/icons/LoadingSpinnerIcon";
 import {
   FormControl,
   FormField,
@@ -31,6 +30,7 @@ import { GetOtpTimeDto } from "@/lib/types/dto/ReqDto";
 import { UpdateEmailFormSchema } from "@/lib/types/zodSchemas";
 import { VALIDATION } from "@/lib/utils/constants";
 import { EmailSubject } from "@/lib/utils/enums";
+import { Loader2Icon } from "lucide-react";
 
 type Email = {
   oldEmail: string;
@@ -163,7 +163,7 @@ export default function EmailForm() {
             <FormItem
               className={`${fieldState.error ? "mb-2" : "mb-4"} flex w-[318px] flex-col`}
             >
-              <FormLabel className="mb-2 text-muted-foreground">
+              <FormLabel className="text-muted-foreground mb-2">
                 Current email
               </FormLabel>
               <FormControl>
@@ -205,7 +205,7 @@ export default function EmailForm() {
                     } w-[318px]`}
                     {...field}
                   />
-                  <div className="absolute right-0 top-0 flex w-[136px] flex-col items-center gap-[14px]">
+                  <div className="absolute top-0 right-0 flex w-[136px] flex-col items-center gap-[14px]">
                     <div className="flex">
                       <p>*</p>
                       <p className="ps-1 pt-1 text-justify text-sm">
@@ -234,11 +234,13 @@ export default function EmailForm() {
                       ) : (
                         displayTimer(timer)
                       ))}
-                    {isLoading && !showIcon && <LoadingSpinnerIcon />}
+                    {isLoading && !showIcon && (
+                      <Loader2Icon className="animate-spin" />
+                    )}
                   </div>
                 </div>
               </FormControl>
-              <FormMessage className="w-fit rounded bg-background/60 p-1">
+              <FormMessage className="bg-background/60 w-fit rounded p-1">
                 {fieldState.error?.message}
               </FormMessage>
             </FormItem>
@@ -259,7 +261,7 @@ export default function EmailForm() {
                   maxLength={6}
                   {...field}
                 >
-                  <InputOTPGroup className="rounded-lg border border-foreground bg-background p-2 *:size-10 *:text-4xl">
+                  <InputOTPGroup className="border-foreground bg-background rounded-lg border p-2 *:size-10 *:text-4xl">
                     <InputOTPSlot index={0} caretClassName="h-8" />
                     <InputOTPSlot index={1} caretClassName="h-8" />
                     <InputOTPSlot index={2} caretClassName="h-8" />
@@ -269,7 +271,7 @@ export default function EmailForm() {
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
-              <FormMessage className="w-fit rounded bg-background/60 p-1">
+              <FormMessage className="bg-background/60 w-fit rounded p-1">
                 {fieldState.error?.message}
               </FormMessage>
             </FormItem>

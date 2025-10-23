@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 
-import LoadingSpinnerIcon from "@/lib/components/icons/LoadingSpinnerIcon";
+import { Loader2Icon } from "lucide-react";
 
 export default function CountdownTimer({
   children: dialog,
@@ -32,20 +32,18 @@ export default function CountdownTimer({
     return (
       <div className="flex flex-col gap-4">
         {timer === timeLimit && timer > 0 ? (
-          <span className="text-4xl">
-            <LoadingSpinnerIcon />
-          </span>
+          <Loader2Icon className="animate-spin text-4xl" />
         ) : (
           <div className="neu-base relative flex items-center justify-center gap-4 rounded-2xl p-4 font-bold">
             {timer <= 0 && (
-              <div className="absolute flex size-full items-center justify-center rounded-2xl bg-secondary/90 py-4 text-center text-3xl">
+              <div className="bg-secondary/90 absolute flex size-full items-center justify-center rounded-2xl py-4 text-center text-3xl">
                 <p>Time Expired</p>
               </div>
             )}
             {days > 0 && (
               <div className="flex flex-col items-center gap-4">
                 <div className="neu-base-inset flex size-24 flex-col flex-wrap items-center justify-center gap-2 rounded-2xl p-2">
-                  <p className="text-5xl text-secondary-foreground">{days}</p>
+                  <p className="text-secondary-foreground text-5xl">{days}</p>
                 </div>
                 <p>Days</p>
               </div>
@@ -53,20 +51,20 @@ export default function CountdownTimer({
             {hours > 0 && (
               <div className="flex flex-col items-center gap-4">
                 <div className="neu-base-inset flex size-24 flex-col flex-wrap items-center justify-center gap-2 rounded-2xl p-2">
-                  <p className="text-5xl text-secondary-foreground">{hours}</p>
+                  <p className="text-secondary-foreground text-5xl">{hours}</p>
                 </div>
                 <p>Hours</p>
               </div>
             )}
             <div className="flex flex-col items-center gap-4">
               <div className="neu-base-inset flex size-24 flex-col flex-wrap items-center justify-center gap-2 rounded-2xl p-2">
-                <p className="text-5xl text-secondary-foreground">{minutes}</p>
+                <p className="text-secondary-foreground text-5xl">{minutes}</p>
               </div>
               <p>Min</p>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="neu-base-inset flex size-24 flex-col flex-wrap items-center justify-center gap-2 rounded-2xl p-2">
-                <p className="text-5xl text-secondary-foreground">{seconds}</p>
+                <p className="text-secondary-foreground text-5xl">{seconds}</p>
               </div>
               <p>Sec</p>
             </div>

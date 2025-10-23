@@ -1,7 +1,8 @@
 "use client";
+
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import LoadingSpinnerIcon from "@/lib/components/icons/LoadingSpinnerIcon";
+import { Loader2Icon } from "lucide-react";
 
 const LoadingContext = createContext({
   isLoading: false,
@@ -20,9 +21,9 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
     >
       {isLoading && (
         <div
-          className={`absolute z-10 flex size-full cursor-progress items-center justify-center text-9xl${showIcon ? " bg-black/25 backdrop-blur-[2px]" : ""}`}
+          className={`${showIcon ? "bg-black/25 backdrop-blur-[2px]" : "bg-none"} absolute z-10 flex size-full cursor-progress items-center justify-center`}
         >
-          {showIcon && <LoadingSpinnerIcon />}
+          {showIcon && <Loader2Icon className="animate-spin" size={90}/>}
         </div>
       )}
       {children}

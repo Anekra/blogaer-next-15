@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import LoadingSpinnerIcon from "@/lib/components/icons/LoadingSpinnerIcon";
 import {
   Form,
   FormControl,
@@ -16,6 +15,7 @@ import {
   InputOTPGroup,
   InputOTPSlot
 } from "@/lib/components/ui/input-otp";
+import { Loader2Icon } from "lucide-react";
 
 const FormSchema = z.object({
   token: z.string().min(6, {
@@ -51,7 +51,7 @@ export default function AuthAppInputForm({
   return (
     <React.Fragment>
       {isLoading ? (
-        <LoadingSpinnerIcon />
+        <Loader2Icon className="animate-spin" />
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -75,7 +75,7 @@ export default function AuthAppInputForm({
                           className="group"
                           onChange={handleTokenChange}
                         >
-                          <InputOTPGroup className="rounded-lg border border-border p-2">
+                          <InputOTPGroup className="border-border rounded-lg border p-2">
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
                             <InputOTPSlot index={2} />
@@ -91,7 +91,7 @@ export default function AuthAppInputForm({
                 {isResOk === false && (
                   <div className="flex flex-col">
                     {!reset && (
-                      <p className="self-end text-destructive-foreground">
+                      <p className="text-destructive-foreground self-end">
                         Incorrect token!
                       </p>
                     )}
