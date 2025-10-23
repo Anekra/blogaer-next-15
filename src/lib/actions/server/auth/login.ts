@@ -1,5 +1,6 @@
 "use server";
-import { cookies, headers } from "next/headers";
+
+import { headers } from "next/headers";
 import { z } from "zod";
 
 import { AuthDto } from "@/lib/types/dto/CommonDto";
@@ -9,10 +10,7 @@ import setCookies from "./setCookies";
 
 export default async function login(values: z.infer<typeof LoginFormSchema>) {
   try {
-    const cookie = await cookies();
     const url = `${process.env.API_ROUTE}/auth/login`;
-    const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-    const refreshToken = cookie.get(refreshCookieName)?.value;
     const userAgent = (await headers()).get('user-agent');
     const response = await fetch(url, {
       method: "POST",
@@ -30,7 +28,7 @@ export default async function login(values: z.infer<typeof LoginFormSchema>) {
 
     if (!response.ok) return resJson;
 
-    await setCookies(resJson, refreshCookieName);
+    await setCookies(resJson);
 
     return true;
   } catch (error) {

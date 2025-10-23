@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 import setCookies from "@/lib/actions/server/auth/setCookies";
@@ -52,9 +51,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-    const cookie = await cookies();
-    const refreshToken = cookie.get(refreshCookieName)?.value;
     const userAgent = request.headers.get("user-agent");
     const res = await fetch(`${process.env.API_ROUTE}/auth/github`, {
       method: "GET",
@@ -63,8 +59,7 @@ export async function GET(request: NextRequest) {
         Authorization: `Oauth2 ${code}`,
         "Content-Type": "application/json",
         "User-Agent": `${userAgent}`,
-        Origin: "http://localhost:3000",
-        Cookie: `${refreshCookieName}=${refreshToken}`
+        Origin: "http://localhost:3000"
       }
     });
     const resJson = await res.json();
@@ -87,7 +82,7 @@ export async function GET(request: NextRequest) {
     const nextRes = NextResponse.redirect(url, 308);
     nextRes.cookies.delete("redirectUrl");
 
-    await setCookies(resJson, refreshCookieName);
+    await setCookies(resJson);
 
     return nextRes;
   } catch (error) {

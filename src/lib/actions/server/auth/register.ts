@@ -1,15 +1,15 @@
 "use server";
+
 import { z } from "zod";
 
 import { RegisterFormSchema } from "@/lib/types/zodSchemas";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import { AuthDto } from "@/lib/types/dto/CommonDto";
 import setCookies from "./setCookies";
 
 export default async function register(values: z.infer<typeof RegisterFormSchema>) {
   try {
-    const url: string = `${process.env.API_ROUTE}/register`;
-    const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
+    const url: string = `${process.env.API_ROUTE}/auth/register`;
     const userAgent = (await headers()).get("user-agent");
     const response = await fetch(url, {
       method: "POST",
@@ -20,6 +20,7 @@ export default async function register(values: z.infer<typeof RegisterFormSchema
       },
       body: JSON.stringify(values)
     });
+    console.log(response);
 
     const resJson: AuthDto = await response.json();
 
@@ -27,7 +28,7 @@ export default async function register(values: z.infer<typeof RegisterFormSchema
 
     if (!response.ok) return resJson;
 
-    await setCookies(resJson, refreshCookieName);
+    await setCookies(resJson);
 
     return true;
   } catch (error) {

@@ -1,5 +1,5 @@
 "use server";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 
 import setCookies from "@/lib/actions/server/auth/setCookies";
 import { AuthDto } from "@/lib/types/dto/CommonDto";
@@ -10,17 +10,13 @@ export default async function loginWithAuthApp(
 ) {
   try {
     const url = `${process.env.API_ROUTE}/auth/two-fa/auth-app/login`;
-    const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-    const cookie = await cookies();
     const userAgent = (await headers()).get("user-agent");
-    const refreshToken = cookie.get(refreshCookieName)?.value;
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "User-Agent": `${userAgent}`,
-        Origin: "http://localhost:3000",
-        Cookie: `${refreshCookieName}=${refreshToken}`
+        Origin: "http://localhost:3000"
       },
       body: JSON.stringify({ emailOrUsername, token })
     });
@@ -29,7 +25,7 @@ export default async function loginWithAuthApp(
 
     const resJson: AuthDto = await response.json();
 
-    await setCookies(resJson, refreshCookieName);
+    await setCookies(resJson);
 
     return true;
   } catch (error) {

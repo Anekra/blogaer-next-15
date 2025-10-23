@@ -4,15 +4,13 @@ import { cookies } from "next/headers";
 
 import { AuthDto } from "@/lib/types/dto/CommonDto";
 
-export default async function setCookies(
-  responseJson: AuthDto,
-  refreshCookieName: string
-) {
+export default async function setCookies(responseJson: AuthDto) {
   if (!responseJson.data) return;
   const cookie = await cookies();
   const isSecure = process.env.NODE_ENV === "production";
-  // access cookie
   const accessCookieName = `${process.env.ACCESS_TOKEN}`;
+  const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
+
   cookie.set(
     accessCookieName,
     responseJson.data.access,
