@@ -1,4 +1,5 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
@@ -20,6 +21,8 @@ import { useLoading } from "@/lib/contexts/LoadingContext";
 import { LoginFormSchema } from "@/lib/types/zodSchemas";
 import { ErrorType } from "@/lib/utils/enums";
 import { verifyPasskeyLogin } from "@/lib/utils/helper";
+import { useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 type FormValues = {
   emailOrUsername: string;
@@ -28,6 +31,7 @@ type FormValues = {
 
 export default function LoginForm() {
   const { setLoading } = useLoading();
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const redirectUrl = useSearchParams().get("request_url");
   const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -86,7 +90,7 @@ export default function LoginForm() {
           name="emailOrUsername"
           render={({ field, fieldState }) => (
             <FormItem className="flex flex-col">
-              <div className="flex items-center justify-between">
+              <div className="mb-2 flex items-center justify-between">
                 <FormLabel>Email or username</FormLabel>
                 <FormIndicator
                   fieldError={fieldState.error}
@@ -100,8 +104,8 @@ export default function LoginForm() {
                   type="text"
                   className={`${
                     fieldState.error
-                      ? "mt-1 mb-1 border border-red-500 focus:mt-2 focus:border-none enabled:focus-visible:ring-red-500"
-                      : "focus-visible:ring-ring mt-2"
+                      ? "border border-red-500 focus:border-none enabled:focus-visible:ring-red-500 focus-visible:mb-1 hover:mb-0.5"
+                      : "focus-visible:ring-ring"
                   }`}
                   {...field}
                 />
@@ -117,7 +121,7 @@ export default function LoginForm() {
           name="password"
           render={({ field, fieldState }) => (
             <FormItem className="flex flex-col">
-              <div className="flex items-center justify-between">
+              <div className="mb-2 flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
                 <FormIndicator
                   fieldError={fieldState.error}
@@ -126,16 +130,24 @@ export default function LoginForm() {
                 />
               </div>
               <FormControl>
-                <Input
-                  placeholder="Enter new password"
-                  type="password"
-                  className={`${
-                    fieldState.error
-                      ? "mt-1 mb-1 border border-red-500 focus:mt-2 focus:border-none enabled:focus-visible:ring-red-500"
-                      : "focus-visible:ring-ring mt-2"
-                  }`}
-                  {...field}
-                />
+                <div className="relative flex items-center">
+                  <Input
+                    placeholder="Enter new password"
+                    type={showPassword ? "text" : "password"}
+                    className={`${
+                      fieldState.error
+                        ? "border border-red-500 focus:border-none enabled:focus-visible:ring-red-500 focus-visible:mb-1 hover:mb-0.5"
+                        : "focus-visible:ring-ring"
+                    }`}
+                    {...field}
+                  />
+                  <button
+                    className="text-muted-foreground hover:text-foreground absolute right-2 outline-none"
+                    onMouseUp={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage className="bg-background/60 w-fit rounded p-1">
                 {fieldState.error?.message}
