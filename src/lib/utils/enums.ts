@@ -54,7 +54,8 @@ export enum EmailSubject {
   AddPassword = "add-password",
   ResetPassword = "reset-password",
   UpdateEmail = "update-email",
-  UpdateUsername = "update-username"
+  UpdateUsername = "update-username",
+  VerifyEmail = 'verify-email'
 }
 
 export enum EmailInfo {

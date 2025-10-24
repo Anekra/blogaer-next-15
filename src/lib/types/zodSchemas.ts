@@ -56,12 +56,7 @@ export const PasswordFormSchema = z
 
 export const UpdateEmailFormSchema = z
   .object({
-    email: z
-      .string()
-      .min(1, VALIDATION.EMAIL_EMPTY)
-      .min(2, VALIDATION.EMAIL_MINIMUM)
-      .regex(/^[^\s]+$/, VALIDATION.EMAIL_WHITESPACE)
-      .email(VALIDATION.EMAIL_FORMAT),
+    email: z.email(VALIDATION.EMAIL_FORMAT),
     oldEmail: z.string(),
     otp: z.string().min(1, VALIDATION.OTP_EMPTY).min(6, VALIDATION.OTP_MINIMUM)
   })
@@ -87,4 +82,4 @@ export const UpdateUsernameFormSchema = z
     }
   );
 
-export const UrlSchema = z.string().trim().url();
+export const UrlSchema = z.url();

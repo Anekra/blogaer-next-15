@@ -32,7 +32,7 @@ export const VALIDATION = {
   USERNAME_MINIMUM: "Username must be at least 2 characters!",
   USERNAME_WHITESPACE: "Password cannot contain whitespace!",
   EMAIL_EMPTY: "Email cannot be empty!",
-  EMAIL_MINIMUM: "Email must be at least 8 characters!",
+  EMAIL_MINIMUM: "Email must be at least 2 characters!",
   EMAIL_WHITESPACE: "Email cannot contain whitespace!",
   EMAIL_FORMAT: "Not a valid email!",
   PASSWORD_EMPTY: "Password cannot be empty!",
@@ -44,7 +44,8 @@ export const VALIDATION = {
   PASSWORD_SPECIAL: "Password must contain at least one special character!",
   EMAIL_OR_USERNAME_EMPTY: "Email or username cannot be empty!",
   OTP_EMPTY: "Otp code cannot be empty!",
-  OTP_MINIMUM: "Otp code must be 6 digits number!"
+  OTP_MINIMUM: "Otp code must be 6 digits number!",
+  DISPLAY_NAME_EMPTY: "Display name cannot be empty!",
 };
 
 export const LIST_TYPES: string[] = [

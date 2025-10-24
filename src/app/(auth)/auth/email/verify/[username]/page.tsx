@@ -5,7 +5,7 @@ import { DialogTrigger } from "@/lib/components/ui/dialog";
 import Image from "next/image";
 import React from "react";
 
-export default function VerifyEmailPage() {
+export default function EmailVerifyPage() {
   return (
     <main className="radial-background relative flex min-h-screen items-center justify-center py-6">
       <HomeBtn className="absolute top-0 left-0 m-6" />
