@@ -7,13 +7,14 @@ import { PostDto, PostWithNoUserDto } from "@/lib/types/dto/PostDto";
 import { DraftDto, DraftWithNoUserDto } from "./dto/DraftDto";
 
 export type Session = {
+  clientId: string;
   username: string;
   email: string;
   role: string;
-  exp: number;
-  name?: string;
+  name: string;
   desc?: string;
   img?: string;
+  exp: number;
 } | null;
 
 export type SessionCookie = {
@@ -36,14 +37,7 @@ export type Auth = {
 
 export type RefreshToken = {
   username: string;
-  access: string;
-  refresh: string;
-};
-
-export type RefreshTokenJson = {
-  status: string;
-  message: string;
-  data: RefreshToken;
+  exp: number;
 };
 
 export type Draft = {
