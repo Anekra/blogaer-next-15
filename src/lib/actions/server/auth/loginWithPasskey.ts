@@ -1,7 +1,7 @@
 "use server";
 import { headers } from "next/headers";
 
-import setCookies from "@/lib/actions/server/auth/setCookies";
+import setSessionCookie from "@/lib/actions/server/auth/setSessionCookie";
 import { AuthDto } from "@/lib/types/dto/CommonDto";
 
 export default async function loginWithPasskey(
@@ -25,7 +25,7 @@ export default async function loginWithPasskey(
 
     if (!response.ok) return resJson;
 
-    await setCookies(resJson);
+    await setSessionCookie(resJson);
 
     return true;
   } catch (error) {

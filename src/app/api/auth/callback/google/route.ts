@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import setCookies from "@/lib/actions/server/auth/setCookies";
+import setSessionCookie from "@/lib/actions/server/auth/setSessionCookie";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
     const nextRes = NextResponse.redirect(url, 308);
     nextRes.cookies.delete("redirectUrl");
 
-    await setCookies(resJson);
+    await setSessionCookie(resJson);
 
     return nextRes;
   } catch (error) {
