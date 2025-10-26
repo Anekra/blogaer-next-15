@@ -2,6 +2,12 @@ import { AnyObj, Auth } from "..";
 import { DraftWithNoUserDto } from "./DraftDto";
 import { PostDto, PostWithNoUserDto } from "./PostDto";
 
+export type EncoreErrDto = {
+  code: string;
+  message: string;
+  details?: string;
+}
+
 export type AuthDto = {
   status: string;
   data?: Auth;
