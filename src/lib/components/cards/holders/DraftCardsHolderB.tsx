@@ -5,7 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardC from "@/lib/components/cards/PostGridCardC";
 import { useCurrentPosts } from "@/lib/contexts/PostsContext";
-import { GetDraftsByUserIdDto } from "@/lib/types/dto/ReqDto";
+import { GetDraftsByUserIdDto } from "@/lib/types/dto/ResDto";
 
 export default function DraftCardsHolderB({ url }: { url: string }) {
   const { currentPosts, setCurrentPosts } = useCurrentPosts();
@@ -27,7 +27,7 @@ export default function DraftCardsHolderB({ url }: { url: string }) {
   if (res.error) return <p>{res.status}</p>;
 
   return (
-    <div className="grid w-full auto-rows-fr grid-cols-1 gap-4 ms:grid-cols-2 ql:grid-cols-3">
+    <div className="ms:grid-cols-2 ql:grid-cols-3 grid w-full auto-rows-fr grid-cols-1 gap-4">
       {currentPosts.map((draft, i) => {
         return (
           <PostGridCardC key={i} postData={{ post: draft, postIndex: i }} />

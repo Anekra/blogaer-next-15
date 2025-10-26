@@ -15,7 +15,7 @@ import ThoughtsIcon from "@/lib/components/icons/thoughts/ThoughtsIcon";
 import TotalReadsIcon from "@/lib/components/icons/TotalReadsIcon";
 import XIcon from "@/lib/components/icons/XIcon";
 import useViewConfig from "@/lib/hooks/useViewConfig";
-import { GetPostByIdDto } from "@/lib/types/dto/ReqDto";
+import { GetPostByIdDto } from "@/lib/types/dto/ResDto";
 import { CustomElement } from "@/lib/types/slate";
 import { WysiwygType } from "@/lib/utils/enums";
 import { getSlugFromPath } from "@/lib/utils/helper";
@@ -41,7 +41,7 @@ export default function PostView() {
   const username = post.username;
 
   return (
-    <div className="flex w-full max-w-screen-2xl justify-between gap-16 px-6 pb-6 pt-8">
+    <div className="flex w-full max-w-screen-2xl justify-between gap-16 px-6 pt-8 pb-6">
       <aside className="max-w-[200px] text-sm">
         <div
           className="neu-base group/card relative mt-2 flex size-[180px] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl transition-[height] hover:h-[340px]"
@@ -61,7 +61,7 @@ export default function PostView() {
                 />
               </div>
             ) : (
-              <span className="relative flex size-[160px] items-end justify-center overflow-hidden rounded-full text-primary-foreground shadow-[inset_0_0_0_8px_oklch(var(--primary-foreground))]">
+              <span className="text-primary-foreground relative flex size-[160px] items-end justify-center overflow-hidden rounded-full shadow-[inset_0_0_0_8px_oklch(var(--primary-foreground))]">
                 <UserIcon className="absolute -bottom-3 size-full fill-current" />
               </span>
             )}
@@ -71,11 +71,11 @@ export default function PostView() {
               href={`/${username.toLowerCase()}`}
               className="group/text text-background group-hover/card:text-foreground dark:text-foreground"
             >
-              <p className="text-xl font-bold group-hover/text:text-primary-foreground group-hover/text:brightness-125">
+              <p className="group-hover/text:text-primary-foreground text-xl font-bold group-hover/text:brightness-125">
                 {username}
               </p>
             </a>
-            <div className="[&>*]:card-socials hidden flex-wrap justify-center gap-2 p-2 text-2xl group-hover/card:flex [&>*:active]:text-base-background [&>*]:rounded-full [&>*]:p-2">
+            <div className="[&>*]:card-socials [&>*:active]:text-base-background hidden flex-wrap justify-center gap-2 p-2 text-2xl group-hover/card:flex [&>*]:rounded-full [&>*]:p-2">
               <button>
                 <GithubIcon />
               </button>
@@ -122,14 +122,14 @@ export default function PostView() {
           </Slate>
         </article>
       </main>
-      <aside className="flex min-w-[200px] max-w-[200px] pt-8 text-sm">
+      <aside className="flex max-w-[200px] min-w-[200px] pt-8 text-sm">
         <ul>
           {content
             .filter((n) => n.type === WysiwygType.Heading)
             .map((n, i) => (
               <li
                 key={i}
-                className="border-l-4 border-primary-foreground px-4 py-1"
+                className="border-primary-foreground border-l-4 px-4 py-1"
               >
                 {(n as CustomElement).children[0].text}
               </li>

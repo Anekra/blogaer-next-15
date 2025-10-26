@@ -5,7 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostEditor from "@/lib/components/post/PostEditor";
 import PostTags from "@/lib/components/post/PostTags";
-import { GetPostByIdDto } from "@/lib/types/dto/ReqDto";
+import { GetPostByIdDto } from "@/lib/types/dto/ResDto";
 import { getSlugFromPath } from "@/lib/utils/helper";
 
 export default function PostEditorHolder() {

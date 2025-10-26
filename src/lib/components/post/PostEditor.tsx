@@ -21,7 +21,7 @@ import useEditorConfig from "@/lib/hooks/useEditorConfig";
 import useSelection from "@/lib/hooks/useSelection";
 import { DraftDto } from "@/lib/types/dto/DraftDto";
 import { PostDto } from "@/lib/types/dto/PostDto";
-import { PostWithResIdDto } from "@/lib/types/dto/ReqDto";
+import { PostWithResIdDto } from "@/lib/types/dto/ResDto";
 import { CustomElement } from "@/lib/types/slate";
 import { INITIAL_VALUE, VOIDS } from "@/lib/utils/constants";
 import { HotKey } from "@/lib/utils/enums";

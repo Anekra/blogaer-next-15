@@ -21,7 +21,7 @@ import { useContent } from "@/lib/contexts/ContentContext";
 import { useLoading } from "@/lib/contexts/LoadingContext";
 import { useSession } from "@/lib/contexts/SessionContext";
 import useViewConfig from "@/lib/hooks/useViewConfig";
-import { PostWithResIdDto } from "@/lib/types/dto/ReqDto";
+import { PostWithResIdDto } from "@/lib/types/dto/ResDto";
 import { getTotalWords, serializeContent } from "@/lib/utils/helper";
 
 export default function PostPreviewDrawer() {
@@ -76,7 +76,7 @@ export default function PostPreviewDrawer() {
             Review and add tags to your post
           </DrawerDescription>
         </DrawerHeader>
-        <div className="flex max-h-[75vh] min-h-[50vh] flex-col justify-center gap-6 overflow-y-auto px-12 pb-12 pt-2 md:flex-row">
+        <div className="flex max-h-[75vh] min-h-[50vh] flex-col justify-center gap-6 overflow-y-auto px-12 pt-2 pb-12 md:flex-row">
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex items-center gap-2 text-2xl font-bold">
               <PreviewIcon />
@@ -114,7 +114,7 @@ export default function PostPreviewDrawer() {
               <Link
                 href="/blog/post/preview"
                 target="_blank"
-                className="border-s-2 border-foreground/40 ps-2 text-primary-foreground"
+                className="border-foreground/40 text-primary-foreground border-s-2 ps-2"
               >
                 Open in new tab
               </Link>
@@ -128,7 +128,7 @@ export default function PostPreviewDrawer() {
             <PostTags />
             <hr />
             <button
-              className="flex w-fit gap-2 rounded-xl bg-primary-foreground px-4 py-2 font-bold text-primary"
+              className="bg-primary-foreground text-primary flex w-fit gap-2 rounded-xl px-4 py-2 font-bold"
               onClick={publishPost}
             >
               Publish

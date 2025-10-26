@@ -6,7 +6,7 @@ import useSWRImmutable from "swr/immutable";
 import getClientFetch from "@/lib/actions/client/getClientFetch";
 import PostGridCardA from "@/lib/components/cards/PostGridCardA";
 import PostGridCardB from "@/lib/components/cards/PostGridCardB";
-import { GetPostsByPageDto } from "@/lib/types/dto/ReqDto";
+import { GetPostsByPageDto } from "@/lib/types/dto/ResDto";
 import {
   displayError,
   getErrorStatus,

@@ -1,5 +1,7 @@
+import { RefreshToken } from "..";
 import {
   EmailUsernameRequestDto,
+  EncoreErrDto,
   GetSocialsDto,
   PagedDraftWithNoUserDto,
   PagedPostDto,
@@ -11,6 +13,12 @@ import {
 } from "./CommonDto";
 import { DraftDto } from "./DraftDto";
 import { PostDto } from "./PostDto";
+
+export type RefreshTokenDto = {
+  status: string;
+  message: string;
+  data: RefreshToken;
+};
 
 export type GetPostByIdDto = {
   status: string;

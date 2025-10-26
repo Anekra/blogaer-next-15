@@ -8,7 +8,7 @@ import GoogleLoginBtn from "@/lib/components/buttons/GoogleLoginBtn";
 import SavedAccountCard from "@/lib/components/cards/SavedAccountCard";
 import LoginForm from "@/lib/components/forms/LoginForm";
 import { SavedAccountsDto } from "@/lib/types/dto/CommonDto";
-import { GetSavedAccounts } from "@/lib/types/dto/ReqDto";
+import { GetSavedAccounts } from "@/lib/types/dto/ResDto";
 
 export default function SavedAccountCardsHolder() {
   const [isSavedAccounts, setIsSavedAccounts] = useState(true);
@@ -42,13 +42,13 @@ export default function SavedAccountCardsHolder() {
       )}
       <div className="flex flex-col gap-4">
         <div className="mt-2 flex items-center">
-          <hr className="h-1 w-full border-none bg-gradient-to-l from-foreground" />
+          <hr className="from-foreground h-1 w-full border-none bg-gradient-to-l" />
           <p className="w-fit shrink-0 px-2 text-center text-sm">
             {currentData && currentData?.length > 0 && isSavedAccounts
               ? "Or"
               : "Or login with"}
           </p>
-          <hr className="h-1 w-full border-none bg-gradient-to-r from-foreground" />
+          <hr className="from-foreground h-1 w-full border-none bg-gradient-to-r" />
         </div>
         <div className="flex justify-center gap-6 p-4">
           {currentData && currentData?.length > 0 && isSavedAccounts ? (

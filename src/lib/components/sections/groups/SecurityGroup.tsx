@@ -6,7 +6,7 @@ import getClientFetch from "@/lib/actions/client/getClientFetch";
 import ChangePassSection from "@/lib/components/sections/settings/security/ChangePassSection";
 import OauthSection from "@/lib/components/sections/settings/security/OauthSection";
 import TwoFASection from "@/lib/components/sections/settings/security/TwoFASection";
-import { GetSecuritySectionDto } from "@/lib/types/dto/ReqDto";
+import { GetSecuritySectionDto } from "@/lib/types/dto/ResDto";
 
 export default function SecurityGroup() {
   const { data: res } = useSWRImmutable<GetSecuritySectionDto>(
