@@ -14,7 +14,7 @@ export type Session = {
   name: string;
   desc?: string;
   img?: string;
-  exp: number;
+  exp?: number;
 } | null;
 
 export type SessionCookie = {
@@ -25,12 +25,11 @@ export type SessionCookie = {
 } | null;
 
 export type Auth = {
-  access: string;
-  refresh: string;
+  clientId: string;
   username: string;
   email: string;
+  name: string;
   role: string;
-  name?: string;
   desc?: string;
   img?: string;
 };

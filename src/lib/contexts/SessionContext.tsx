@@ -1,5 +1,5 @@
 "use client";
-import jwt from "jsonwebtoken";
+
 import { useSearchParams } from "next/navigation";
 import {
   createContext,
@@ -10,10 +10,8 @@ import {
 } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
-
 import logout from "@/lib/actions/server/auth/logout";
 import { Session } from "@/lib/types";
-import { newUrl } from "@/lib/utils/helper";
 
 const SessionContext = createContext({
   session: null as Session,
@@ -22,56 +20,46 @@ const SessionContext = createContext({
 
 export function SessionProvider({
   children,
-  userSession
+  session
 }: {
   children: ReactNode;
-  userSession?: string;
+  session?: Session;
 }) {
-  const [session, setSession] = useState<Session>(null);
+  const [currentSession, setCurrentSession] = useState<Session>(null);
   const redirectMessage = useSearchParams().get("redirect");
   const sessionName = `${process.env.NEXT_PUBLIC_SESSION}`;
-  const { data } = useSWR("/api/auth/refresh", async (url) => {
-    const sessionToken = localStorage.getItem(sessionName);
-    if (sessionToken) {
-      const decodedSession = jwt.decode(sessionToken) as Session;
-      if (!decodedSession) return null;
-      if (decodedSession.exp > Date.now() / 1000) return decodedSession;
+  const { data } = useSWR(
+    !session ? "/api/auth/refresh" : null,
+    async (url) => {
+      if (!session || !session.exp) return null;
+      if (session.exp > Date.now() / 1000) return session;
       try {
-        const searchParams = [{ param: "session", value: sessionToken }];
-        const refreshUrl = newUrl(url, searchParams);
-        const refreshRes = await fetch(refreshUrl);
+        const refreshRes = await fetch(url);
         if (!refreshRes.ok) {
-          if (refreshRes.status === 503) return decodedSession;
-
-          localStorage.removeItem(sessionName);
+          if (refreshRes.status === 503) return session;
           await logout();
+
           return null;
         }
 
-        const refreshJson = await refreshRes.json();
-        localStorage.setItem(sessionName, refreshJson.session);
-
-        return decodedSession;
+        return session;
       } catch (error) {
-        return decodedSession;
+        return session;
       }
     }
-  });
+  );
 
   useEffect(() => {
-    const sessionToken = localStorage.getItem(sessionName);
-    if (!data || !sessionToken) setSession(null);
-    else setSession(data);
+    if (!data) setCurrentSession(null);
+    else setCurrentSession(data);
 
-    if (userSession && !sessionToken) {
+    if (session) {
       localStorage.removeItem("CSRFToken");
-      localStorage.setItem(sessionName, userSession);
-      const decodedSession = jwt.decode(userSession) as Session;
+      setCurrentSession(session);
       toast.success("Login successful.", {
         position: "bottom-right",
         duration: 2000
       });
-      setSession(decodedSession);
     }
 
     if (redirectMessage) {
@@ -80,10 +68,12 @@ export function SessionProvider({
         duration: 2000
       });
     }
-  }, [sessionName, data, userSession, redirectMessage]);
+  }, [sessionName, data, session, redirectMessage]);
 
   return (
-    <SessionContext.Provider value={{ session, setSession }}>
+    <SessionContext.Provider
+      value={{ session: currentSession, setSession: setCurrentSession }}
+    >
       {children}
     </SessionContext.Provider>
   );

@@ -5,10 +5,11 @@ import { cookies } from "next/headers";
 import { ViewTransitions } from "next-view-transitions";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
-
 import { LoadingProvider } from "@/lib/contexts/LoadingContext";
 import { NextThemesProvider } from "@/lib/contexts/NextThemeProvider";
 import { SessionProvider } from "@/lib/contexts/SessionContext";
+import jwt from "jsonwebtoken";
+import { Session } from "@/lib/types";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +33,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookie = await cookies();
-  const userSession = cookie.get(`${process.env.SESSION}`)?.value;
+  const encryptedSession = cookie.get(`${process.env.SESSION}`)?.value;
+  let session = null;
+  if (encryptedSession) {
+    session = jwt.verify(
+      encryptedSession,
+      `${process.env.SESSION_SECRET}`
+    ) as Session;
+  }
 
   return (
     <ViewTransitions>
@@ -40,7 +48,7 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <SessionProvider userSession={userSession}>
+          <SessionProvider session={session}>
             <NextThemesProvider>
               <NextTopLoader
                 color="oklch(var(--primary-foreground))"

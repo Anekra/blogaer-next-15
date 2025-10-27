@@ -29,9 +29,9 @@ export async function GET() {
     });
     if (!refreshResponse.ok) return redirectRes;
     const refreshedSession = { ...decodedSession };
-    refreshedSession.exp = Date.now() / 1000 + 1 * 10 * 60;
+    if (refreshedSession.exp) delete refreshedSession.exp;
     const response = NextResponse.json(
-      { exp: refreshedSession.exp },
+      { message: "Refresh successful." },
       { status: 200 }
     );
 

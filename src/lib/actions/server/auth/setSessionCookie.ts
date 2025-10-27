@@ -2,17 +2,17 @@
 
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { Auth } from "@/lib/types";
 
-import { Session } from "@/lib/types";
-
-export default async function setSessionCookie(session: Session) {
-  if (!session) return;
+export default async function setSessionCookie(userData: Auth) {
+  if (!userData) return;
   const cookie = await cookies();
   const isSecure = process.env.NODE_ENV === "production";
-  const sessionCookie = `${process.env.SESSION}`;
-  const encryptedSession = jwt.sign(session, sessionCookie, {
+  const sessionSecret = `${process.env.SESSION_SECRET}`;
+  const encryptedSession = jwt.sign(userData, sessionSecret, {
     expiresIn: "10m"
   });
+  const sessionCookie = `${process.env.SESSION}`;
   cookie.set(
     sessionCookie,
     encryptedSession,

@@ -10,9 +10,8 @@ export type EncoreErrDto = {
 
 export type AuthDto = {
   status: string;
-  data?: Auth;
-  message?: string;
-  error?: string;
+  data: Auth;
+  message: string;
 };
 
 export type CommonDto = {
