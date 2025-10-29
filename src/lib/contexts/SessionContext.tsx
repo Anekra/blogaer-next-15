@@ -23,7 +23,7 @@ export function SessionProvider({
   session
 }: {
   children: ReactNode;
-  session?: Session;
+  session: Session;
 }) {
   const [currentSession, setCurrentSession] = useState<Session>(null);
   const redirectMessage = useSearchParams().get("redirect");
@@ -34,7 +34,7 @@ export function SessionProvider({
       if (!session || !session.exp) return null;
       if (session.exp > Date.now() / 1000) return session;
       try {
-        const refreshRes = await fetch(url);
+        const refreshRes = await fetch(url, { method: "POST" });
         if (!refreshRes.ok) {
           if (refreshRes.status === 503) return session;
           await logout();

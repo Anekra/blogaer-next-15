@@ -3,8 +3,7 @@ import type { HistoryEditor } from "slate-history";
 import type { ReactEditor } from "slate-react";
 
 import { PostDto, PostWithNoUserDto } from "@/lib/types/dto/PostDto";
-
-import { DraftDto, DraftWithNoUserDto } from "./dto/DraftDto";
+import { DraftDto, DraftWithNoUserDto } from "@/lib/types/dto/DraftDto";
 
 export type Session = {
   clientId: string;
@@ -15,7 +14,7 @@ export type Session = {
   desc?: string;
   img?: string;
   exp?: number;
-} | null;
+}| null;
 
 export type SessionCookie = {
   username: string;
@@ -26,6 +25,7 @@ export type SessionCookie = {
 
 export type Auth = {
   clientId: string;
+  csrf: string;
   username: string;
   email: string;
   name: string;
@@ -36,6 +36,8 @@ export type Auth = {
 
 export type RefreshToken = {
   username: string;
+  clientId: string;
+  csrf: string;
   exp: number;
 };
 

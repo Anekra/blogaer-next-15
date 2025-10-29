@@ -1,22 +1,34 @@
 "use server";
-import { cookies } from "next/headers";
+
+import { cookies, headers } from "next/headers";
 
 import { CommonDto } from "@/lib/types/dto/CommonDto";
+import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
+import { Session } from "@/lib/types";
 
 export default async function checkTwoFA(
   emailOrUsername: string
 ): Promise<CommonDto | null> {
   try {
-    const url = `${process.env.API_ROUTE}/auth/check-two-fa/${emailOrUsername}`;
-    const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
     const cookie = await cookies();
-    const refreshToken = cookie.get(refreshCookieName)?.value;
+    const encryptedSession = cookie.get(`${process.env.SESSION}`)?.value;
+    if (!encryptedSession) return redirect("/login?redirect=Login required!");
+    
+    const session = jwt.verify(
+      encryptedSession,
+      `${process.env.SESSION_SECRET}`
+    ) as Session;
+    if (!session) return redirect("/login?redirect=Login required!");
+    
+    const url = `${process.env.API_ROUTE}/auth/check-two-fa/${emailOrUsername}`;
+    const userAgent = (await headers()).get("user-agent");
     const res = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Origin: "http://localhost:3000",
-        Cookie: `${refreshCookieName}=${refreshToken}`
+        "User-Agent": `${userAgent}`,
+        Origin: "http://localhost:3000"
       }
     });
 

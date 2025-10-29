@@ -1,18 +1,33 @@
 "use server";
-import { cookies } from "next/headers";
+
+import { cookies, headers } from "next/headers";
+import jwt from "jsonwebtoken";
+import { Session } from "@/lib/types";
 
 export default async function logout() {
-  const accessCookieName = `${process.env.ACCESS_TOKEN}`;
-  const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-  const url = `${process.env.API_ROUTE}/auth/logout`;
   const cookie = await cookies();
-  const refreshToken = cookie.get(refreshCookieName)?.value;
-  cookie.delete(accessCookieName);
-  cookie.delete(refreshCookieName);
+  const sessionCookie = `${process.env.SESSION}`;
+  const encryptedSession = cookie.get(`${process.env.SESSION}`)?.value;
+  if (!encryptedSession) {
+    cookie.delete(sessionCookie);
+    return;
+  }
+  const session = jwt.verify(
+    encryptedSession,
+    `${process.env.SESSION_SECRET}`
+  ) as Session;
+  if (!session) {
+    cookie.delete(sessionCookie);
+    return;
+  }
+  const url = `${process.env.API_ROUTE}/auth/logout`;
+  const userAgent = (await headers()).get("user-agent");
   await fetch(url, {
+    method: "POST",
     headers: {
-      Origin: "http://localhost:3000",
-      Cookie: `${refreshCookieName}=${refreshToken}`
+      "Content-Type": "application/json",
+      "User-Agent": `${userAgent}`,
+      Origin: "http://localhost:3000"
     }
   });
 }

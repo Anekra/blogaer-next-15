@@ -93,12 +93,10 @@ export default function EmailForm() {
       setLoading(true);
       setShowIcon(true);
       const res = await userPatch(
-        session,
         { ...objValue, request: EmailSubject.UpdateEmail, limit },
         "/user/account/update-email"
       );
-      if (res.session) {
-        localStorage.setItem(`${process.env.NEXT_PUBLIC_SESSION}`, res.session);
+      if (res.message) {
         router.replace("/settings/account");
         toast.success("Email updated successfully.", {
           position: "bottom-right",

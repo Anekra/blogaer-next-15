@@ -1,10 +1,19 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { RedirectParam } from "../utils/enums";
-import { newUrl } from "../utils/helper";
+import { RedirectParam } from "@/lib/utils/enums";
+import { newUrl } from "@/lib/utils/helper";
 
 export async function requestForm(req: NextRequest) {
+  const clientId = req.headers.get("x-auth-client-id");
+  if (!clientId) {
+    const searchParams = [
+      { param: "redirect", value: "Login required." },
+      { param: "request_url", value: `${req.nextUrl.pathname}` }
+    ];
+    const url = newUrl("/login", searchParams);
+    return NextResponse.redirect(url, 301);
+  }
+
   const currentPath = req.nextUrl.pathname;
   const path = currentPath.includes("update")
     ? "/settings/account"
@@ -21,19 +30,15 @@ export async function requestForm(req: NextRequest) {
   }
 
   const urlUsername = req.nextUrl.searchParams.get("username");
-  const cookie = await cookies();
-  const refreshCookieName = `${process.env.REFRESH_TOKEN}`;
-  const refreshToken = cookie.get(refreshCookieName)?.value;
   try {
     const checkUsernameRes = await fetch(
       `${process.env.NEXT_PUBLIC_API_ROUTE}/auth/check-username`,
       {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Origin: "http://localhost:3000",
-          Cookie: `${refreshCookieName}=${refreshToken}`
+          "X-Authorization": clientId,
+          Origin: "http://localhost:3000"
         }
       }
     );
